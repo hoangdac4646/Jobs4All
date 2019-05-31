@@ -5,42 +5,64 @@ app.use(express.static(path.join(__dirname, './public')));
 
 app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
-app.all('/', function(req, res, next) {
-    res.render("index");
-});
-app.all('/about', function(req, res, next) {
-    res.render("about");
-});
-app.all('/contact', function(req, res, next) {
-    res.render("contact-us");
-});
-app.all('/job-category', function(req, res, next) {
-    res.render("job-category");
-});
 
-app.all('/job-search', function(req, res, next) {
-    res.render("job-search");
-});
+var mysql = require('mysql2');
+var config = {
+    host: 'jobs4all_mysql',
+    user: 'root',
+    password: '123456',
+    database: 'app',
+    port: '3306',
+};
 
-app.all('/job', function(req, res, next) {
-    res.redirect("/job-search");
-});
+var db = mysql.createConnection(config);
 
-app.all('/job/:id', function(req, res, next) {
-    res.render("job");
-});
+db.connect(function (err) {
+    if (err)
+    {
+        console.log(err);
+    }
+    else
+    {
+        app.all('/', function(req, res, next) {
+            res.render("home");
+        });
+        app.all('/about', function(req, res, next) {
+            res.render("about");
+        });
+        app.all('/contact', function(req, res, next) {
+            res.render("contact-us");
+        });
+        app.all('/job-category', function(req, res, next) {
+            res.render("job-category");
+        });
 
-app.all('/manage-cv', function(req, res, next) {
-    res.render("manage-cv");
-});
+        app.all('/job-search', function(req, res, next) {
+            res.render("job-search");
+        });
 
-app.all('/cv', function(req, res, next) {
-    res.redirect("/manage-cv");
-});
+        app.all('/job', function(req, res, next) {
+            res.redirect("/job-search");
+        });
 
-app.all('/cv/:id', function(req, res, next) {
-    res.render("cv");
-});
+        app.all('/job/:id', function(req, res, next) {
+            res.render("job");
+        });
+
+        app.all('/manage-cv', function(req, res, next) {
+            res.render("manage-cv");
+        });
+
+        app.all('/cv', function(req, res, next) {
+            res.redirect("/manage-cv");
+        });
+
+        app.all('/cv/:id', function(req, res, next) {
+            res.render("cv");
+        });
+    }
+})
+
 
 var server = require("http").Server(app);
 server.listen(3000);
