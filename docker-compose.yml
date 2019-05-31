@@ -19,7 +19,7 @@ services:
       restart: always
       image: finizco/nginx-node:latest
       ports:
-        - "80:8080"
+        - "8080:8080"
       environment:
         - NODE_PORT=3000
         - NODE_MODE=prod
