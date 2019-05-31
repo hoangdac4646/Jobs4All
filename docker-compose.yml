@@ -14,6 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: app
+    container_name: jobs4all_mysql
 
   nginx-node:
       restart: always
@@ -28,3 +29,4 @@ services:
       working_dir: /app
       depends_on:
         - db
+      container_name: jobs4all_nginx_node
