@@ -3,66 +3,68 @@ var app = express();
 var path = require('path');
 app.use(express.static(path.join(__dirname, './public')));
 
-app.set('views', __dirname + '/templates');
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+app.use(require('express-ejs-layouts'));
 
-var mysql = require('mysql2');
-var config = {
-    host: 'jobs4all_mysql',
-    user: 'root',
-    password: '123456',
-    database: 'app',
-    port: '3306',
-};
+app.get('/', function (req, res, next) {
+    res.render("home",{pagetype: 'home'});
+});
+app.get('/about', function (req, res, next) {
+    res.render("about",{pagetype: 'home'});
+});
+app.get('/contact', function (req, res, next) {
+    res.render("contact-us",{pagetype: 'home'});
+});
+app.get('/job-category', function (req, res, next) {
+    res.render("job-category", {pagetype: 'home'});
+});
 
-var db = mysql.createConnection(config);
+app.get('/job-search', function (req, res, next) {
+    res.render("job-search",{pagetype: 'home'});
+});
 
-db.connect(function (err) {
-    if (err)
-    {
-        console.log(err);
-    }
-    else
-    {
-        app.all('/', function(req, res, next) {
-            res.render("home");
-        });
-        app.all('/about', function(req, res, next) {
-            res.render("about");
-        });
-        app.all('/contact', function(req, res, next) {
-            res.render("contact-us");
-        });
-        app.all('/job-category', function(req, res, next) {
-            res.render("job-category");
-        });
+app.get('/job', function (req, res, next) {
+    res.redirect("/job-search");
+});
 
-        app.all('/job-search', function(req, res, next) {
-            res.render("job-search");
-        });
+app.get('/job/:id', function (req, res, next) {
+    res.render("job",{pagetype: 'home'});
+});
 
-        app.all('/job', function(req, res, next) {
-            res.redirect("/job-search");
-        });
+app.get('/my-cv', function (req, res, next) {
+    res.render("employee/my-cv",{pagetype: 'home'});
+});
 
-        app.all('/job/:id', function(req, res, next) {
-            res.render("job");
-        });
+app.get('/cv', function (req, res, next) {
+    res.redirect("/manage-cv",{pagetype: 'home'});
+});
 
-        app.all('/manage-cv', function(req, res, next) {
-            res.render("manage-cv");
-        });
+app.get('/cv/:id', function (req, res, next) {
+    res.render("cv",{pagetype: 'home'});
+});
 
-        app.all('/cv', function(req, res, next) {
-            res.redirect("/manage-cv");
-        });
+app.get('/login', function (req, res, next) {
+    res.render("login",{pagetype: 'login'});
+});
 
-        app.all('/cv/:id', function(req, res, next) {
-            res.render("cv");
-        });
-    }
-})
+app.get('/register', function (req, res, next) {
+    res.render("register",{pagetype: 'login'});
+});
+
+app.get('/profile/:id', function (req, res, next) {
+    res.render("profile",{pagetype: 'home'});
+});
+
+app.get('/my-account', function (req, res, next) {
+    res.render("my-account",{pagetype: 'home'});
+});
+
+app.get('/company/:name', function (req, res, next) {
+    res.render("company",{pagetype: 'home'});
+});
 
 
-var server = require("http").Server(app);
-server.listen(3000);
+app.listen(3000, function () {
+    console.log('App is running on port 3000');
+});

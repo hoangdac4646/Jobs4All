@@ -1703,7 +1703,7 @@ input:focus, textarea:focus {
 
 .single-widget {
     border: 1px solid #eee;
-    padding: 40px 30px;
+    padding: 30px 30px;
     margin-bottom: 30px
 }
 
@@ -3648,4 +3648,9 @@ form .template-btn {
     height: auto;
     width: 100%;
     margin-top: -50px;
+}
+
+.page-title
+{
+    color: white;
 }

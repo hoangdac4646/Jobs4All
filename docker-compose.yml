@@ -15,18 +15,3 @@ services:
       MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: app
     container_name: jobs4all_mysql
-
-  nginx-node:
-      restart: always
-      image: finizco/nginx-node:latest
-      ports:
-        - "8080:8080"
-      environment:
-        - NODE_PORT=3000
-        - NODE_MODE=prod
-      volumes:
-        - ./code:/app
-      working_dir: /app
-      depends_on:
-        - db
-      container_name: jobs4all_nginx_node

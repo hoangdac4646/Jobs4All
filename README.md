@@ -1,7 +1,37 @@
-use Terminal/CMD
-1. Do "docker-compose up" to start docker container.
-2. When docker containers work correctly:
-    - Do "docker exec -it jobs4all_nginx_node bash" to enter nginx-node container
-    - In nginx-node container, do "npm install" to install nodejs module
-    - Next, do "node app.js" to start app.
-    - Access url "http://localhost:8080/" to enter app's homepage.
+routes list
+
+- Guest;
+    - '/'
+    - '/login'
+    - '/register'
+    - '/job/:jid'
+    - '/job-category/:name'
+    - '/job-search'
+    - '/company/:name'
+    - '/profile/:uid'
+    - '/profile/:uid/cv/:cvid'
+    - '/contact'
+    - '/about'
+- Employee (normal user)
+    - '/my-account'
+    - '/my-account/edit'
+    - '/my-cv'
+    - '/my-cv/edit'
+    - '/create-cv'
+- Employer
+    - '/my-company'
+    - '/my-company/info'
+    - '/my-company/info/edit'
+    - '/job-manager'
+    - '/job-manager/edit'
+    - '/applicant-manager'
+    - '/applicant-manager/edit'
+- Admin
+    - '/admin/account-manager'
+    - '/admin/account-manager/edit'
+    - '/admin/company-manager'
+    - '/admin/company-manager/edit'
+    - '/admin/job-manager'
+    - '/admin/job-manager/edit'
+    - '/admin/job-category-manager'
+    - '/admin/job-category-manager/edit'
