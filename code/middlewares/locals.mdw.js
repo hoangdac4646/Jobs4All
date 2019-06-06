@@ -1,8 +1,8 @@
-var categoryModel = require('../models/category.model');
+var categoryModel = require('../models/jobcategory.model');
 
 module.exports = (req, res, next) => {
-  categoryModel.allWithDetails().then(rows => {
-    res.locals.lcCategories = rows;
+  categoryModel.all().then(rows => {
+    res.locals.lcJobCategory = rows;
     next();
   })
-}
+};

@@ -1,0 +1,27 @@
+var db = require('../utils/db');
+
+module.exports = {
+    all: () => {
+        return db.load('select * from jobcategory');
+    },
+
+    singleByID: id => {
+        return db.load(`select * from jobcategory where JCID = ${id}`);
+    },
+
+    singleByName: name => {
+        return db.load(`select * from jobcategory where name = '${name}'`);
+    },
+
+    add: entity => {
+        return db.add('jobcategory', entity);
+    },
+
+    update: entity => {
+        return db.update('jobcategory', 'JCID', entity);
+    },
+
+    delete: id => {
+        return db.delete('jobcategory', 'JCID', id);
+    },
+};
