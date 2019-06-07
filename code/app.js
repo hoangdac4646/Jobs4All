@@ -22,6 +22,7 @@ require('./my_modules/login')(app);
 app.use(require('./middlewares/auth-locals.mdw'));
 app.use(require('./middlewares/locals.mdw'));
 
+app.use('/', require('./routes/job.route'));
 app.use('/', require('./routes/jobcategory.route'));
 app.use('/', require('./routes/user.route'));
 

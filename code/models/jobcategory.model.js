@@ -5,6 +5,10 @@ module.exports = {
         return db.load('select * from jobcategory');
     },
 
+    allWithJobsCount: () => {
+        return db.load('select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) group by jc.JCID,jc.icon,jc.name');
+    },
+
     singleByID: id => {
         return db.load(`select * from jobcategory where JCID = ${id}`);
     },
