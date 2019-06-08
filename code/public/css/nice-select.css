@@ -26,6 +26,7 @@
     user-select: none;
     white-space: nowrap;
     width: auto;
+    margin: 5px;
 }
 
 .nice-select:hover {

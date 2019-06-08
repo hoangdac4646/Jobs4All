@@ -1,7 +1,7 @@
-var categoryModel = require('../models/jobcategory.model');
+var jobCateModel = require('../models/jobcategory.model');
 
 module.exports = (req, res, next) => {
-    categoryModel.allWithJobsCount().then(rows => {
+    jobCateModel.allWithJobsCount(0,8).then(rows => {
         res.locals.lcJobCategory = rows;
         next();
     })

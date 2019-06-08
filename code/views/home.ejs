@@ -26,7 +26,11 @@
 <!-- Banner Area End -->
 
 <!-- Search Area Starts -->
-<%- include('elements/search-bar'); %>
+<section class="search-area section-padding2">
+    <div class="search-bg">
+            <%- include('elements/search-bar'); %>
+    </div>
+</section>
 <!-- Search Area End -->
 
 <!-- Category Area Starts -->
@@ -35,7 +39,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Find job by category</h2>
+                    <h2>Danh mục việc làm</h2>
                     <p>Open lesser winged midst wherein may morning</p>
                 </div>
             </div>
@@ -50,144 +54,64 @@
 <!-- Category Area End -->
 
 <!-- Jobs Area Starts -->
-<%- include('elements/job-filter-table') %>
-<!-- Jobs Area End -->
-
-<!-- Newsletter Area Starts -->
-<section class="newsletter-area section-padding">
+<section class="jobs-area section-padding3">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-top text-center">
-                    <h2>Get job information daily</h2>
-                    <p>Subscribe to our newsletter and get a coupon code!</p>
+                <div class="jobs-title">
+                    <h2>Việc làm mới nhất</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form action="#">
-                    <input type="email" placeholder="Your email here" onfocus="this.placeholder = ''"
-                           onblur="this.placeholder = 'Your email here'" required>
-                    <button type="submit" class="template-btn">subscribe now</button>
-                </form>
+                <div class="jobs-tab tab-item">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="recent-tab" data-toggle="tab" href="#recent" role="tab"
+                               aria-controls="home" aria-selected="true">recent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="fulltime-tab" data-toggle="tab" href="#full-time" role="tab"
+                               aria-controls="profile" aria-selected="false">full time</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="parttime-tab" data-toggle="tab" href="#part-time" role="tab"
+                               aria-controls="part-time" aria-selected="false">part time</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="intern-tab" data-toggle="tab" href="#intern" role="tab"
+                               aria-controls="intern" aria-selected="false">intern</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <%- jobFilterTable %>
+        <div class="row d-flex justify-content-center">
+            <form action="#myTabContent" method="post">
+                <div class="more-job-btn mt-5">
+                    <input class="btn template-btn" id="btn-more" type="submit" name="more" value="more job post">
+                </div>
+            </form>
         </div>
     </div>
 </section>
-<!-- Newsletter Area End -->
+<!-- Jobs Area End -->
 
 <!-- News Area Starts -->
-<section id="blog" class="news-area section-padding">
+<section id="blog" class="company-area section-padding3">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-top text-center">
-                    <h2>Company latest news</h2>
-                    <p>Open lesser winged midst wherein may morning</p>
+                    <h2>Các đối tác nổi bật:</h2>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-news mb-5 mb-lg-0">
-                    <div class="news-img news-img1"></div>
-                    <div class="news-tag">
-                        <ul class="my-4">
-                            <li><h5><i class="fa fa-calendar-o"></i> 20th sep, 2018</h5></li>
-                            <li class="separator mx-2"><span></span></li>
-                            <li><h5><i class="fa fa-folder-open-o"></i> company</h5></li>
-                        </ul>
-                    </div>
-                    <div class="news-title">
-                        <h4><a href="#">Lime recalls electric scooters over battery fire.</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-news mb-5 mb-lg-0">
-                    <div class="news-img news-img2"></div>
-                    <div class="news-tag">
-                        <ul class="my-4">
-                            <li><h5><i class="fa fa-calendar-o"></i> 18th sep, 2018</h5></li>
-                            <li class="separator mx-2"><span></span></li>
-                            <li><h5><i class="fa fa-folder-open-o"></i> company</h5></li>
-                        </ul>
-                    </div>
-                    <div class="news-title">
-                        <h4><a href="#">Apple resorts to promo deals trade to boost</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-news">
-                    <div class="news-img news-img3"></div>
-                    <div class="news-tag">
-                        <ul class="my-4">
-                            <li><h5><i class="fa fa-calendar-o"></i> 25th sep, 2018</h5></li>
-                            <li class="separator mx-2"><span></span></li>
-                            <li><h5><i class="fa fa-folder-open-o"></i> company</h5></li>
-                        </ul>
-                    </div>
-                    <div class="news-title">
-                        <h4><a href="#">Lime recalls electric scooters over battery fire.</a></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <%- bigCompanyList %>
     </div>
 </section>
 <!-- News Area End -->
-
-<!-- Employee Area Starts -->
-<section class="employee-area section-padding3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-top text-center">
-                    <h2>Happy employee</h2>
-                    <p>Open lesser winged midst wherein may morning</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="employee-slider owl-carousel">
-                    <div class="single-slide d-sm-flex">
-                        <div class="slide-img employee1">
-                            <div class="hover-state">
-                                <div class="hover-text text-center">
-                                    <h3>david aron</h3>
-                                    <h5>Facebook</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide-text align-self-center">
-                            <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let
-                                all third gathered.</p>
-                        </div>
-                    </div>
-                    <div class="single-slide d-sm-flex">
-                        <div class="slide-img employee2">
-                            <div class="hover-state">
-                                <div class="hover-text text-center">
-                                    <h3>david aron</h3>
-                                    <h5>Twitter</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide-text align-self-center">
-                            <i class="fa fa-quote-left"></i>
-                            <p>Appear, called day. Sixth two after eve moved called winged very heaven two lights let
-                                all third gathered.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Employee Area End -->
 </body>
 </html>

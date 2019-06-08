@@ -22,7 +22,7 @@ module.exports = {
     },
 
 
-    listInRange: (pos,JCID,job_type,limit)=> {
+    listInRange: (JCID,job_type,pos,limit)=> {
         var option = ``;
 
         if (job_type !== "")

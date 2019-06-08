@@ -16,22 +16,36 @@
                 <div class="main-menu">
                     <ul>
                         <li class="active"><a href="/">home</a></li>
+                        <% if (typeof(role) == "undefined") {%>
+                        <% } else if (role === "employee") {%>
                         <li><a href="/my-cv">My CV</a></li>
-                        <li><a href="/job-category">job category</a>
+                        <% } else if (role === "admin") { %>
+                        <li><a href="/my-cv">Admin section</a></li>
+                        <% } else if (role === "employer") { %>
+                        <li><a href="/my-cv">Employer section</a></li>
+                        <% } %>
+                        <li><a href="/job-category">jobs</a>
                             <ul class="sub-menu">
-                                <% lcJobCategory.forEach(function(cate){ %>
-                                <li><a href="/job-category/<%= cate.name %>"> <%= cate.name %></a></li>
-                                <% }); %>
+                                <li><a href="/job-search">job search <i class="fas fa-search"></i></a>
+                                <li><a href="/job-category">job category <i class="fas fa-arrow-circle-down"></i></a>
+                                    <ul class="sub-menu2">
+                                        <% lcJobCategory.forEach(function(cate){ %>
+                                        <li><a href="/job-category/<%= cate.name %>"> <%= cate.name %></a></li>
+                                        <% }); %>
+                                        <li><a href="/job-category">more ...</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="/contact">contact</a></li>
                         <li><a href="/about">about us</a></li>
                         <li class="menu-btn">
                             <% if (typeof(isAuthenticated) == "undefined") {%>
-                            <a href="/login" class="login">log in></a>
+                            <a href="/login" class="login">log in</a>
                             <a href="/register" class="template-btn">Register</a>
                             <% } else { %>
-                            <a href="/my-account" class="login">Hi, <b><%= authUser.username %>  <span><i class="fas fa-user"></i></span> </b></a>
+                            <a href="/my-account" class="login">Hi, <b><%= authUser.username %> <span><i
+                                    class="fas fa-user"></i></span> </b></a>
                             <a href="javascript: $('#frmLogout').submit();" class="third-btn">Log out</a>
                             <% } %>
                         </li>

@@ -248,6 +248,46 @@ input:focus, textarea:focus {
     color: #ff9902
 }
 
+.main-menu ul li ul li:hover ul.sub-menu2 {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    left: 30px
+}
+
+.main-menu ul li ul li ul.sub-menu2 {
+    padding: 10px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 250%;
+    left: 0;
+    width: 250px;
+    background: #f9f9f9;
+    z-index: 5;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s
+}
+
+.main-menu ul li ul li ul.sub-menu2 li {
+    display: block
+}
+
+.main-menu ul li ul li ul.sub-menu2 li a {
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s
+}
+
+.main-menu ul li ul li ul.sub-menu2 li a:hover {
+    color: #ff9902
+}
+
 .main-menu .menu-btn {
     display: inline;
     margin-left: 60px
@@ -1006,7 +1046,7 @@ input:focus, textarea:focus {
     opacity: .7
 }
 
-.single-news:hover a {
+.single-company:hover a {
     color: #ff9902
 }
 
@@ -1036,25 +1076,25 @@ input:focus, textarea:focus {
     background-image: url("../images/news3.jpg")
 }
 
-.news-tag li {
+.company-tag li {
     display: inline-block
 }
 
-.news-tag li i {
+.company-tag li i {
     font-size: 14px;
     width: 10px;
     height: 10px;
     margin-right: 10px
 }
 
-.news-tag span {
+.company-tag span {
     width: 1px;
     height: 12px;
     background: #777;
     display: block
 }
 
-.news-title a {
+.company-name a {
     color: #222;
     -webkit-transition: .5s;
     -moz-transition: .5s;
