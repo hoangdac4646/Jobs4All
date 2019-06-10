@@ -275,12 +275,61 @@
 
 $(document).ready(function () {
     $('#btn-more').click(function () {
-        updateNews();
+        updateFileterTable();
     });
-});
+    $('#btn-search-more').click(function () {
 
-function updateNews() {
-    var dataString = 'click_more=1&type=recent';
+    });
+})
+
+function updateFileterTable() {
+    var btn = $('#btn-more');
+    btn.attr("disabled", true);
+    var recent = $('#recent');
+    var parttime = $('#part-time');
+    var fulltime = $('#full-time');
+    var intern = $('#intern');
+    if (recent.hasClass("active"))
+    {
+        sendMore("all",function () {
+            btn.attr("disabled", false);
+        })
+    }
+    if (parttime.hasClass("active"))
+    {
+        sendMore("part time",function () {
+            btn.attr("disabled", false);
+        })
+    }
+    if (fulltime.hasClass("active"))
+    {
+        sendMore("full time",function () {
+            btn.attr("disabled", false);
+        })
+    }
+    if (intern.hasClass("active"))
+    {
+        sendMore("intern",function () {
+            btn.attr("disabled", false);
+        })
+    }
+
+}
+
+function sendMore(type,callback) {
+    var dataString = 'click_more=1&type='+ type;
+    var parent;
+    if (type === "all") {
+        parent = $('#recent');
+    }
+    else if (type === "part time") {
+        parent = $('#part-time');
+    } else if (type === "full time") {
+        parent = $('#full-time');
+    }
+    else if (type === "intern") {
+        parent = $('#intern');
+    }
     event.preventDefault();
     $.ajax({
         type: "post",
@@ -288,14 +337,16 @@ function updateNews() {
         data: dataString,
         cache: false,
         success: function f(html) {
-            var parent = $('#recent');
             if (html !== undefined && html !== null) {
                 parent.append(html);
             }
-
         }
-    });
-    dataString = 'click_more=1&type=full time';
+    }).done(callback());
+}
+
+function sendSearchMore(JCID,type,level,keyword,callback) {
+    var dataString = 'click_more=2&JCID='+ JCID + '&type=' + type + '&level=' + level + '&keyword=' + keyword;
+    var parent = $('#search-table');
     event.preventDefault();
     $.ajax({
         type: "post",
@@ -303,41 +354,9 @@ function updateNews() {
         data: dataString,
         cache: false,
         success: function f(html) {
-            var parent = $('#full-time');
             if (html !== undefined && html !== null) {
                 parent.append(html);
             }
-
         }
-    });
-    dataString = 'click_more=1&type=part time';
-    event.preventDefault();
-    $.ajax({
-        type: "post",
-        url: "/more",
-        data: dataString,
-        cache: false,
-        success: function f(html) {
-            var parent = $('#part-time');
-            if (html !== undefined && html !== null) {
-                parent.append(html);
-            }
-
-        }
-    });
-    dataString = 'click_more=1&type=intern';
-    event.preventDefault();
-    $.ajax({
-        type: "post",
-        url: "/more",
-        data: dataString,
-        cache: false,
-        success: function f(html) {
-            var parent = $('#intern');
-            if (html !== undefined && html !== null) {
-                parent.append(html);
-            }
-
-        }
-    });
+    }).done(callback());
 }

@@ -3,7 +3,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
                 <% recentJob.forEach(function (job) { %>
-                <%- include('./job-filter-table-item',{job:job, job_type: 'recent'})%>
+                <%- include('./job-filter-table-item',{job:job, job_type: 'all'})%>
                 <%}) %>
             </div>
             <div class="tab-pane fade" id="full-time" role="tabpanel" aria-labelledby="full-time-tab">

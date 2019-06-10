@@ -47,7 +47,7 @@ router.get('/job-category/:name', (req, res, next) => {
     page.run(req,res,next,'job-category',{name:name});
 });
 
-router.get('/job-search', (req, res, next) => {
+router.all('/job-search', (req, res, next) => {
     page.run(req,res,next, 'job-search');
 });
 
@@ -56,9 +56,17 @@ router.get('/company/:name', (req, res, next) => {
     page.run(req,res,next, 'job-company',{name:name});
 });
 
+router.get('/profile', (req, res, next) => {
+    res.redirect('/');
+});
+
 router.get('/profile/:uid', (req, res, next) => {
     var uid = req.params.uid;
     page.run(req,res,next, 'profile',{uid:uid});
+});
+
+router.get('/profile/:uid/cv', (req, res, next) => {
+    res.redirect('/profile/:uid');
 });
 
 router.get('/profile/:uid/cv/:cvid', (req, res, next) => {
