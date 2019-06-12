@@ -1,0 +1,8 @@
+<div class="single-widget category-widget">
+    <h4 class="title"><%- title %></h4>
+    <ul>
+        <% jobcates.forEach(function(jobcate){ %>
+        <%- include('./job-category-widget-item',{jobcate:jobcate}) %>
+        <% }); %>
+    </ul>
+</div>

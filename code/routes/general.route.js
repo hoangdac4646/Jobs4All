@@ -17,13 +17,12 @@ router.all('/register', (req, res, next) => {
 });
 
 router.get('/register/username-available', (req, res, next) => {
-    return page.run(req,res,next, 'username-available');
+    return page.validate(req,res,next, 'username-available');
 });
 
 router.get('/register/email-available', (req, res, next) => {
-    return page.run(req,res,next, 'email-available');
+    return page.validate(req,res,next, 'email-available');
 });
-
 
 router.post('/logout', auth, (req, res, next) => {
     page.run(req,res,next, 'logout');
@@ -39,7 +38,7 @@ router.get('/job/:jid', (req, res, next) => {
 });
 
 router.get('/job-category', (req, res, next) => {
-    res.redirect('/job-category/all');
+    return res.redirect('/job-category/all');
 });
 
 router.get('/job-category/:name', (req, res, next) => {
@@ -51,22 +50,34 @@ router.all('/job-search', (req, res, next) => {
     page.run(req,res,next, 'job-search');
 });
 
-router.get('/company/:name', (req, res, next) => {
-    var name = req.params.name;
-    page.run(req,res,next, 'job-company',{name:name});
+router.get('/company', (req, res, next) => {
+    if (res.locals.isAuthenticated) return res.redirect('/my-company');
+    return res.redirect('/');
+});
+
+router.get('/company/:cid', (req, res, next) => {
+    var CID = req.params.cid;
+    if (res.locals.isAuthenticated) {
+        if (parseInt(CID) === res.locals.authUser.CID) return res.redirect('/my-company');
+    }
+    page.run(req,res,next, 'company',{CID:CID});
 });
 
 router.get('/profile', (req, res, next) => {
-    res.redirect('/');
+    if (res.locals.isAuthenticated) return res.redirect('/my-account');
+    return res.redirect('/');
 });
 
 router.get('/profile/:uid', (req, res, next) => {
-    var uid = req.params.uid;
-    page.run(req,res,next, 'profile',{uid:uid});
+    var UID = req.params.uid;
+    if (res.locals.isAuthenticated) {
+        if (parseInt(UID) === res.locals.authUser.UID) return res.redirect('/my-account');
+    }
+    page.run(req,res,next, 'profile',{UID:UID});
 });
 
 router.get('/profile/:uid/cv', (req, res, next) => {
-    res.redirect('/profile/:uid');
+    return res.redirect('/profile/:uid');
 });
 
 router.get('/profile/:uid/cv/:cvid', (req, res, next) => {
@@ -84,24 +95,8 @@ router.get('/about', (req, res, next) => {
     page.run(req,res,next, 'about');
 });
 
-router.get('/about', (req, res, next) => {
-    page.run(req,res,next, 'about');
-});
-
 router.post('/more', (req, res, next) => {
     page.run(req,res,next, 'more');
 });
-
-
-router.use((req, res, next) => {
-    res.render('404');
-})
-
-router.use((error, req, res, next) => {
-    res.render('error', {
-        message: error.message,
-        error
-    })
-})
 
 module.exports = router;

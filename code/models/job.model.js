@@ -68,8 +68,10 @@ module.exports = {
         var condition = ``;
         if (option !== "") condition = `where ${option}`;
 
+        var s_limit = ``;
+        if (limit !== null) s_limit = `limit ${pos},${limit}`;
 
-        var query = `select j.* ${select} from job j ${join} ${condition} order by JID desc limit ${pos},${limit}`;
+        var query = `select j.* ${select} from job j ${join} ${condition} order by JID desc ${s_limit}`;
 
         return db.load(query);
 
@@ -116,13 +118,21 @@ module.exports = {
         var condition = ``;
         if (option !== "") condition = `where ${option}`;
 
-        var query = `select j.* ${select} from job j ${join} ${condition} order by JID desc limit ${pos},${limit}`;
+        var s_limit = ``;
+        if (limit !== null) s_limit = `limit ${pos},${limit}`;
+
+        var query = `select j.* ${select} from job j ${join} ${condition} order by JID desc ${s_limit}`;
 
         return db.load(query);
     },
 
     details: JID => {
-        var query = `select j.* , c.name as company, c.description as cdescription, c.address as location , jc.name as jobcategory from job j inner join company c on j.CID = c.CID inner join jobcategory jc on j.JCID = jc.JCID where j.JID = ${JID}`;
+        var query = `select j.* , c.name as company, c.description as cdescription, c.address as location, c.image as cimage , jc.name as jobcategory from job j inner join company c on j.CID = c.CID inner join jobcategory jc on j.JCID = jc.JCID where j.JID = ${JID}`;
+        return db.load(query);
+    },
+
+    detailsByCompany: CID => {
+        var query = `select j.* , c.name as company, c.description as cdescription, c.address as location , jc.name as jobcategory from job j inner join company c on j.CID = c.CID inner join jobcategory jc on j.JCID = jc.JCID where j.CID = ${CID}`;
         return db.load(query);
     },
 

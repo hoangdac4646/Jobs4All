@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Page Title -->
+    <title>Edit Profile</title>
+</head>
+<body>
+<!-- Page Title Starts -->
+<section class="single-content2 section-padding3">
+    <div class="container bg-light">
+        <div class="row single-widget">
+            <div class="col-lg-3">
+                <h3>Avatar</h3>
+                <div class="row d-flex justify-content-center align-self-center mb-5">
+                    <img class="img-thumbnail avatar" src="<%- user.avatar %>" alt="">
+                </div>
+                <h3>Upload new avatar</h3>
+                <div class="row d-flex justify-content-center align-self-center mb-5">
+                    <%- include('../elements/upload-image-form') %>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <form method="post" id="edit-profile-form">
+                    <h3 class="mb-30">Profile</h3>
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-user"></i> Name</th>
+                            <td><input type="text" name="name" placeholder="name" class="form-control"
+                                       value="<%- user.name %>" required></td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Address</th>
+                            <td><input type="text" name="address" placeholder="address" class="form-control"
+                                       value="<%- user.address %>" required></td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-envelope-open-text"></i> Email</th>
+                            <td><input type="text" name="email" placeholder="email" class="form-control"
+                                       value="<%- user.email %>" required></td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-mobile-alt"></i> Phone</th>
+                            <td><input type="text" name="phone" placeholder="phone" class="form-control"
+                                       value="<%- user.phone %>"></td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-birthday-cake"></i> D.O.B</th>
+                            <td><input type="date" name="DOB" placeholder="Date of birth" class="form-control"
+                                       value="<%- user.DOB.toISOString().substring(0, 10) %>" required></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="job-btn text-center">
+                        <input id="btn-update-profile" name="edit_profile" type="submit" class="btn genric-btn info "
+                               value="UPDATE">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <form method="post" id="reset-password-form">
+                    <h3 class="mb-30">Reset password</h3>
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Current password</th>
+                            <td><input type="password" name="current_password" placeholder="current password" class="form-control"
+                                       required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> New password</th>
+                            <td><input type="password" name="password" placeholder="new password" class="form-control"
+                                       required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Confirm new password
+                            </th>
+                            <td><input type="password" name="confirm" placeholder="re-password" class="form-control"
+                                       required></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="job-btn text-center">
+                        <input id="btn-update-password" name="reset_password" type="submit" class="btn genric-btn info "
+                               value="UPDATE">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Title End -->
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(function ($) {
+        $("#image-input").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-avatar',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 10000,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="fas fa-folder-open"></i>',
+            removeIcon: '<i class="fas fa-trash"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/avatar/profile-placeholder.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + '{upload}'+' {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $('#reset-password-form').validate({
+            rules: {
+                current_password: {
+                    required: true,
+                    remote: {
+                        url: '/my-account/edit/verify-pass'
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                confirm: {
+                    required: true,
+                    equalTo: $('[name="password"]')
+                },
+            },
+            messages: {
+                current_password: {
+                    required: 'Current password is required.',
+                    remote: "Current password does not match"
+                },
+                password: {
+                    required: 'New password is required.',
+                    minlength: 'At least 6 characters.'
+                },
+                confirm: {
+                    required: 'Password does not match.',
+                    equalTo: 'Password does not match.'
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+
+        $('#edit-profile-form').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: '/my-account/edit/email-available'
+                    }
+                },
+                phone: {
+                    number: true
+                },
+                dob: {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: 'Name is required.',
+                },
+                address: {
+                    required: 'Invalid address',
+                },
+                phone: {
+                    number: "Phone must be number"
+                },
+                email: {
+                    required: 'Invalid email address.',
+                    email: 'Invalid email address.',
+                    remote: 'Email address has been used.'
+                },
+                dob: {
+                    required: 'DOB is required.',
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>
+</html>

@@ -43,7 +43,8 @@ module.exports = {
                         job: job,
                         job_type: type
                     }, function (err, str) {
-                        html += str;
+                        if (job.status === "available")
+                            html += str;
                         counter++;
                     });
                     if (counter === jobs.length) callback(html);
@@ -56,9 +57,31 @@ module.exports = {
     getDetails: function (JID, callback) {
         jobModel.details(JID).then(function (job) {
             ejs.renderFile(path + '/views/elements/job-details.ejs', {job: job[0]}, function (err, str) {
-                callback(str, job[0]);
+                callback(str, job);
             })
         });
+    },
+    getDetailsTagListByCompany: function (CID, callback) {
+        jobModel.detailsByCompany(CID).then(function (jobs) {
+            var available = ``;
+            var expired = ``;
+            var counter = 0;
+            if (jobs.length !== 0)
+                jobs.forEach(function (job) {
+                    ejs.renderFile(path + '/views/elements/job-details-tag.ejs', {
+                        job: job,
+                    }, function (err, str) {
+                        if (job.status === "available")
+                            available += str;
+                        else if (job.status === "expired")
+                            expired += str;
+                        counter++;
+                    });
+                    if (counter === jobs.length) callback(available+expired,available,expired);
+                });
+            else
+                callback(available);
+        })
     },
     listSearchTable: function (JCID, type, level, keyword, callback) {
         if (JCID === "all") JCID = null;
@@ -76,7 +99,8 @@ module.exports = {
                         job: job,
                         job_type: type
                     }, function (err, str) {
-                        html += str;
+                        if (job.status === "available")
+                            html += str;
                         counter++;
                     });
                     if (counter === jobs.length) callback(html);
@@ -101,8 +125,8 @@ module.exports = {
                         job: job,
                         job_type: type
                     }, function (err, str) {
-                        html += str;
-                        counter++;
+                        if (job.status === "available")
+                            html += str;
                     });
                     if (counter === jobs.length) callback(html);
                 });

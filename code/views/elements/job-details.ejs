@@ -7,23 +7,31 @@
                 <li class="mb-3"><h5><i class="fas fa-money-bill-wave"></i>Lương: <%- job.offer %> VND/tháng</h5>
                 </li>
                 <% if (job.status === 'available') { %>
-                <li class="mb-3"><h5><i class="fas fa-street-view"></i>Tình trạng: <b style="color: lightgreen"><%- job.status %></b>
+                <li class="mb-3"><h5><i class="fas fa-street-view"></i>Tình trạng: <b style="color: lightgreen"><%-
+                    job.status %></b>
                 </h5></li>
                 <%} else {%>
-                <li class="mb-3"><h5><i class="fas fa-street-view"></i><span>Tình trạng: <%- job.status %></span>
+                <li class="mb-3"><h5><i class="fas fa-street-view"></i>Tình trạng: <b style="color: red"><%- job.status
+                    %></b>
                 </h5></li>
                 <%}%>
                 <li><h5><i class="fas fa-clock"></i>Deadline: <%- job.deadline.toDateString() %></h5></li>
             </ul>
         </div>
         <div class="job-btn align-self-center">
+            <% if (job.status !== 'available') { %>
+            <a href="#" class="template-btn disabled">Apply now</a>
+            <%} else {%>
             <a href="#" class="template-btn">Apply now</a>
+            <%}%>
         </div>
     </div>
 </div>
 <div class="single-content2 py-4">
     <h4>Mô tả:</h4>
-    <p> <%- job.description %></p>
+    <div class="company-description">
+        <p> <%- job.description %></p>
+    </div>
 </div>
 <div class="single-content3 py-4">
     <h4>Nơi làm việc:</h4>

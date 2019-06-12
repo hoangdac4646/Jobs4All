@@ -1,26 +1,68 @@
 var multer = require('multer');
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/imgs/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-})
-
-var upload = multer({ storage });
+var userModel = require('../models/user.model');
+var companyModel = require('../models/company.model');
 
 module.exports = function (app) {
-  app.post('/upload', (req, res, next) => {
-    upload.array('fuMain1')(req, res, err => {
-      if (err) {
-        return res.json({
-          error: err.message
-        });
-      }
+    app.post('/upload-avatar', (req, res, next) => {
+        var sess = req.session,
+            UID = sess.UID;
+        var path = "/images/avatar/" + UID.toString() + ".png";
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, './public/images/avatar/');
+            },
+            filename: function (req, file, cb) {
+                cb(null, UID.toString() + ".png");
+            }
+        })
 
-      res.json({});
+        var upload = multer({storage});
+        upload.array('image')(req, res, err => {
+            if (err) {
+                return res.json({
+                    error: err.message
+                });
+            }
+            else {
+                var entity = {
+                    UID: UID,
+                    avatar: path
+                }
+                userModel.update(entity).then(function () {
+                    res.json({});
+                })
+            }
+        })
     })
-  })
+    app.post('/company/upload-image', (req, res, next) => {
+        var sess = req.session,
+            CID = sess.CID;
+        var path = "/images/company/" + CID.toString() + ".png";
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, './public/images/company/');
+            },
+            filename: function (req, file, cb) {
+                cb(null, CID.toString() + ".png");
+            }
+        })
+
+        var upload = multer({storage});
+        upload.array('image')(req, res, err => {
+            if (err) {
+                return res.json({
+                    error: err.message
+                });
+            }
+            else {
+                var entity = {
+                    CID: CID,
+                    image: path
+                }
+                companyModel.update(entity).then(function () {
+                    res.json({});
+                })
+            }
+        })
+    })
 };

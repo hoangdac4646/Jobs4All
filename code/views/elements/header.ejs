@@ -16,13 +16,19 @@
                 <div class="main-menu">
                     <ul>
                         <li class="active"><a href="/">home</a></li>
-                        <% if (typeof(role) == "undefined") {%>
-                        <% } else if (role === "employee") {%>
-                        <li><a href="/my-cv">My CV</a></li>
-                        <% } else if (role === "admin") { %>
+                        <% if (typeof(authUser) !== 'undefined') {%>
+                        <% if (!authUser.role) {%>
+                        <% } else if (authUser.role === "employee") {%>
+                        <li><a href="/my-cv">My CVs</a></li>
+                        <% } else if (authUser.role === "admin") { %>
                         <li><a href="/my-cv">Admin section</a></li>
-                        <% } else if (role === "employer") { %>
-                        <li><a href="/my-cv">Employer section</a></li>
+                        <% } else if (authUser.role === "employer") { %>
+                        <li><a href="/my-company">Manager</a>
+                            <ul class="sub-menu">
+                                <li><a href="/my-company">My company <i class="fas fa-search"></i></a>
+                                <li><a href="/job-manager">Job Manager <i class="fas fa-arrow-circle-down"></i></a></li>
+                            </ul></li>
+                        <% } %>
                         <% } %>
                         <li><a href="/job-category">jobs</a>
                             <ul class="sub-menu">
@@ -40,14 +46,26 @@
                         <li><a href="/contact">contact</a></li>
                         <li><a href="/about">about us</a></li>
                         <li class="menu-btn">
-                            <% if (typeof(isAuthenticated) == "undefined") {%>
-                            <a href="/login" class="login">log in</a>
-                            <a href="/register" class="template-btn">Register</a>
-                            <% } else { %>
-                            <a href="/my-account" class="login">Hi, <b><%= authUser.username %> <span><i
-                                    class="fas fa-user"></i></span> </b></a>
-                            <a href="javascript: $('#frmLogout').submit();" class="third-btn">Log out</a>
-                            <% } %>
+                            <ul>
+                                <% if (!isAuthenticated) {%>
+                                <li><a href="/login" class="login">log in</a></li>
+                                <li><a href="/register" class="template-btn">Register</a></li>
+                                <% } else { %>
+                                <li><a href="/my-account" class="login">Hi, <b><%= authUser.name %> <i class="fas fa-user"></i></b></a>
+                                    <ul class="sub-menu2">
+                                        <li><a href="/my-account">My profile</i></a></li>
+                                        <% if (authUser.role === "employee") {%>
+                                        <li><a href="/my-cv">My CVs</a></li>
+                                        <% } else if (authUser.role === "admin") { %>
+                                        <li><a href="/my-cv">Admin section</a></li>
+                                        <% } else if (authUser.role === "employer") { %>
+                                        <li><a href="/my-cv">Employer section</a></li>
+                                        <% } %>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript: $('#frmLogout').submit();" class="third-btn">Log out</a></li>
+                                <% } %>
+                            </ul>
                         </li>
                     </ul>
                 </div>

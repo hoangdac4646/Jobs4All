@@ -13,6 +13,10 @@ module.exports = {
         return db.load(`select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) where jc.name = '${name}' group by jc.JCID,jc.icon,jc.name`);
     },
 
+    listByCIDWithJobsCount: (CID) => {
+        return db.load(`select jc.JCID,jc.name,jc.description, c.CID ,count(j.JID) as numberOfJobs from jobcategory as jc inner join job j using(JCID) inner join company c using(CID) where c.CID = ${CID} group by jc.JCID,jc.name,jc.description,c.CID`);
+    },
+
     singleByID: id => {
         return db.load(`select * from jobcategory where JCID = ${id}`);
     },

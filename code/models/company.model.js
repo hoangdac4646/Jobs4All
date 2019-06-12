@@ -45,7 +45,7 @@ module.exports = {
         return db.update('company', 'CID', entity);
     },
 
-    delete: id => {
-        return db.delete('company', 'CID', id);
+    delete: CID => {
+        return db.delete('company', 'CID', CID);
     },
 };
