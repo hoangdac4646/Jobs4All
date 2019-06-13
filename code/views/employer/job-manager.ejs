@@ -2,133 +2,184 @@
 <html lang="en">
 <head>
     <!-- Page Title -->
-    <title>Job Manager</title>
+    <title>Employer Section</title>
 </head>
 <body>
-<!-- Page Title Starts -->
-<div class="page-title page-title-blog text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2>Job manager</h2>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Page Title End -->
 
 <!-- Page Title Starts -->
-<section class="single-content2 section-padding">
+<section class="single-content2 section-padding3">
     <div class="container">
         <div class="row">
-            <div class="col-lg post-list blog-post-list">
-                <div class="single-widget">
-                    <h3 class="mb-3">Danh sách công việc</h3>
-                    <%- include('../elements/job-manager-table',{jobs:jobs}); %>
+            <div class="col-lg-12">
+                <div class="jobs-tab tab-item float-left">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="job-manager-tab" data-toggle="tab" href="#job-manager"
+                               role="tab"
+                               aria-controls="home" aria-selected="true">Job manager</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="applicant-manager-tab" data-toggle="tab" href="#applicant-manager"
+                               role="tab"
+                               aria-controls="profile" aria-selected="false">Applicant manager</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg">
-                <form class="single-widget" method="post" id="edit-job-form">
-                    <div class="row">
-                        <div class="col-lg post-list blog-post-list ">
-                            <h3 class="mb-3" id="edit-form-title">Thêm công việc mới</h3>
-                            <table class="table table-borderless">
-                                <tbody>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-user"></i> Job ID</th>
-                                    <td><input id="JID" type="text" name="JID" placeholder="JID" class="form-control"
-                                               value="" readonly></td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Name</th>
-                                    <td><input id="name" type="text" name="name" placeholder="name" class="form-control"
-                                               value="" required></td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-mobile-alt"></i> Category</th>
-                                    <td>
-                                        <select id="jobcategory" name="jobcategory">
-                                            <% lcJobCategory.forEach(function(cate){ %>
-                                            <option value="<%= cate.JCID %>"><%= cate.name %></option>
-                                            <% }); %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-envelope-open-text"></i>
-                                        Amount
-                                    </th>
-                                    <td><input id="amount" type="text" name="amount" placeholder="amount" class="form-control"
-                                               value=""></td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Offer
-                                    </th>
-                                    <td><input id="offer" type="text" name="offer" placeholder="offer"
-                                               class="form-control"
-                                               required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Level
-                                    </th>
-                                    <td>
-                                        <select id="level" name="level" class="form-control">
-                                            <option value="trainee">Trainee</option>
-                                            <option value="fresher">Fresher</option>
-                                            <option value="experienced">Experienced</option>
-                                            <option value="manager">Manager</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Type
-                                    </th>
-                                    <td>
-                                        <select id="type" name="type" class="form-control">
-                                            <option value="full time" >Full time</option>
-                                            <option value="part time">Part time</option>
-                                            <option value="intern">Intern</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle" scope="row"><i class="fas fa-map-marker-alt"></i> Deadline
-                                    </th>
-                                    <td><input id="deadline" type="date" name="deadline" placeholder="deadline"
-                                               class="form-control"
-                                               required>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="job-manager" role="tabpanel"
+                         aria-labelledby="recent-tab">
+                        <div class="row">
+                            <div class="col-lg post-list blog-post-list">
+                                <div class="single-widget">
+                                    <h3 class="mb-3">Danh sách công việc</h3>
+                                    <%- include('../elements/job-manager-table',{jobs:jobs}); %>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg post-list blog-post-list">
-                            <h3>Giới thiệu:</h3>
-                            <div class="single-content2">
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Nội dung</label>
-                                <textarea class="form-control" id="description"
-                                          name="description"></textarea>
-                            </div>
-                            <div class="job-btn text-center form-group">
-                                <input id="btn-add" name="add_job" type="submit"
-                                       class="btn genric-btn primary "
-                                       value="ADD">
-                                <input id="btn-update" name="update_job" type="submit"
-                                       class="btn genric-btn info d-none disabled"
-                                       value="UPDATE">
-                                <input id="btn-delete" name="delete_job" type="submit"
-                                       class="btn genric-btn danger d-none disabled"
-                                       value="DELETE">
-                                <button id="btn-update-close" class="btn btn-light d-none disabled"><i class="fas fa-times-circle"></i></button>
+                        <div class="row">
+                            <div class="col-lg post-list blog-post-list">
+                                <form class="single-widget" method="post" id="edit-job-form">
+                                    <div class="row">
+                                        <div class="col-lg post-list blog-post-list">
+                                            <h3 class="mb-3" id="edit-form-title">Thêm công việc mới</h3>
+                                            <table class="table table-borderless">
+                                                <tbody>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i class="fas fa-user"></i> Job
+                                                        ID
+                                                    </th>
+                                                    <td><input id="JID" type="text" name="JID" placeholder="JID"
+                                                               class="form-control"
+                                                               value="" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-map-marker-alt"></i>
+                                                        Name
+                                                    </th>
+                                                    <td><input id="name" type="text" name="name" placeholder="name"
+                                                               class="form-control"
+                                                               value="" required></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-mobile-alt"></i>
+                                                        Category
+                                                    </th>
+                                                    <td>
+                                                        <select id="jobcategory" name="jobcategory"
+                                                                class="form-control">
+                                                            <% lcJobCategory.forEach(function(cate){ %>
+                                                            <option value="<%= cate.JCID %>"><%= cate.name %></option>
+                                                            <% }); %>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-envelope-open-text"></i>
+                                                        Amount
+                                                    </th>
+                                                    <td><input id="amount" type="text" name="amount"
+                                                               placeholder="amount"
+                                                               class="form-control"
+                                                               value=""></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-map-marker-alt"></i>
+                                                        Offer
+                                                    </th>
+                                                    <td><input id="offer" type="text" name="offer" placeholder="offer"
+                                                               class="form-control"
+                                                               required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-map-marker-alt"></i>
+                                                        Level
+                                                    </th>
+                                                    <td>
+                                                        <select id="level" name="level" class="form-control">
+                                                            <option value="trainee">Trainee</option>
+                                                            <option value="fresher">Fresher</option>
+                                                            <option value="experienced">Experienced</option>
+                                                            <option value="manager">Manager</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-map-marker-alt"></i>
+                                                        Type
+                                                    </th>
+                                                    <td>
+                                                        <select id="type" name="type" class="form-control">
+                                                            <option value="full time">Full time</option>
+                                                            <option value="part time">Part time</option>
+                                                            <option value="intern">Intern</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle" scope="row"><i
+                                                            class="fas fa-map-marker-alt"></i>
+                                                        Deadline
+                                                    </th>
+                                                    <td><input id="deadline" type="date" name="deadline"
+                                                               placeholder="deadline"
+                                                               class="form-control"
+                                                               required>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg post-list blog-post-list">
+                                            <h3>Giới thiệu:</h3>
+                                            <div class="single-content2">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Nội dung</label>
+                                                <textarea class="form-control" id="description"
+                                                          name="description"></textarea>
+                                            </div>
+                                            <div class="job-btn text-center form-group">
+                                                <input id="btn-add" name="add_job" type="submit"
+                                                       class="btn genric-btn primary "
+                                                       value="ADD">
+                                                <input id="btn-update" name="update_job" type="submit"
+                                                       class="btn genric-btn info d-none disabled"
+                                                       value="UPDATE">
+                                                <input id="btn-delete" name="delete_job" type="submit"
+                                                       class="btn genric-btn danger d-none disabled"
+                                                       value="DELETE">
+                                                <button id="btn-update-close" class="btn btn-light d-none disabled"><i
+                                                        class="fas fa-times-circle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="tab-pane fade" id="applicant-manager" role="tabpanel"
+                         aria-labelledby="applicant-manager-tab">
+                        <div class="row">
+                            <div class="col-lg post-list blog-post-list">
+                                <div class="single-widget">
+                                    <h3 class="mb-3">Danh sách CV đăng ký</h3>
+                                    <%- include('../elements/applicant-manager-table',{applicants:applicants}); %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -136,37 +187,36 @@
 
 <!-- Page Title End -->
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
 <script>
-    $(function ($) {
-        $(document).ready(function () {
-            $('.btn-edit').click(function () {
-                var JID = parseInt($(this).parent().parent().children(":first").text());
-                getEditableJob(JID, function (jobs) {
-                    setEditForm(jobs)
-                });
+    $(document).ready(function () {
+        $('.btn-edit').click(function () {
+            var JID = parseInt($(this).parent().parent().children(":first").text());
+            getEditableJob(JID, function (jobs) {
+                setEditForm(jobs)
             });
-            $("#btn-update-close").click(function () {
-                setAddForm();
-            })
         });
-        tinymce.init({
-            selector: '#description',
-            height: 500,
-            menubar: false,
-            plugins: 'paste image link autolink lists table media wordcount fullscreen',
-            toolbar: [
-                'styleselect',
-                'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
-                'forecolor backcolor',
-                'table link image media',
-                'fullscreen'
-            ],
-        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        })
     });
+    tinymce.init({
+        selector: '#description',
+        themes: "modern",
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
     function getEditableJob(JID, callback) {
-        var dataString = 'JID='+JID;
+        var dataString = 'JID=' + JID;
 
         $.ajax({
             type: "post",
@@ -196,8 +246,8 @@
         $('#level').val(job.level);
         $('#type').val(job.type);
         $('#deadline').val(job.deadline.substring(0, 10));
-        $('#description').val(job.description);
-        $('select').niceSelect('update');
+        var editor = tinymce.get('description');
+        editor.setContent(job.description);
 
     }
 
@@ -217,9 +267,8 @@
         $('#level').val("");
         $('#type').val("");
         $('#deadline').val("");
-        $('#description').val("");
-        $('select').niceSelect('update');
-
+        var editor = tinymce.get('description');
+        editor.setContent('');
     }
 </script>
 </html>

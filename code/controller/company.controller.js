@@ -12,5 +12,14 @@ module.exports = {
                 callback(str);
             });
         });
+    },
+    listJoin: function (callback) {
+        companyModel.listInRange(null, null, 0, 6).then(function (company) {
+            ejs.renderFile(__dirname.replace('/controller', '') + '/views/elements/big-company-list.ejs', {
+                bigCompany: company,
+            }, function (err, str) {
+                callback(str);
+            });
+        });
     }
 };

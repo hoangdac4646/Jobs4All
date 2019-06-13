@@ -1,0 +1,72 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<table id="applicant-table" class="table dt-responsive " cellspacing="0"
+       width="100%">
+    <thead class="thead-dark">
+    <tr>
+        <th class="th-sm">Name
+        </th>
+        <th class="th-sm">Avatar
+        </th>
+        <th class="th-sm">Job Applied
+        </th>
+        <th class="th-sm">Applied CV
+        </th>
+        <th class="th-sm">Profile links
+        </th>
+        <th class="th-sm">Status
+        </th>
+        <th class="th-sm">Action
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% applicants.forEach(function (applicant) { %>
+    <tr>
+        <td><%- applicant.name %></td>
+        <td class="img-table"><%- applicant.avatar %></td>
+        <td><a href="job/<%- applicant.JID %>"><%- applicant.job %></td>
+        <td><a href="profile/<%- applicant.UID %>/cv/<%- applicant.CVID %>">Get to applied CV</a></td>
+        <td><a href="profile/<%- applicant.UID %>">Get to this profile</a></td>
+        <% if (job.status === 'pending') { %>
+        <td><span class="btn-warning"><%- job.status %></span></td>
+        <td><a class="btn genric-btn info small btn-approve">Approve</a>
+            <a class="btn genric-btn danger small btn-refuse">Refuse</a>
+            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+        </td>
+        <% } else if (job.status === 'canceled') { %>
+        <td>
+            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+        </td>
+        <% } else { %>
+        <td><span class="btn-success"><%- job.status %></span></td>
+        <td>
+            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+        </td>
+        <% } %>
+    </tr>
+    <% }); %>
+    </tbody>
+</table>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#applicant-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>

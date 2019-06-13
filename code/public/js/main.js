@@ -12,7 +12,6 @@ $(document).ready(function () {
         }
     });
 
-    // Employee Slider
     $('.employee-slider').owlCarousel({
         loop: true,
         margin: 20,
@@ -37,9 +36,6 @@ $(document).ready(function () {
             }
         }
     });
-
-    // Nice Select
-    $('select').niceSelect();
 
     // Range Slider
     $("#range").ionRangeSlider({

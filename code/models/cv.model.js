@@ -21,8 +21,7 @@ module.exports = {
         return db.load(`select * from cv where CVID = ${CVID}`);
     },
 
-
-    listInRange: (JCID,job_type,pos,limit)=> {
+    listInRange: (CVID,UID,JCID,name,pos,limit)=> {
         var option = ``;
 
         if (job_type !== "")

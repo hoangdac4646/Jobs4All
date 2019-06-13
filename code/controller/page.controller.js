@@ -2,6 +2,7 @@ var userModel = require('../models/user.model');
 var companyModel = require('../models/company.model');
 var cvModel = require('../models/cv.model');
 var jobModel = require('../models/job.model');
+var jobTransModel = require('../models/jobtransaction.model');
 var jobCateModel = require('../models/jobcategory.model');
 var jobController = require('../controller/job.controller');
 var companyController = require('../controller/company.controller');
@@ -378,18 +379,61 @@ module.exports = {
                     return res.redirect('/my-company');
                 })
             }
-        } else if (page === 'job-manager')
-        {
+        } else if (page === 'job-manager') {
             var user = res.locals.authUser;
-            jobModel.listInRange(null,user.CID,null,null,null,'join','join',null,null).then(function (jobs) {
-                return res.render('employer/job-manager',{jobs:jobs});
+            var applicants = [];
+            jobModel.listInRange(null, user.CID, null, null, null, 'join', 'join', null, null).then(function (jobs) {
+                jobTransModel.listByCompany(user.CID).then(function (jobTrans) {
+                    if (jobTrans.length !== 0) {
+                        jobTrans.forEach(function (jobTran) {
+                            cvModel.singleByID(jobTran.CVID).then(function (appliedCV) {
+                                userModel.singleByID(appliedCV.UID).then(function (appliedUser) {
+                                    jobModel.singleByID(appliedCV.JID).then(function (appliedJob) {
+                                        var tmp_applicant = {
+                                            JID: appliedJob[0].JID,
+                                            job: appliedJob[0].name,
+                                            UID: appliedUser[0].UID,
+                                            name: appliedUser[0].name,
+                                            avatar: appliedUser[0].avatar,
+                                            CVID: appliedCV[0].CVID,
+                                            status: jobTran.status,
+                                        };
+                                        applicants.push(tmp_applicant);
+                                        if (applicants.length === jobTrans.length)
+                                        return res.render("employer/job-manager", {jobs: jobs, applicants: applicants});
+                                    })
+                                })
+                            })
+                        })
+                    }
+                    else return res.render("employer/job-manager", {jobs: jobs, applicants: applicants});
+                })
             })
-        } else if (page === 'job-manager/edit')
-        {
-            var JID = req.body.JID;
-            jobModel.singleByID(JID).then(function (jobs) {
-                return res.send(jobs);
-            })
+        } else if (page === 'job-manager/edit') {
+            if (req.method === "POST") {
+                var JID = parseInt(req.body.JID);
+                var name = req.body.name;
+                var JCID = parseInt(req.body.JCID);
+                var amount = parseInt(req.body.amount);
+                var offer = parseInt(req.body.JID);
+                var level = req.body.level;
+                var type = req.body.type;
+                var deadline = req.body.deadline;
+
+                var entity = {
+                    JID: JID,
+                    name: name,
+                    JCID: JCID,
+                    amount: amount,
+                    offer: offer,
+                    level: level,
+                    type: type,
+                    deadline: deadline,
+                }
+                jobModel.update(entity).then(function (jobs) {
+                    return res.redirect('/job-manager');
+                })
+            }
         }
     },
     validate: function (req, res, next, element) {

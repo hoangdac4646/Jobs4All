@@ -3742,3 +3742,8 @@ form .template-btn {
     max-width: 100%;
     max-height: 400px;
 }
+
+.img-table img {
+    max-width: 50px;
+    max-height: 30px;
+}
