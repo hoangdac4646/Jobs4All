@@ -18,7 +18,7 @@
 <!-- Page Title End -->
 
 <!-- Page Title Starts -->
-<section class="single-content2 section-padding2">
+<section class="single-content2 section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -98,54 +98,9 @@
                 <div class="single-widget">
                     <h3 class="title_color">My CVs</h3>
                     <div class="row gallery-item">
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <a href="assets/images/elements/g1.jpg" class="img-gal">
-                                <div class="single-gallery-image">
-                                    <img src="/images/user2.jpg" alt="">
-                                    <div class="container"><h5 class="m-3">123</h5></div>
-                                </div>
-                            </a>
-                        </div>
+                        <% CVs.forEach(function(cv) { %>
+                        <%- include('elements/cv-thumb-item', {cv: cv}) %>
+                        <% }) %>
                     </div>
                     <% if (typeof(authUser) !== 'undefined') { %>
                     <% if (user.UID === authUser.UID) { %>

@@ -13,8 +13,16 @@ var passport = require('passport');
 
 
 module.exports = {
+    authenticate: function (res, role, next) {
+        if (res.locals.authUser.role !== role) {
+            return res.redirect("/");
+        }
+    },
     run: function (req, res, next, page, params) {
+        var sess = req.session;
         if (page === 'home') {
+            sess.recentJCID = "all";
+            sess.recentPos = 0;
             jobController.listFilterTable(null, function (jobFilterTable) {
                 companyController.listBigCompany(function (bigCompanyList) {
                     return res.render('home', {jobFilterTable: jobFilterTable, bigCompanyList: bigCompanyList});
@@ -40,7 +48,6 @@ module.exports = {
                         if (err)
                             return next(err);
                         req.user = user;
-                        var sess = req.session;
                         sess.UID = user.UID;
                         sess.CID = user.CID;
                         return res.redirect('/');
@@ -64,7 +71,7 @@ module.exports = {
                     address: req.body.address.toLowerCase(),
                     avatar: "/images/avatar/profile-placeholder.png",
                     role: 'employee'
-                }
+                };
 
                 userModel.add(entity).then(function () {
                     res.locals.registermessage = "success";
@@ -77,9 +84,10 @@ module.exports = {
         } else if (page === 'job-category') {
             var jobCateName = params.name;
             var title = "Danh sách việc làm ";
-            req.session.recentPos = 0;
+            sess.recentJCID = "all";
+            sess.recentPos = 0;
             if (jobCateName === 'all') {
-                req.session.recentJCID = jobCateName;
+                sess.recentJCID = jobCateName;
                 jobController.listFilterTable(jobCateName, function (jobFilterTable) {
                     jobModel.count().then(function (numberOfJobs) {
                         return res.render('job-category', {
@@ -94,7 +102,7 @@ module.exports = {
             else {
                 jobCateModel.singleWithJobsCount(jobCateName).then(function (jobCate) {
                     var JCID = jobCate[0].JCID;
-                    req.session.recentJCID = JCID;
+                    sess.recentJCID = JCID;
                     title += jobCateName;
                     jobController.listFilterTable(JCID, function (jobFilterTable) {
                         if (jobCate[0] === undefined) {
@@ -111,7 +119,8 @@ module.exports = {
                 })
             }
         } else if (page === 'job-search') {
-            req.session.recentPos = 0;
+            sess.recentPos = 0;
+            sess.recentJCID = "all";
             if (req.method === 'GET') {
                 jobController.listSearchTable(null, null, null, null, function (searchTable) {
                     jobModel.count().then(function (numberOfJobs) {
@@ -178,7 +187,7 @@ module.exports = {
                         return res.render('job', {
                             jobDetails: jobDetails,
                             companyName: jobInfo[0].company,
-                            companyImage: jobInfo[0].cimage,
+                            companyImage: jobInfo[0].logo,
                             manager: manager[0]
                         });
                     })
@@ -198,14 +207,16 @@ module.exports = {
                         });
                     }
                     else {
-                        return res.render('profile', {user: user[0]});
+                        cvModel.listInRange(user[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
+                            return res.render('profile', {user: user[0], CVs: CVs});
+                        })
                     }
                 }
                 else return res.render('404');
             });
         } else if (page === 'company') {
             var CID = params.CID;
-            companyModel.singleByID(CID).then(function (company) {
+            companyModel.singleByIDWithType(CID).then(function (company) {
                 if (company.length !== 0)
                     jobController.getDetailsTagListByCompany(company[0].CID, function (jobDetailsList, availableList, expiredList) {
                         userModel.singleEmployerByCID(company[0].CID).then(function (manager) {
@@ -221,25 +232,41 @@ module.exports = {
                         });
                     })
                 else return res.render('404');
-            })
-        } else if (page === 'more') {
+            });
+        }
+        else if (page === 'cv') {
+            if (req.method === "GET") {
+                var UID = params.UID;
+                var CVID = params.CVID;
+
+                userModel.singleByID(UID).then(function (user) {
+                    cvModel.singleByID(CVID).then(function (cv) {
+                        if (cv.length !== 0 || user.length !== 0) {
+                            return res.render('cv/onlinecv/index', {layout: false});
+                        }
+                        else return res.render('404');
+                    })
+                })
+            }
+        } else if (page === 'more-jobs') {
             var click = req.body.click_more;
             if (click === '1') {
-                req.session.recentPos += 10;
+                sess.recentPos += 10;
                 var type = req.body.type;
-                var jobCate = req.session.recentJCID;
-                var pos = req.session.recentPos;
+                var jobCate = sess.recentJCID;
+                var pos = sess.recentPos;
                 jobController.updateFilterTable(jobCate, type, pos, function (job) {
                     return res.send(job)
                 });
             }
             else if (click === '2') {
+                sess.recentPos += 10;
                 var JCID = req.body.JCID;
                 if (JCID !== "all") JCID = parseInt(JCID);
                 var type = req.body.type;
                 var level = req.body.level;
                 var keyword = req.body.keyword;
-                var pos = 0;
+                var pos = sess.recentPos;
                 jobController.updateSearchTable(JCID, type, level, keyword, pos, function (job) {
                     return res.send(job)
                 });
@@ -256,7 +283,9 @@ module.exports = {
             }
             else {
                 userModel.singleByUserName(user.username).then(function (thisUser) {
-                    return res.render('profile', {user: thisUser[0]});
+                    cvModel.listInRange(thisUser[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
+                        return res.render('profile', {user: thisUser[0], CVs: CVs});
+                    })
                 });
             }
         } else if (page === 'my-account/edit') {
@@ -309,6 +338,7 @@ module.exports = {
         }
     },
     runEmployer: function (req, res, next, page, params) {
+        this.authenticate(res, "employer");
         if (page === 'my-company') {
             var user = res.locals.authUser;
             companyModel.singleByID(user.CID).then(function (company) {
@@ -387,9 +417,10 @@ module.exports = {
                     if (jobTrans.length !== 0) {
                         jobTrans.forEach(function (jobTran) {
                             cvModel.singleByID(jobTran.CVID).then(function (appliedCV) {
-                                userModel.singleByID(appliedCV.UID).then(function (appliedUser) {
-                                    jobModel.singleByID(appliedCV.JID).then(function (appliedJob) {
+                                userModel.singleByID(appliedCV[0].UID).then(function (appliedUser) {
+                                    jobModel.singleByID(jobTran.JID).then(function (appliedJob) {
                                         var tmp_applicant = {
+                                            CIID: jobTran.CVID,
                                             JID: appliedJob[0].JID,
                                             job: appliedJob[0].name,
                                             UID: appliedUser[0].UID,
@@ -400,7 +431,10 @@ module.exports = {
                                         };
                                         applicants.push(tmp_applicant);
                                         if (applicants.length === jobTrans.length)
-                                        return res.render("employer/job-manager", {jobs: jobs, applicants: applicants});
+                                            return res.render("employer/job-manager", {
+                                                jobs: jobs,
+                                                applicants: applicants
+                                            });
                                     })
                                 })
                             })
@@ -410,29 +444,82 @@ module.exports = {
                 })
             })
         } else if (page === 'job-manager/edit') {
+            var user = res.locals.authUser;
+            var CID = user.CID;
             if (req.method === "POST") {
-                var JID = parseInt(req.body.JID);
-                var name = req.body.name;
-                var JCID = parseInt(req.body.JCID);
-                var amount = parseInt(req.body.amount);
-                var offer = parseInt(req.body.JID);
-                var level = req.body.level;
-                var type = req.body.type;
-                var deadline = req.body.deadline;
+                var addJob = req.body.add_job;
+                var updateJob = req.body.update_job;
+                var deleteJob = req.body.delete_job;
+                var loadJob = req.body.loadJob;
 
-                var entity = {
-                    JID: JID,
-                    name: name,
-                    JCID: JCID,
-                    amount: amount,
-                    offer: offer,
-                    level: level,
-                    type: type,
-                    deadline: deadline,
+                if (loadJob === '1') {
+                    var JID = req.body.JID;
+                    jobModel.singleByID(JID).then(function (jobs) {
+                        return res.send(jobs);
+                    })
                 }
-                jobModel.update(entity).then(function (jobs) {
-                    return res.redirect('/job-manager');
-                })
+                else if (addJob === 'ADD') {
+                    var name = req.body.name;
+                    var JCID = req.body.jobcategory;
+                    var amount = req.body.amount;
+                    var offer = req.body.offer;
+                    var level = req.body.level;
+                    var type = req.body.type;
+                    var description = req.body.description;
+                    var requirement = req.body.requirement;
+                    var deadline = req.body.deadline;
+
+                    var entity = {
+                        name: name,
+                        JCID: JCID,
+                        CID: CID,
+                        amount: amount,
+                        offer: offer,
+                        level: level,
+                        description: description,
+                        requirement: requirement,
+                        type: type,
+                        deadline: deadline,
+                    }
+                    jobModel.add(entity).then(function () {
+                        return res.redirect('/job-manager');
+                    })
+                }
+                else if (updateJob === 'UPDATE') {
+                    var JID = req.body.JID;
+                    var name = req.body.name;
+                    var JCID = req.body.jobcategory;
+                    var amount = req.body.amount;
+                    var offer = req.body.offer;
+                    var level = req.body.level;
+                    var type = req.body.type;
+                    var description = req.body.description;
+                    var requirement = req.body.requirement;
+                    var deadline = req.body.deadline;
+
+                    var entity = {
+                        JID: JID,
+                        name: name,
+                        JCID: JCID,
+                        amount: amount,
+                        offer: offer,
+                        level: level,
+                        description: description,
+                        requirement: requirement,
+                        type: type,
+                        deadline: deadline,
+                    }
+                    jobModel.update(entity).then(function () {
+                        return res.redirect('/job-manager');
+                    })
+                }
+                else if (deleteJob === 'DELETE') {
+                    var JID = req.body.JID;
+
+                    jobModel.delete(JID).then(function () {
+                        return res.redirect('/job-manager');
+                    })
+                }
             }
         }
     },

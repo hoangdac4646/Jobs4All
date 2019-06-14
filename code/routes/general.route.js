@@ -81,10 +81,9 @@ router.get('/profile/:uid/cv', (req, res, next) => {
 });
 
 router.get('/profile/:uid/cv/:cvid', (req, res, next) => {
-    var uid = req.params.uid;
-    var cvid = req.params.cvid;
-
-    page.run(req,res,next, 'cv',{uid: uid, cvid: cvid});
+    var UID = req.params.uid;
+    var CVID = req.params.cvid;
+    page.run(req,res,next, 'cv',{UID: UID, CVID: CVID});
 });
 
 router.get('/contact', (req, res, next) => {
@@ -95,8 +94,8 @@ router.get('/about', (req, res, next) => {
     page.run(req,res,next, 'about');
 });
 
-router.post('/more', (req, res, next) => {
-    page.run(req,res,next, 'more');
+router.post('/more-jobs', (req, res, next) => {
+    page.run(req,res,next, 'more-jobs');
 });
 
 module.exports = router;

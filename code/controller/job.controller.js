@@ -11,10 +11,10 @@ module.exports = {
             if (JCID === "all") JCID = null;
             jc = 1;
         }
-        jobModel.listInRange(JCID, null, null, null, null, 'join', 'join', 0, 10).then(function (recentJob) {
-            jobModel.listInRange(JCID, null, 'full time', null, null, 'join', 'join', 0, 10).then(function (fulltimeJob) {
-                jobModel.listInRange(JCID, null, 'part time', null, null, 'join', 'join', 0, 10).then(function (parttimeJob) {
-                    jobModel.listInRange(JCID, null, 'intern', null, null, `join`, 'join', 0, 10).then(function (internJob) {
+        jobModel.listInRange(JCID, null, null, null, "available", 'join', 'join', 0, 10).then(function (recentJob) {
+            jobModel.listInRange(JCID, null, 'full time', "available", null, 'join', 'join', 0, 10).then(function (fulltimeJob) {
+                jobModel.listInRange(JCID, null, 'part time', "available", null, 'join', 'join', 0, 10).then(function (parttimeJob) {
+                    jobModel.listInRange(JCID, null, 'intern', "available", null, `join`, 'join', 0, 10).then(function (internJob) {
                         if (jc === 1) more = `<div class="col-lg-4"></div>`
                         ejs.renderFile(path + '/views/elements/job-filter-table.ejs', {
                             recentJob: recentJob,
@@ -33,7 +33,7 @@ module.exports = {
     updateFilterTable: function (JCID, type, pos, callback) {
         if (type === 'recent') type = null;
         if (JCID === "all") JCID = null;
-        jobModel.listInRange(JCID, null, type, null, null, 'join', 'join', pos, pos + 10).then(function (jobs) {
+        jobModel.listInRange(JCID, null, type, null, "available", 'join', 'join', pos, pos + 10).then(function (jobs) {
             if (type === null) type = 'recent';
             var html = ``;
             var counter = 0;
@@ -127,6 +127,7 @@ module.exports = {
                     }, function (err, str) {
                         if (job.status === "available")
                             html += str;
+                        counter++
                     });
                     if (counter === jobs.length) callback(html);
                 });

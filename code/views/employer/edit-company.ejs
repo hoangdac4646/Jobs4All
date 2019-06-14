@@ -5,7 +5,7 @@
     <title>Edit Company's Infomation</title>
 </head>
 <body>
-<div class="page-title page-title-blog text-center" style="background-image: url('<%- company.image %>')">
+<div class="page-title page-title-blog text-center" style="background-image: url('<%- company.logo %>')">
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -80,8 +80,8 @@
                 </div>
                 <div class="single-widget" id="upload-image">
                     <h3>Hình ảnh công ty:</h3>
-                    <div class="company-review-image">
-                        <img src="<%- company.image %>">
+                    <div class="company-review-logo">
+                        <img src="<%- company.logo %>">
                     </div>
                     <div class="row d-flex justify-content-center align-self-center mb-5">
                         <%- include('../elements/upload-image-form') %>

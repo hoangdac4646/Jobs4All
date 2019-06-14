@@ -21,25 +21,47 @@ module.exports = {
         return db.load(`select * from cv where CVID = ${CVID}`);
     },
 
-    listInRange: (CVID,UID,JCID,name,pos,limit)=> {
+    listInRange: (UID,JCID,name,status,join_user,join_jobcategory,pos,limit)=> {
         var option = ``;
+        var join = ``;
 
-        if (job_type !== "")
-        {
-            option = `job_type = '${job_type}'`
-        }
-
-        if (JCID !== -1)
-        {
+        if (UID !== null) {
             if (option !== ``) option += ` and `;
-            option += `JCID = ${JCID}`;
+            option += `cv.UID = ${UID}`;
 
         }
-        var condition = `where ${option}`;
-        var query = `select * from cv ${condition} limit ${pos},${limit} order by JID desc`;
+        if (JCID !== null) {
+            if (option !== ``) option += ` and `;
+            option += `cv.JCID = ${JCID}`;
+
+        }
+
+        if (name !== null) {
+            if (option !== ``) option += ` and `;
+            option += `cv.name = ${name}`;
+
+        }
+        var select = ``;
+
+        if (join_user === `join`) {
+            join += ` inner join user u on cv.UID = u.UID`;
+            select += `, u.name as fullname`;
+        }
+
+        if (join_jobcategory === `join`) {
+            join += ` inner join jobcategory jc on cv.JCID = cv.JCID`;
+            select += `, jc.name as jobcategory`;
+        }
+
+        var condition = ``;
+        if (option !== "") condition = `where ${option}`;
+
+        var s_limit = ``;
+        if (limit !== null) s_limit = `limit ${pos},${limit}`;
+
+        var query = `select cv.* ${select} from cv cv ${join} ${condition} order by CVID desc ${s_limit}`;
 
         return db.load(query);
-
     },
 
     add: entity => {

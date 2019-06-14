@@ -16,6 +16,8 @@
        width="100%">
     <thead class="thead-dark">
     <tr>
+        <th class="th-sm">CV ID
+        </th>
         <th class="th-sm">Name
         </th>
         <th class="th-sm">Avatar
@@ -35,32 +37,32 @@
     <tbody>
     <% applicants.forEach(function (applicant) { %>
     <tr>
+        <td><%- applicant.CVID %></td>
         <td><%- applicant.name %></td>
-        <td class="img-table"><%- applicant.avatar %></td>
-        <td><a href="job/<%- applicant.JID %>"><%- applicant.job %></td>
+        <td class="text-center"><img class="applicant-table-img" src="<%- applicant.avatar %>"> </td>
+        <td><a href="job/<%- applicant.JID %>"><%- applicant.job %></a></td>
         <td><a href="profile/<%- applicant.UID %>/cv/<%- applicant.CVID %>">Get to applied CV</a></td>
         <td><a href="profile/<%- applicant.UID %>">Get to this profile</a></td>
-        <% if (job.status === 'pending') { %>
-        <td><span class="btn-warning"><%- job.status %></span></td>
-        <td><a class="btn genric-btn info small btn-approve">Approve</a>
-            <a class="btn genric-btn danger small btn-refuse">Refuse</a>
-            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+        <% if (applicant.status === 'pending') { %>
+        <td><b style="background: yellow;"><%- applicant.status %></b></td>
+        <td><a href="#" class="btn genric-btn info small btn-approve d-block mb-1">Approve</a>
+            <a href="#" class="btn genric-btn danger small btn-refuse d-block mb-1">Refuse</a>
+            <a href="#" class="btn genric-btn success small btn-view d-block mb-1">Show CV Directly</a>
         </td>
-        <% } else if (job.status === 'canceled') { %>
-        <td>
-            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+        <% } else if (applicant.status === 'canceled') { %>
+        <td><td><b style="background: red;"><%- applicant.status %></b></td>
+        <a class="genric-btn success small btn-refuse">Show CV Directly</a>
         </td>
         <% } else { %>
-        <td><span class="btn-success"><%- job.status %></span></td>
+        <td><b style="background: lightgreen;"><%- applicant.status %></b></td>
         <td>
-            <a class="btn genric-btn success small btn-refuse">View Directly</a>
+            <a class="genric-btn success small btn-view-cv">Show CV Directly</a>
         </td>
         <% } %>
     </tr>
     <% }); %>
     </tbody>
 </table>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#applicant-table').DataTable({

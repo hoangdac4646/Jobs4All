@@ -18,4 +18,8 @@ router.get('/my-account/edit/verify-pass' ,(req, res, next) => {
     page.validate(req,res,next, 'verify-pass');
 });
 
+router.get('/my-cv' ,(req, res, next) => {
+    page.runEmployee(req,res,next, 'my-cv');
+});
+
 module.exports = router;

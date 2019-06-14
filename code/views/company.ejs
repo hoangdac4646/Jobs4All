@@ -7,7 +7,7 @@
 <body>
 
 <!-- Page Title Starts -->
-<div class="page-title page-title-blog text-center" style="background-image: url('<%- company.image %>')">
+<div class="page-title page-title-blog text-center" style="background-image: url('<%- company.logo %>')">
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -31,6 +31,10 @@
                         <tr>
                             <th scope="row"><i class="fas fa-user"></i> Name</th>
                             <td><%- company.name %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><i class="fas fa-envelope-open-text"></i> Chuyên ngành:</th>
+                            <td><%- company.companytype %></td>
                         </tr>
                         <tr>
                             <th scope="row"><i class="fas fa-map-marker-alt"></i> Address</th>
@@ -67,8 +71,8 @@
                 </div>
                 <div class="single-widget">
                     <h3>Hình ảnh công ty:</h3>
-                    <div class="company-review-image">
-                        <img src="<%- company.image %>">
+                    <div class="company-review-logo">
+                        <img src="<%- company.logo %>">
                     </div>
                     <% if (typeof(authUser) !== 'undefined') { %>
                     <% if (manager.UID === authUser.UID) { %>

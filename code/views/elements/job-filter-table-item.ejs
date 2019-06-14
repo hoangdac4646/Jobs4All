@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div class="job-img align-self-center">
-        <img src="/images/job1.png" alt="job">
+        <a href="/company/<%- job.CID %>" title="<%- job.company %>"><img class="thumb-img" src="<%- job.image %>" alt="job"></a>
     </div>
     <div class="job-btn align-self-center">
         <% if (job_type == 'all') { %>

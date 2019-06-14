@@ -9,6 +9,10 @@ module.exports = {
         return db.load(`select * from company where CID = ${id}`);
     },
 
+    singleByIDWithType: id => {
+        return db.load(`select c.*, ct.name as companytype from company as c inner join companytype ct on c.CTID = ct.CTID where c.CID = ${id}`);
+    },
+
     singleByName: name => {
         return db.load(`select * from company join companytype where name = '${name}'`);
     },

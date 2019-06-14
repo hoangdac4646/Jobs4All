@@ -31,7 +31,6 @@ module.exports = {
 
     listInRange: (JCID, CID, type, level, status, join_company, join_jobcategory, pos, limit) => {
         var option = ``;
-        var join = ``;
 
         if (type !== null) {
             option = `j.type = '${type}'`
@@ -50,14 +49,15 @@ module.exports = {
 
         if (status !== null) {
             if (option !== ``) option += ` and `;
-            option += `j.status = ${status}`;
+            option += `j.status = '${status}'`;
 
         }
         var select = ``;
+        var join = ``;
 
         if (join_company === `join`) {
             join += ` inner join company c on j.CID = c.CID`;
-            select += `, c.name as company`;
+            select += `, c.name as company,  c.logo as image`;
         }
 
         if (join_jobcategory === `join`) {
@@ -79,6 +79,7 @@ module.exports = {
 
     listForSearch: (JCID, type, level, keyword, join_company, join_jobcategory, pos, limit) => {
         var option = ``;
+        var status = "available";
 
         if (type !== null) {
             option = `j.type = '${type}'`
@@ -102,12 +103,18 @@ module.exports = {
 
         }
 
+        if (status !== null) {
+            if (option !== ``) option += ` and `;
+            option += `j.status = '${status}'`;
+
+        }
+
         var select = ``;
         var join = ``;
 
         if (join_company === `join`) {
             join += ` inner join company c on j.CID = c.CID`;
-            select += `, c.name as company`;
+            select += `, c.name as company,  c.logo as image`;
         }
 
         if (join_jobcategory === `join`) {
@@ -127,7 +134,7 @@ module.exports = {
     },
 
     details: JID => {
-        var query = `select j.* , c.name as company, c.description as cdescription, c.address as location, c.image as cimage , jc.name as jobcategory from job j inner join company c on j.CID = c.CID inner join jobcategory jc on j.JCID = jc.JCID where j.JID = ${JID}`;
+        var query = `select j.* , c.name as company, c.description as cdescription, c.address as location, c.logo as logo , jc.name as jobcategory from job j inner join company c on j.CID = c.CID inner join jobcategory jc on j.JCID = jc.JCID where j.JID = ${JID}`;
         return db.load(query);
     },
 
@@ -140,7 +147,7 @@ module.exports = {
         return db.load(`select count(JID) as numberOfJobs from job`);
     },
 
-    countWithCondition: (JCID,type,level,keyword) => {
+    countWithCondition: (JCID, type, level, keyword) => {
         var option = ``;
 
         if (type !== null) {

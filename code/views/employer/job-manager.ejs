@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Page Title -->
-    <title>Employer Section</title>
-</head>
-<body>
-
+<!-- Page Title -->
+<title>Employer Section</title>
 <!-- Page Title Starts -->
 <section class="single-content2 section-padding3">
     <div class="container">
@@ -42,7 +36,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg post-list blog-post-list">
-                                <form class="single-widget" method="post" id="edit-job-form">
+                                <form class="single-widget" method="post" id="edit-job-form" action="/job-manager/edit">
                                     <div class="row">
                                         <div class="col-lg post-list blog-post-list">
                                             <h3 class="mb-3" id="edit-form-title">Thêm công việc mới</h3>
@@ -138,31 +132,38 @@
                                                     </td>
                                                 </tr>
                                                 </tbody>
+                                                </tbody>
                                             </table>
                                         </div>
                                         <div class="col-lg post-list blog-post-list">
-                                            <h3>Giới thiệu:</h3>
+                                            <h3>Mô tả:</h3>
                                             <div class="single-content2">
                                             </div>
                                             <div class="form-group">
-                                                <label for="description">Nội dung</label>
                                                 <textarea class="form-control" id="description"
                                                           name="description"></textarea>
                                             </div>
-                                            <div class="job-btn text-center form-group">
-                                                <input id="btn-add" name="add_job" type="submit"
-                                                       class="btn genric-btn primary "
-                                                       value="ADD">
-                                                <input id="btn-update" name="update_job" type="submit"
-                                                       class="btn genric-btn info d-none disabled"
-                                                       value="UPDATE">
-                                                <input id="btn-delete" name="delete_job" type="submit"
-                                                       class="btn genric-btn danger d-none disabled"
-                                                       value="DELETE">
-                                                <button id="btn-update-close" class="btn btn-light d-none disabled"><i
-                                                        class="fas fa-times-circle"></i></button>
+                                            <h3>Yêu cầu chi tiết:</h3>
+                                            <div class="single-content2">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="requirement"
+                                                          name="requirement"></textarea>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="job-btn text-center form-group">
+                                        <input id="btn-add" name="add_job" type="submit"
+                                               class="btn genric-btn primary "
+                                               value="ADD">
+                                        <input id="btn-update" name="update_job" type="submit"
+                                               class="btn genric-btn info d-none disabled"
+                                               value="UPDATE">
+                                        <input id="btn-delete" name="delete_job" type="submit"
+                                               class="btn genric-btn danger d-none disabled"
+                                               value="DELETE">
+                                        <button id="btn-update-close" class="btn btn-light d-none disabled"><i
+                                                class="fas fa-times-circle"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -173,8 +174,14 @@
                         <div class="row">
                             <div class="col-lg post-list blog-post-list">
                                 <div class="single-widget">
-                                    <h3 class="mb-3">Danh sách CV đăng ký</h3>
+                                    <h3 class="mb-3">Danh sách công việc</h3>
                                     <%- include('../elements/applicant-manager-table',{applicants:applicants}); %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg post-list blog-post-list">
+                                <div class="single-widget">
                                 </div>
                             </div>
                         </div>
@@ -186,24 +193,13 @@
 </section>
 
 <!-- Page Title End -->
-</body>
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('.btn-edit').click(function () {
-            var JID = parseInt($(this).parent().parent().children(":first").text());
-            getEditableJob(JID, function (jobs) {
-                setEditForm(jobs)
-            });
-        });
-        $("#btn-update-close").click(function () {
-            setAddForm();
-        })
-    });
     tinymce.init({
-        selector: '#description',
+        selector: '#requirement',
         themes: "modern",
-        height: 500,
+        height: 250,
         menubar: false,
         plugins: 'paste image link autolink lists table media wordcount fullscreen',
         toolbar: [
@@ -215,8 +211,54 @@
         ],
     });
 
+    tinymce.init({
+        selector: '#description',
+        themes: "modern",
+        height: 200,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
+    $(document).ready(function () {
+        $('.btn-edit').click(function () {
+            var JID = parseInt($(this).parent().parent().children(":first").text());
+            getEditableJob(JID, function (jobs) {
+                setEditForm(jobs)
+            });
+        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        })
+        $('.btn-approve').click(function () {
+            var CVID = parseInt($(this).parent().parent().children(":first").text());
+            getCV(CVID,function (cv) {
+                showCV(cv);
+            })
+
+        });
+        $('.btn-refuse').click(function () {
+            var CVID = parseInt($(this).parent().parent().children(":first").text());
+            getCV(CVID, function (cv) {
+                showCV(cv)
+            });
+        });
+        $('.btn-view-cv').click(function () {
+            var CVID = parseInt($(this).parent().parent().children(":first").text());
+            getCV(CVID, function (cv) {
+                showCV(cv)
+            });
+        });
+    });
+
     function getEditableJob(JID, callback) {
-        var dataString = 'JID=' + JID;
+        var dataString = 'loadJob=1&JID=' + JID;
 
         $.ajax({
             type: "post",
@@ -246,7 +288,9 @@
         $('#level').val(job.level);
         $('#type').val(job.type);
         $('#deadline').val(job.deadline.substring(0, 10));
-        var editor = tinymce.get('description');
+        var editor = tinymce.get('requirement');
+        editor.setContent(job.requirement);
+        editor = tinymce.get('description');
         editor.setContent(job.description);
 
     }
@@ -267,8 +311,27 @@
         $('#level').val("");
         $('#type').val("");
         $('#deadline').val("");
-        var editor = tinymce.get('description');
+        var editor = tinymce.get('requirement');
         editor.setContent('');
+        editor = tinymce.get('description');
+        editor.setContent("");
+    }
+
+    function getCV(CVID, callback) {
+        var dataString = 'loadCV=1&CVID=' + CVID;
+
+        $.ajax({
+            type: "post",
+            url: "/job-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function showCV(cv) {
+
     }
 </script>
-</html>

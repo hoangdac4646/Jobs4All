@@ -110,15 +110,16 @@ function sendMore(type,callback) {
     event.preventDefault();
     $.ajax({
         type: "post",
-        url: "/more",
+        url: "/more-jobs",
         data: dataString,
         cache: false,
         success: function f(html) {
             if (html !== undefined && html !== null) {
                 parent.append(html);
+                callback();
             }
         }
-    }).done(callback());
+    });
 }
 
 function sendSearchMore(JCID,type,level,keyword,callback) {
@@ -127,7 +128,7 @@ function sendSearchMore(JCID,type,level,keyword,callback) {
     event.preventDefault();
     $.ajax({
         type: "post",
-        url: "/more",
+        url: "/more-jobs",
         data: dataString,
         cache: false,
         success: function f(html) {
@@ -135,5 +136,5 @@ function sendSearchMore(JCID,type,level,keyword,callback) {
                 parent.append(html);
             }
         }
-    }).done(callback());
+    })
 }
