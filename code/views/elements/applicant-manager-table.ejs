@@ -16,7 +16,7 @@
        width="100%">
     <thead class="thead-dark">
     <tr>
-        <th class="th-sm">CV ID
+        <th class="th-sm">JTID
         </th>
         <th class="th-sm">Name
         </th>
@@ -37,26 +37,26 @@
     <tbody>
     <% applicants.forEach(function (applicant) { %>
     <tr>
-        <td><%- applicant.CVID %></td>
+        <td><%- applicant.JTID %></td>
         <td><%- applicant.name %></td>
-        <td class="text-center"><img class="applicant-table-img" src="<%- applicant.avatar %>"> </td>
-        <td><a href="job/<%- applicant.JID %>"><%- applicant.job %></a></td>
-        <td><a href="profile/<%- applicant.UID %>/cv/<%- applicant.CVID %>">Get to applied CV</a></td>
-        <td><a href="profile/<%- applicant.UID %>">Get to this profile</a></td>
+        <td class="text-center"><img class="applicant-table-img" src="<%- applicant.avatar %>"></td>
+        <td><a href="/job/<%- applicant.JID %>"><%- applicant.job %></a></td>
+        <td><a href="/profile/<%- applicant.UID %>/cv/<%- applicant.CVID %>">Get to applied CV</a></td>
+        <td><a href="/profile/<%- applicant.UID %>">Get to this profile</a></td>
         <% if (applicant.status === 'pending') { %>
-        <td><b style="background: yellow;"><%- applicant.status %></b></td>
+        <td><span style="background: yellow;"><%- applicant.status %></span></td>
         <td><a href="#" class="btn genric-btn info small btn-approve d-block mb-1">Approve</a>
             <a href="#" class="btn genric-btn danger small btn-refuse d-block mb-1">Refuse</a>
-            <a href="#" class="btn genric-btn success small btn-view d-block mb-1">Show CV Directly</a>
+            <a href="#cv-review" class="btn genric-btn success small btn-view-cv d-block mb-1">Show CV Directly</a>
         </td>
         <% } else if (applicant.status === 'canceled') { %>
-        <td><td><b style="background: red;"><%- applicant.status %></b></td>
-        <a class="genric-btn success small btn-refuse">Show CV Directly</a>
+        <td><span style="background: red;"><%- applicant.status %></span></td>
+        <td><a href="#cv-review" class="genric-btn success small btn-view-cv">Show CV Directly</a>
         </td>
         <% } else { %>
-        <td><b style="background: lightgreen;"><%- applicant.status %></b></td>
+        <td><span style="background: lightgreen;"><%- applicant.status %></span></td>
         <td>
-            <a class="genric-btn success small btn-view-cv">Show CV Directly</a>
+            <a href="#cv-review" class="genric-btn success small btn-view-cv">Show CV Directly</a>
         </td>
         <% } %>
     </tr>

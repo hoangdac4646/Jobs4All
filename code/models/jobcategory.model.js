@@ -5,12 +5,31 @@ module.exports = {
         return db.load('select * from jobcategory order by name');
     },
 
-    allWithJobsCount: () => {
-        return db.load(`select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) group by jc.JCID,jc.icon,jc.name order by jc.name`);
+    allWithJobsCount: jobStatus => {
+        var option = ``;
+        if (jobStatus !== null) {
+            option = `j.status = '${jobStatus}'`
+        }
+        var condition = ``;
+        if (option !== "") condition = `where ${option}`;
+
+        var query = `select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) ${condition} group by jc.JCID,jc.icon,jc.name order by jc.name`
+        return db.load(query);
     },
 
-    singleWithJobsCount: (name) => {
-        return db.load(`select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) where jc.name = '${name}' group by jc.JCID,jc.icon,jc.name `);
+
+    singleWithJobsCount: (name,jobStatus) => {
+        var option = `where jc.name = '${name}'`;
+
+        if (jobStatus !== null) {
+            if (option !== ``) option += ` and `;
+            option = `j.status = '${jobStatus}'`
+        }
+        var condition = ``;
+        if (option !== "") condition = `where ${option}`;
+
+        var query = `select jc.JCID,jc.icon,jc.name, count(j.JID) as numberOfJobs from jobcategory as jc left join job as j using(JCID) ${condition} group by jc.JCID,jc.icon,jc.name order by jc.name`
+        return db.load(query);
     },
 
     listByCIDWithJobsCount: (CID) => {

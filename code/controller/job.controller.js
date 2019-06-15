@@ -1,12 +1,11 @@
 var jobModel = require('../models/job.model');
-var companyModel = require('../models/job.model');
+var jobCateModel = require('../models/jobcategory.model');
 var ejs = require('ejs');
 var path = __dirname.replace('/controller', '');
 
 module.exports = {
     listFilterTable: function (JCID, callback) {
         var jc;
-        var more = ``;
         if (JCID != null) {
             if (JCID === "all") JCID = null;
             jc = 1;
@@ -15,16 +14,31 @@ module.exports = {
             jobModel.listInRange(JCID, null, 'full time', "available", null, 'join', 'join', 0, 10).then(function (fulltimeJob) {
                 jobModel.listInRange(JCID, null, 'part time', "available", null, 'join', 'join', 0, 10).then(function (parttimeJob) {
                     jobModel.listInRange(JCID, null, 'intern', "available", null, `join`, 'join', 0, 10).then(function (internJob) {
-                        if (jc === 1) more = `<div class="col-lg-4"></div>`
-                        ejs.renderFile(path + '/views/elements/job-filter-table.ejs', {
-                            recentJob: recentJob,
-                            fulltimeJob: fulltimeJob,
-                            parttimeJob: parttimeJob,
-                            internJob: internJob,
-                            more: more
-                        }, function (err, str) {
-                            callback(str);
-                        });
+                        jobCateModel.allWithJobsCount("available").then(function (jobCates) {
+                            if (jc === 1) {
+                                ejs.renderFile(path + '/views/elements/job-filter-table.ejs', {
+                                    recentJob: recentJob,
+                                    fulltimeJob: fulltimeJob,
+                                    parttimeJob: parttimeJob,
+                                    internJob: internJob,
+                                    more: true,
+                                    title: "Số lượng việc làm theo ngành",
+                                    jobCates: jobCates,
+                                }, function (err, str) {
+                                    callback(str);
+                                });
+                            }
+                            else
+                                ejs.renderFile(path + '/views/elements/job-filter-table.ejs', {
+                                    recentJob: recentJob,
+                                    fulltimeJob: fulltimeJob,
+                                    parttimeJob: parttimeJob,
+                                    internJob: internJob,
+                                    more: undefined,
+                                }, function (err, str) {
+                                    callback(str);
+                                });
+                        })
                     });
                 });
             });
@@ -77,7 +91,7 @@ module.exports = {
                             expired += str;
                         counter++;
                     });
-                    if (counter === jobs.length) callback(available+expired,available,expired);
+                    if (counter === jobs.length) callback(available + expired, available, expired);
                 });
             else
                 callback(available);

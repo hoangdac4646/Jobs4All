@@ -6,7 +6,7 @@ var auth = require('./middlewares/auth');
 
 app.use(express.static(path.join(__dirname, './public')));
 
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(require('express-ejs-layouts'));
 app.set("layout extractScripts", true);

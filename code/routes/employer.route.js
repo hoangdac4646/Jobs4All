@@ -22,4 +22,8 @@ router.post('/job-manager/edit' ,(req, res, next) => {
     page.runEmployer(req,res,next, 'job-manager/edit');
 });
 
+router.post('/applicant-manager/update' ,(req, res, next) => {
+    page.runEmployer(req,res,next, 'applicant-manager/update');
+});
+
 module.exports = router;

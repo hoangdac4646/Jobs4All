@@ -143,8 +143,8 @@ module.exports = {
         return db.load(query);
     },
 
-    count: () => {
-        return db.load(`select count(JID) as numberOfJobs from job`);
+    countAvailble: () => {
+        return db.load(`select count(JID) as numberOfJobs from job where status = "available"`);
     },
 
     countWithCondition: (JCID, type, level, keyword) => {

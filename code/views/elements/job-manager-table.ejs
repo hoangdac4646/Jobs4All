@@ -54,7 +54,7 @@
         <td><%- job.deadline.toLocaleDateString() %></td>
         <% if (job.status === 'available') { %>
         <td><span style="background: lightgreen"><%- job.status %></span></td>
-        <td><a href="#edit-job-form" class="btn genric-btn danger small btn-edit disabled">EDIT</a>
+        <td><a href="#edit-job-form"></a>
         </td>
         <% } else if (job.status === 'expired') { %>
         <td><span style="background: red"><%- job.status %></span></td>
