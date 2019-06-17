@@ -51,11 +51,11 @@
                                 <li><a href="/login" class="login">log in</a></li>
                                 <li><a href="/register" class="template-btn">Register</a></li>
                                 <% } else { %>
-                                <li><a href="/my-account" class="login">Hi, <b><%= authUser.name %> <i class="fas fa-user"></i></b></a>
+                                <li><a href="/dashboard" class="login">Hi, <b><%= authUser.name %> <i class="fas fa-user"></i></b></a>
                                     <ul class="sub-menu2">
-                                        <li><a href="/my-account">My profile</i></a></li>
+                                        <li><a href="/dashboard/my-account">My profile</i></a></li>
                                         <% if (authUser.role === "employee") {%>
-                                        <li><a href="/my-cv">My CVs</a></li>
+                                        <li><a href="/dashboard/employee/my-cv">My CVs</a></li>
                                         <% } else if (authUser.role === "admin") { %>
                                         <li><a href="/my-cv">Admin section</a></li>
                                         <% } else if (authUser.role === "employer") { %>

@@ -17,7 +17,7 @@ module.exports = function (app) {
         })
 
         var upload = multer({storage});
-        upload.array('image')(req, res, err => {
+        upload.array('avatar')(req, res, err => {
             if (err) {
                 return res.json({
                     error: err.message
@@ -34,7 +34,7 @@ module.exports = function (app) {
             }
         })
     })
-    app.post('/company/upload-image', (req, res, next) => {
+    app.post('/company/upload-logo', (req, res, next) => {
         var sess = req.session,
             CID = sess.CID;
         var path = "/images/company/" + CID.toString() + ".png";
@@ -48,7 +48,7 @@ module.exports = function (app) {
         })
 
         var upload = multer({storage});
-        upload.array('image')(req, res, err => {
+        upload.array('logo')(req, res, err => {
             if (err) {
                 return res.json({
                     error: err.message
@@ -57,7 +57,7 @@ module.exports = function (app) {
             else {
                 var entity = {
                     CID: CID,
-                    image: path
+                    logo: path
                 }
                 companyModel.update(entity).then(function () {
                     res.json({});

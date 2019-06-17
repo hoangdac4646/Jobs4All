@@ -1,0 +1,482 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Danh sách CV</h4>
+                        <p class="card-category">CV List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="cv-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">CV ID
+                                    </th>
+                                    <th class="th-sm">Ngành
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Ngày đăng
+                                    </th>
+                                    <th class="th-sm">Tình trạng
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<% CVs.forEach(function(cv) {%>-->
+                                <!--<tr>-->
+                                    <!--<td><%- cv.CVID %></td>-->
+                                    <!--<td><%- cv.jobcategory %></td>-->
+                                    <!--<td><%- cv.name %></td>-->
+                                    <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
+                                    <!--<td><%- cv.create_date.toLocaleString() %></td>-->
+                                    <!--<% if (cv.status === 'public') {%>-->
+                                    <!--<td style="color: lightgreen"><%- cv.status %></td>-->
+                                    <!--<% } else if (cv.status === 'draft') { %>-->
+                                    <!--<td style="color: lightcoral"><%- cv.status %></td>-->
+                                    <!--<% } %>-->
+                                    <!--<td class="td-actions text-left">-->
+                                        <!--<a href="">-->
+                                            <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
+                                                <!--<i class="material-icons">person</i>-->
+                                                <!--<span>-->
+                                                <!--Xem-->
+                                            <!--</span>-->
+                                            <!--</button>-->
+                                        <!--</a>-->
+                                        <!--<a href="#edit-form-title">-->
+                                            <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
+                                                <!--<i class="material-icons">edit</i><span>-->
+                                                <!--Chỉnh sửa-->
+                                            <!--</span>-->
+                                            <!--</button>-->
+                                        <!--</a>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                <!--<% }) %>-->
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                    <a href="">
+                                    <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                    <i class="material-icons">person</i>
+                                    <span>
+                                    Xem
+                                    </span>
+                                    </button>
+                                    </a>
+                                    <a href="#edit-form-title">
+                                    <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                    <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                    </button>
+                                    </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Danh sách CV đã gửi</h4>
+                        <p class="card-category">CV List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="applied-cv-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">CV ID
+                                    </th>
+                                    <th class="th-sm">Ngành
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Công ty đã gửi
+                                    </th>
+                                    <th class="th-sm">Tình trạng
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<% CVs.forEach(function(cv) {%>-->
+                                <!--<tr>-->
+                                <!--<td><%- cv.CVID %></td>-->
+                                <!--<td><%- cv.jobcategory %></td>-->
+                                <!--<td><%- cv.name %></td>-->
+                                <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
+                                <!--<td><%- cv.create_date.toLocaleString() %></td>-->
+                                <!--<% if (cv.status === 'public') {%>-->
+                                <!--<td style="color: lightgreen"><%- cv.status %></td>-->
+                                <!--<% } else if (cv.status === 'draft') { %>-->
+                                <!--<td style="color: lightcoral"><%- cv.status %></td>-->
+                                <!--<% } %>-->
+                                <!--<td class="td-actions text-left">-->
+                                <!--<a href="">-->
+                                <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
+                                <!--<i class="material-icons">person</i>-->
+                                <!--<span>-->
+                                <!--Xem-->
+                                <!--</span>-->
+                                <!--</button>-->
+                                <!--</a>-->
+                                <!--<a href="#edit-form-title">-->
+                                <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
+                                <!--<i class="material-icons">edit</i><span>-->
+                                <!--Chỉnh sửa-->
+                                <!--</span>-->
+                                <!--</button>-->
+                                <!--</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                <!--<% }) %>-->
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                        <a href="">
+                                            <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                    Xem
+                                    </span>
+                                            </button>
+                                        </a>
+                                        <a href="#edit-form-title">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title ">Danh sách CV nháp</h4>
+                        <p class="card-category">CV List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="draft-cv-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">CV ID
+                                    </th>
+                                    <th class="th-sm">Ngành
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<% CVs.forEach(function(cv) {%>-->
+                                <!--<tr>-->
+                                <!--<td><%- cv.CVID %></td>-->
+                                <!--<td><%- cv.jobcategory %></td>-->
+                                <!--<td><%- cv.name %></td>-->
+                                <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
+                                <!--<td><%- cv.create_date.toLocaleString() %></td>-->
+                                <!--<% if (cv.status === 'public') {%>-->
+                                <!--<td style="color: lightgreen"><%- cv.status %></td>-->
+                                <!--<% } else if (cv.status === 'draft') { %>-->
+                                <!--<td style="color: lightcoral"><%- cv.status %></td>-->
+                                <!--<% } %>-->
+                                <!--<td class="td-actions text-left">-->
+                                <!--<a href="">-->
+                                <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
+                                <!--<i class="material-icons">person</i>-->
+                                <!--<span>-->
+                                <!--Xem-->
+                                <!--</span>-->
+                                <!--</button>-->
+                                <!--</a>-->
+                                <!--<a href="#edit-form-title">-->
+                                <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
+                                <!--<i class="material-icons">edit</i><span>-->
+                                <!--Chỉnh sửa-->
+                                <!--</span>-->
+                                <!--</button>-->
+                                <!--</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                <!--<% }) %>-->
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                        <a href="">
+                                            <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                    Xem
+                                    </span>
+                                            </button>
+                                        </a>
+                                        <a href="#edit-form-title">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success" id="edit-form-header">
+                        <h4 class="card-title" id="edit-form-title">Thêm CV mới</h4>
+                        <p class="card-category"> New CV</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="name" class="bmd-label-floating">Tên</label>
+                                        <input name="name" id="name" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="jobcategory">Ngành</label>
+                                        <select name="jobcategory" class="form-control" id="jobcategory">
+                                            <% lcJobCategory.forEach(function(cate){ %>
+                                            <option value="<%- cate.JCID %>"> <%- cate.name %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="description" class="bmd-label-floating">Mô tả</label>
+                                        <input name="description" id="description" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group text-center">
+                                        <label for="image">Ảnh đại diện</label>
+                                        <input id="image" name="image" type="file" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="status">Tình trạng</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option value="0">draft</option>
+                                            <option value="1">public</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Nội dung</label>
+                                        <div class="form-group">
+                                            <textarea id="content" name="content" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-post" type="submit" class="btn btn-success pull-right ">Đăng</button>
+                            <button id="btn-update-close" type="submit"
+                                    class="btn btn-outline-light pull-right d-none disabled"><i
+                                    class="fa fa-times-circle"></i></button>
+                            <button id="btn-delete" type="submit"
+                                    class="btn btn-outline-danger pull-right d-none disabled">
+                                Xóa tin
+                            </button>
+                            <button id="btn-update" type="submit" class="btn btn-success pull-right d-none disabled">Cập
+                                nhật
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#content',
+        themes: "modern",
+        height: 250,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+    $(document).ready(function () {
+        $('#cv-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#cv-table_length').addClass("d-inline-block");
+        $('#cv-table_filter').addClass("float-right");
+        $('#cv-table_info').addClass("d-block w-100");
+        $('#cv-table_paginate').addClass("text-center");
+        $('#cv-table_paginate a').addClass("btn btn-primary");
+
+        $('.btn-edit').click(function () {
+            var JID = parseInt($(this).parent().parent().parent().children(":first").text());
+            setEditForm()
+            // getEditableJob(JID, function (jobs) {
+            //     setEditForm(jobs)
+            // });
+        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        })
+
+        $("#image").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-cv-image',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 10000,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="fa fa-folder-open"></i>',
+            removeIcon: '<i class="fa fa-trash"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/new_logo.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + '{upload}' + ' {remove} {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    });
+
+    function getEditableJob(JID, callback) {
+        var dataString = 'loadJob=1&JID=' + JID;
+
+        $.ajax({
+            type: "post",
+            url: "/job-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setEditForm(cvArray) {
+        // var cv = cvArray[0];
+        $('#edit-form-title').text("Sửa thông tin CV");
+        $('#edit-form-header').removeClass("card-header-success")
+        $('#edit-form-header').addClass("card-header-warning")
+        $("#btn-update").removeClass("d-none disabled");
+        $("#btn-delete").removeClass("d-none disabled");
+        $("#btn-update-close").removeClass("d-none disabled");
+        $("#btn-post").addClass("d-none disabled");
+
+
+        // $('#name').val(cv.name);
+        // $('#description').val(cv.description);
+        // $('#jobcategory').val(cv.jobcategory);
+        // $('#image').val(cv.image);
+        // $('#status').val(cv.status);
+        // var editor = tinymce.get('content');
+        // editor.setContent(cv.content);
+
+    }
+
+    function setAddForm() {
+        $('#edit-form-title').text("Thêm công việc mới");
+        $("#btn-post").removeClass("d-none disabled");
+        $("#btn-delete").addClass("d-none disabled");
+        $("#btn-update").addClass("d-none disabled");
+        $("#btn-update-close").addClass("d-none disabled");
+
+
+
+        // $('#name').val("");
+        // $('#jobcategory').val("");
+        // $('#description').val("");
+        // $('#status').val("");
+        // $('#image').val("/images/new_logo.png");
+        // var editor = tinymce.get('content');
+        // editor.setContent('');
+    }
+</script>

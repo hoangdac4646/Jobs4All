@@ -1,0 +1,132 @@
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <div class="col-md">
+            <h4 class="card-header">Welcome</h4>
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="/dashboard">
+                        <img class="img" src="<%- user.avatar %>"/>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title"><%- user.name %></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <% if (dashboard === "main") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <% if (dashboard === "my-account") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/my-account">
+                    <i class="material-icons">person</i>
+                    <p>My Account</p>
+                </a>
+            </li>
+            <% if (user.role === "employee") { %>
+            <% if (dashboard === "my-cv") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/employee/my-cv">
+                    <i class="material-icons">content_paste</i>
+                    <p>My CVs</p>
+                </a>
+            </li>
+            <% } %>
+            <% if (user.role === "employer") { %>
+            <% if (dashboard === "employer/my-company") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/employer/my-company">
+                    <i class="material-icons">home</i>
+                    <p>My company</p>
+                </a>
+            </li>
+            <% if (dashboard === "employer/job-manager") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/employer/job-manager">
+                    <i class="material-icons">work</i>
+                    <p>Job manager</p>
+                </a>
+            </li>
+            <% if (dashboard === "employer/applicant-manager") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/employer/applicant-manager">
+                    <i class="material-icons">content_paste</i>
+                    <p>Applicant manager</p>
+                </a>
+            </li>
+            <% } %>
+            <% if (user.role === "admin") { %>
+            <% if (dashboard === "account-manager") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/admin/account-manager">
+                    <i class="material-icons">content_paste</i>
+                    <p>Account manager</p>
+                </a>
+            </li>
+            <% if (dashboard === "company-manager") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/admin/company-manager">
+                    <i class="material-icons">library_books</i>
+                    <p>Company manager</p>
+                </a>
+            </li>
+            <% if (dashboard === "job-manager") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/admin/job-manager">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Job Manager</p>
+                </a>
+            </li>
+            <% } %>
+            <% if (dashboard === "send-email") { %>
+            <li class="nav-item active">
+                <% } else { %>
+            <li class="nav-item">
+                <%} %>
+                <a class="nav-link" href="/dashboard/send-email">
+                    <i class="material-icons">email</i>
+                    <p>Send Email</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

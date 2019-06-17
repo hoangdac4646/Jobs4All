@@ -57,22 +57,19 @@ router.get('/company', (req, res, next) => {
 
 router.get('/company/:cid', (req, res, next) => {
     var CID = req.params.cid;
-    if (res.locals.isAuthenticated) {
-        if (parseInt(CID) === res.locals.authUser.CID) return res.redirect('/my-company');
-    }
     page.run(req,res,next, 'company',{CID:CID});
 });
 
 router.get('/profile', (req, res, next) => {
-    if (res.locals.isAuthenticated) return res.redirect('/my-account');
+    if (res.locals.isAuthenticated) {
+        var UID = res.locals.authUser.UID;
+        return res.redirect('/profile/'+UID);
+    }
     return res.redirect('/');
 });
 
 router.get('/profile/:uid', (req, res, next) => {
     var UID = req.params.uid;
-    if (res.locals.isAuthenticated) {
-        if (parseInt(UID) === res.locals.authUser.UID) return res.redirect('/my-account');
-    }
     page.run(req,res,next, 'profile',{UID:UID});
 });
 

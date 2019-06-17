@@ -7,7 +7,6 @@ var jobCateModel = require('../models/jobcategory.model');
 var jobController = require('../controller/job.controller');
 var companyController = require('../controller/company.controller');
 var userController = require('../controller/user.controller');
-var ejs = require('ejs');
 var bcrypt = require('bcrypt');
 var passport = require('passport');
 
@@ -275,28 +274,31 @@ module.exports = {
         }
     },
     runEmployee: function (req, res, next, page, params) {
-        if (page === 'my-account') {
+        if (page === 'dashboard') {
             var user = res.locals.authUser;
-            if (user.role === "employer") {
-                userModel.singleEmployerByUserName(user.username).then(function (thisUser) {
-                    return res.render('profile', {user: thisUser[0]});
+            userModel.singleByUserName(user.username).then(function (thisUser) {
+                cvModel.listInRange(thisUser[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
+                    return res.render('dashboard/main', {
+                        layout: "layouts/dashboard",
+                        dashboard: "main",
+                        user: thisUser[0],
+                    });
                 })
-            }
-            else {
-                userModel.singleByUserName(user.username).then(function (thisUser) {
-                    cvModel.listInRange(thisUser[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
-                        return res.render('profile', {user: thisUser[0], CVs: CVs});
-                    })
-                });
-            }
+            });
+        } else if (page === 'my-account') {
+            var user = res.locals.authUser;
+            userModel.singleByUserName(user.username).then(function (thisUser) {
+                cvModel.listInRange(thisUser[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
+                    return res.render('dashboard/my-account', {
+                        layout: "layouts/dashboard",
+                        dashboard: "my-account",
+                        user: thisUser[0]
+                    });
+                })
+            });
         } else if (page === 'my-account/edit') {
             var user = res.locals.authUser;
-            if (req.method === "GET") {
-                userModel.singleByUserName(user.username).then(function (thisUser) {
-                    return res.render('employee/edit-profile', {user: thisUser[0]});
-                });
-            }
-            else if (req.method === "POST") {
+            if (req.method === "POST") {
                 var edit = req.body.edit_profile;
                 var reset = req.body.reset_password;
                 var entity;
@@ -332,10 +334,23 @@ module.exports = {
 
                 }
                 userModel.update(entity).then(function () {
-                    return res.redirect('/my-account');
+                    return res.redirect('/dashboard/my-account');
                 })
 
             }
+        }
+        else if (page === 'my-cv') {
+            var user = res.locals.authUser;
+            userModel.singleByUserName(user.username).then(function (thisUser) {
+                cvModel.listInRange(thisUser[0].UID, null, null, "public", null, null, null, null).then(function (CVs) {
+                    return res.render('dashboard/my-cv', {
+                        layout: "layouts/dashboard",
+                        dashboard: "my-cv",
+                        user: thisUser[0],
+                        CVs: [],
+                    });
+                })
+            });
         }
     },
     runEmployer: function (req, res, next, page, params) {
@@ -347,9 +362,12 @@ module.exports = {
                     jobController.getDetailsTagListByCompany(company[0].CID, function (jobDetailsList, availableList, expiredList) {
                         userModel.singleEmployerByCID(company[0].CID).then(function (manager) {
                             jobCateModel.listByCIDWithJobsCount(company[0].CID).then(function (jobCates) {
-                                return res.render('company', {
+                                return res.render('dashboard/my-company', {
+                                    layout: "layouts/dashboard",
+                                    dashboard: "employer/my-company",
                                     jobcates: jobCates,
                                     company: company[0],
+                                    user: user,
                                     availableList: availableList,
                                     expiredList: expiredList,
                                     manager: manager[0]
@@ -432,7 +450,10 @@ module.exports = {
                                         };
                                         applicants.push(tmp_applicant);
                                         if (applicants.length === jobTrans.length)
-                                            return res.render("employer/job-manager", {
+                                            return res.render("dashboard/job-manager", {
+                                                layout: "layouts/dashboard",
+                                                dashboard: "employer/job-manager",
+                                                user: user,
                                                 jobs: jobs,
                                                 applicants: applicants
                                             });
@@ -441,7 +462,12 @@ module.exports = {
                             })
                         })
                     }
-                    else return res.render("employer/job-manager", {jobs: jobs, applicants: applicants});
+                    else return  res.render("dashboard/job-manager", {
+                        layout: "layouts/dashboard",
+                        dashboard: "employer/job-manager",
+                        jobs: jobs,
+                        applicants: applicants
+                    });
                 })
             })
         } else if (page === 'job-manager/edit') {
@@ -459,7 +485,7 @@ module.exports = {
                         return res.send(jobs);
                     })
                 }
-                else if (addJob === 'ADD') {
+                else if (addJob !== "") {
                     var name = req.body.name;
                     var JCID = req.body.jobcategory;
                     var amount = req.body.amount;
@@ -483,10 +509,10 @@ module.exports = {
                         deadline: deadline,
                     }
                     jobModel.add(entity).then(function () {
-                        return res.redirect('/job-manager');
+                        return res.redirect('/dashboard/employer/job-manager');
                     })
                 }
-                else if (updateJob === 'UPDATE') {
+                else if (updateJob === "") {
                     var JID = req.body.JID;
                     var name = req.body.name;
                     var JCID = req.body.jobcategory;
@@ -511,14 +537,14 @@ module.exports = {
                         deadline: deadline,
                     }
                     jobModel.update(entity).then(function () {
-                        return res.redirect('/job-manager');
+                        return res.redirect('/dashboard/employer/job-manager');
                     })
                 }
-                else if (deleteJob === 'DELETE') {
+                else if (deleteJob === "") {
                     var JID = req.body.JID;
 
                     jobModel.delete(JID).then(function () {
-                        return res.redirect('/job-manager');
+                        return res.redirect('/dashboard/employer/job-manager');
                     })
                 }
             }
@@ -532,7 +558,6 @@ module.exports = {
                     status: status
                 }
 
-                console.log(entity)
                 jobTransModel.update(entity).then(function () {
                     return res.end();
                 })

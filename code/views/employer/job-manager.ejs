@@ -132,7 +132,6 @@
                                                     </td>
                                                 </tr>
                                                 </tbody>
-                                                </tbody>
                                             </table>
                                         </div>
                                         <div class="col-lg post-list blog-post-list">
@@ -203,7 +202,7 @@
     tinymce.init({
         selector: '#requirement',
         themes: "modern",
-        height: 250,
+        height: 500,
         menubar: false,
         plugins: 'paste image link autolink lists table media wordcount fullscreen',
         toolbar: [
@@ -290,7 +289,6 @@
         editor.setContent(job.requirement);
         editor = tinymce.get('description');
         editor.setContent(job.description);
-
     }
 
     function setAddForm() {

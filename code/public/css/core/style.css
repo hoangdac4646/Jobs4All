@@ -3684,12 +3684,6 @@ form .template-btn {
     color: #ff9902
 }
 
-#logo {
-    height: auto;
-    max-width: 100%;
-    margin-top: -50px;
-}
-
 @media (max-width: 990px) {
     #logo {
         height: auto;
@@ -3720,40 +3714,4 @@ form .template-btn {
 
 .sidenav a:hover {
     color: #f1f1f1;
-}
-
-.avatar {
-    max-height: 150px;
-    width: auto;
-    max-width: 150px;
-}
-
-.company-review-logo {
-    text-align: center;
-    margin: 10px;
-}
-
-.company-review-logo img {
-    max-height: 400px;
-    max-width: 100%;
-}
-
-.company-description img {
-    max-width: 100%;
-    max-height: 400px;
-}
-
-.applicant-table-img {
-    max-width: 80px;
-    max-height: 80px;
-}
-
-.thumb-img {
-    max-width: 100px;
-    max-height: 100px;
-}
-
-.job-icon {
-    max-width: 40px;
-    max-height: 40px;
 }

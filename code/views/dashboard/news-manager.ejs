@@ -1,0 +1,246 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Danh sách tin tức</h4>
+                        <p class="card-category"> News table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="news-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">News ID
+                                    </th>
+                                    <th class="th-sm">Tiêu đề
+                                    </th>
+                                    <th class="th-sm">Danh mục
+                                    </th>
+                                    <th class="th-sm">Tag
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Tác giả
+                                    </th>
+                                    <th class="th-sm">Ngày đăng
+                                    </th>
+                                    <th class="th-sm">Tình trạng
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-info">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                                Xem
+                                            </span>
+                                            </button>
+                                        </a>
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class="material-icons">edit</i><span>
+                                                Duyệt
+                                            </span>
+                                            </button>
+                                        </a>
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-danger">
+                                                <i class="material-icons">close</i>
+                                                <span>
+                                                Từ chối
+                                            </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title ">Danh sách tin chờ duyêt</h4>
+                        <p class="card-category"> News table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="pending-news-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">News ID
+                                    </th>
+                                    <th class="th-sm">Tiêu đề
+                                    </th>
+                                    <th class="th-sm">Tác giả
+                                    </th>
+                                    <th class="th-sm">Ngày đăng
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-info">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                                Xem
+                                            </span>
+                                            </button>
+                                        </a>
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class="material-icons">edit</i><span>
+                                                Duyệt
+                                            </span>
+                                            </button>
+                                        </a>
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-danger">
+                                                <i class="material-icons">close</i>
+                                                <span>
+                                                Từ chối
+                                            </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title ">Danh sách tin đã duyệt</h4>
+                        <p class="card-category"> News table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="public-news-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">News ID
+                                    </th>
+                                    <th class="th-sm">Tiêu đề
+                                    </th>
+                                    <th class="th-sm">Tác giả
+                                    </th>
+                                    <th class="th-sm">Ngày đăng
+                                    </th>
+                                    <th class="th-sm">Lượt xem
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td>123</td>
+                                    <td class="td-actions text-left">
+                                        <a>
+                                            <button type="button" rel="tooltip" class="btn btn-info">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                                Xem
+                                            </span>
+                                            </button>
+                                            <a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#news-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#news-table_length').addClass("d-inline-block");
+        $('#news-table_filter').addClass("float-right");
+        $('#news-table_info').addClass("d-block w-100");
+        $('#news-table_paginate').addClass("text-center");
+        $('#news-table_paginate a').addClass("btn btn-primary");
+
+        $('#pending-news-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#pending-news-table_length').addClass("d-inline-block");
+        $('#pending-news-table_filter').addClass("float-right");
+        $('#pending-news-table_info').addClass("d-block w-100");
+        $('#pending-news-table_paginate').addClass("text-center");
+        $('#pending-news-table_paginate a').addClass("btn btn-warning");
+
+        $('#public-news-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#public-news-table_length').addClass("d-inline-block");
+        $('#public-news-table_filter').addClass("float-right");
+        $('#public-news-table_info').addClass("d-block w-100");
+        $('#public-news-table_paginate').addClass("text-center");
+        $('#public-news-table_paginate a').addClass("btn btn-success");
+
+
+    });
+</script>
