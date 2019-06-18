@@ -5,7 +5,7 @@
     <title>Responsive Resume Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="stylesheet" href="/css/cv.css">
+    <link rel="stylesheet" href="/css/core/cv.css">
 
 </head>
 <body>
@@ -14,105 +14,37 @@
         <div class="container">
             <div class="picture-resume-wrapper">
                 <div class="picture-resume">
-                    <span><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt=""/></span>
+                    <span><img src="<%-cv.image %>" alt=""/></span>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="name-wrapper">
-                <h1>John <br/>Anderson</h1><!-- YOUR NAME AND LAST NAME  -->
+                <h1><%-user.name%></h1>
             </div>
             <div class="clearfix"></div>
             <div class="contact-info clearfix">
                 <ul class="list-titles">
-                    <li>Call</li>
+                    <li>Phone</li>
                     <li>Mail</li>
-                    <li>Web</li>
-                    <li>Home</li>
+                    <li>Profile</li>
+                    <li>Address</li>
                 </ul>
                 <ul class="list-content ">
-                    <li>+34 123 456 789</li> <!-- YOUR PHONE NUMBER  -->
-                    <li>j.anderson@gmail.com</li> <!-- YOUR EMAIL -->
-                    <li><a href="#">janderson.com</a></li> <!-- YOUR WEBSITE  -->
-                    <li>Los Angeles, CA</li> <!-- YOUR STATE AND COUNTRY  -->
+                    <li><%-user.name%></li> <!-- YOUR PHONE NUMBER  -->
+                    <li><%-user.email%></li> <!-- YOUR EMAIL -->
+                    <li><a href="/profile/<%-user.UID%>">Get to my profile</a></li> <!-- YOUR WEBSITE  -->
+                    <li><%-user.address%></li> <!-- YOUR STATE AND COUNTRY  -->
                 </ul>
             </div>
             <div class="contact-presentation"> <!-- YOUR PRESENTATION RESUME  -->
-                <p><span class="bold">Lorem</span> ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod
-                    congue nisi, nec consequat quam. In consectetur faucibus turpis eget laoreet. Sed nec imperdiet
-                    purus. </p>
+                <p><span class="bold"><%- cv.name %></span><br><%- cv.description %></p>
             </div>
         </div>
     </section>
 
     <section class="experience section-padding">
         <div class="container">
-            <h3 class="experience-title">Experience</h3>
-
-            <div class="experience-wrapper">
-                <div class="company-wrapper clearfix">
-                    <div class="experience-title">Company name</div> <!-- NAME OF THE COMPANY YOUWORK WITH  -->
-                    <div class="time">Nov 2012 - Present</div> <!-- THE TIME YOU WORK WITH THE COMPANY  -->
-                </div>
-
-                <div class="job-wrapper clearfix">
-                    <div class="experience-title">Front End Developer</div> <!-- JOB TITLE  -->
-                    <div class="company-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing
-                            leo in, dignissim magna.</p>  <!-- JOB DESCRIPTION  -->
-                    </div>
-                </div>
-
-                <div class="company-wrapper clearfix">
-                    <div class="experience-title">Company name</div> <!-- NAME OF THE COMPANY YOUWORK WITH  -->
-                    <div class="time">Nov 2010 - Present</div> <!-- THE TIME YOU WORK WITH THE COMPANY  -->
-                </div>
-
-                <div class="job-wrapper clearfix">
-                    <div class="experience-title">Freelance, Web Designer / Web Developer</div> <!-- JOB TITLE  -->
-                    <div class="company-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing
-                            leo in, dignissim magna.</p>  <!-- JOB DESCRIPTION  -->
-                    </div>
-                </div>
-
-                <div class="company-wrapper clearfix">
-                    <div class="experience-title">Company name</div> <!-- NAME OF THE COMPANY YOUWORK WITH  -->
-                    <div class="time">Nov 2009 - Nov 2010</div> <!-- THE TIME YOU WORK WITH THE COMPANY  -->
-                </div>
-
-                <div class="job-wrapper clearfix">
-                    <div class="experience-title">Web Designer</div> <!-- JOB TITLE  -->
-                    <div class="company-description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing
-                            leo in, dignissim magna.</p>   <!-- JOB DESCRIPTION  -->
-                    </div>
-                </div>
-
-            </div><!--Skill experience-->
-
-            <div class="section-wrapper clearfix">
-                <h3 class="section-title">Skills</h3>  <!-- YOUR SET OF SKILLS  -->
-                <ul>
-                    <li class="skill-percentage">HTML / HTML5</li>
-                    <li class="skill-percentage">CSS / CSS3 / SASS / LESS</li>
-                    <li class="skill-percentage">Javascript</li>
-                    <li class="skill-percentage">Jquery</li>
-                    <li class="skill-percentage">Wordpress</li>
-                    <li class="skill-percentage">Photoshop</li>
-
-                </ul>
-
-            </div>
-
-            <div class="section-wrapper clearfix">
-                <h3 class="section-title">Hobbies</h3>  <!-- DESCRIPTION OF YOUR HOBBIES -->
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing leo in,
-                    dignissim magna.</p>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a elit facilisis, adipiscing leo in,
-                    dignissim magna.</p>
-            </div>
-
+            <%- cv.content %>
         </div>
     </section>
 

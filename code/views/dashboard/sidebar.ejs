@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+<div class="sidebar" data-color="orange" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
     <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -54,7 +54,7 @@
             </li>
             <% } %>
             <% if (user.role === "employer") { %>
-            <% if (dashboard === "employer/my-company") { %>
+                <% if (dashboard === "employer/my-company") { %>
             <li class="nav-item active">
                 <% } else { %>
             <li class="nav-item">
@@ -86,7 +86,7 @@
             </li>
             <% } %>
             <% if (user.role === "admin") { %>
-            <% if (dashboard === "account-manager") { %>
+            <% if (dashboard === "admin/account-manager") { %>
             <li class="nav-item active">
                 <% } else { %>
             <li class="nav-item">
@@ -96,7 +96,7 @@
                     <p>Account manager</p>
                 </a>
             </li>
-            <% if (dashboard === "company-manager") { %>
+            <% if (dashboard === "admin/company-manager") { %>
             <li class="nav-item active">
                 <% } else { %>
             <li class="nav-item">
@@ -106,7 +106,7 @@
                     <p>Company manager</p>
                 </a>
             </li>
-            <% if (dashboard === "job-manager") { %>
+            <% if (dashboard === "admin/job-manager") { %>
             <li class="nav-item active">
                 <% } else { %>
             <li class="nav-item">

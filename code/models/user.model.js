@@ -17,6 +17,10 @@ module.exports = {
         return db.load(`select * from user order by created_date desc`);
     },
 
+    allEmployerWithCompany: () => {
+        return db.load(`select u.*,c.name as company from user u inner join company c on u.CID = c.CID where u.role = "employer" order by created_date desc`);
+    },
+
     singleByID: UID => {
         return db.load(`select * from user where UID = ${UID}`);
     },

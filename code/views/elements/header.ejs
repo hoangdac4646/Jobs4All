@@ -16,28 +16,15 @@
                 <div class="main-menu">
                     <ul>
                         <li class="active"><a href="/">home</a></li>
-                        <% if (typeof(authUser) !== 'undefined') {%>
-                        <% if (!authUser.role) {%>
-                        <% } else if (authUser.role === "employee") {%>
-                        <li><a href="/my-cv">My CVs</a></li>
-                        <% } else if (authUser.role === "admin") { %>
-                        <li><a href="/my-cv">Admin section</a></li>
-                        <% } else if (authUser.role === "employer") { %>
-                        <li><a href="/my-company">Manager</a>
-                            <ul class="sub-menu">
-                                <li><a href="/my-company">My company <i class="fas fa-search"></i></a>
-                                <li><a href="/job-manager">Job Manager <i class="fas fa-arrow-circle-down"></i></a></li>
-                            </ul></li>
-                        <% } %>
-                        <% } %>
+                        <li class=""><a href="/dashboard">Dashboard</a></li>
                         <li><a href="/job-category">jobs</a>
                             <ul class="sub-menu">
                                 <li><a href="/job-search">job search <i class="fas fa-search"></i></a>
                                 <li><a href="/job-category">job category <i class="fas fa-arrow-circle-down"></i></a>
                                     <ul class="sub-menu2">
-                                        <% lcJobCategory.forEach(function(cate){ %>
-                                        <li><a href="/job-category/<%= cate.name %>"> <%= cate.name %></a></li>
-                                        <% }); %>
+                                        <% for(var i = 0;i < lcJobCategory.length;i++ ){ %>
+                                        <li><a href="/job-category/<%= lcJobCategory[i].name %>"> <%= lcJobCategory[i].name %></a></li>
+                                        <% }; %>
                                         <li><a href="/job-category">more ...</a></li>
                                     </ul>
                                 </li>
@@ -51,15 +38,12 @@
                                 <li><a href="/login" class="login">log in</a></li>
                                 <li><a href="/register" class="template-btn">Register</a></li>
                                 <% } else { %>
-                                <li><a href="/dashboard" class="login">Hi, <b><%= authUser.name %> <i class="fas fa-user"></i></b></a>
+                                <li><a href="/dashboard" class="login">Hi, <b><%= authUser.name %> <i
+                                        class="fas fa-user"></i></b></a>
                                     <ul class="sub-menu2">
-                                        <li><a href="/dashboard/my-account">My profile</i></a></li>
-                                        <% if (authUser.role === "employee") {%>
-                                        <li><a href="/dashboard/employee/my-cv">My CVs</a></li>
-                                        <% } else if (authUser.role === "admin") { %>
-                                        <li><a href="/my-cv">Admin section</a></li>
-                                        <% } else if (authUser.role === "employer") { %>
-                                        <li><a href="/my-cv">Employer section</a></li>
+                                        <li><a href="/profile/<%- authUser.UID %>">My profile</i></a></li>
+                                        <% if (authUser.role === "employer") {%>
+                                        <li><a href="/company/<%- authUser.CID %>">My company</i></a></li>
                                         <% } %>
                                     </ul>
                                 </li>

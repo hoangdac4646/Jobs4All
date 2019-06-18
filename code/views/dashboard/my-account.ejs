@@ -27,38 +27,46 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Username</label>
-                                        <input type="text" name="username" class="form-control"
-                                               value="<%-user.username%>" disabled>
+                                        <input type="text" id="username" name="username" class="form-control"
+                                               value="<%-user.username%>" disabled readonly>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Địa chỉ Email</label>
-                                        <input type="email" name="email" class="form-control" value="<%-user.email%>">
+                                        <input type="email" id="email" name="email" class="form-control" value="<%-user.email%>">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Họ tên</label>
-                                        <input type="text" name="name" class="form-control" value="<%-user.name%>">
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               value="<%-user.name%>">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Địa chỉ</label>
-                                        <input type="text" name="address" class="form-control"
+                                        <input type="text" id="address" name="address" class="form-control"
                                                value="<%-user.address%>">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Số điện thoại</label>
-                                        <input type="text" name="Phone" class="form-control" value="<%-user.phone%>">
+                                        <input type="text" id="phone" name="phone" class="form-control"
+                                               value="<%-user.phone%>">
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Ngày sinh</label>
+                                        <input type="date" name="DOB" id="DOB" placeholder="Date of birth" class="form-control"
+                                               value="<%- user.DOB.toISOString().substring(0, 10) %>"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -66,10 +74,8 @@
                                     <div class="form-group">
                                         <label>Giới thiệu</label>
                                         <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so
-                                                thirsty, I'm
-                                                in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <label class="bmd-label-floating"></label>
+                                            <textarea id="description" name="description" class="form-control" rows="5"><%- user.description %></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -93,9 +99,7 @@
                         <h6 class="card-category text-gray"><%- user.role %></h6>
                         <h4 class="card-title"><%- user.name %></h4>
                         <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I
-                            love you
-                            like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                            <%- user.description %>
                         </p>
                     </div>
                 </div>
@@ -136,7 +140,8 @@
                                 </div>
                             </div>
                             <button id="btn-update-password" name="reset_password" type="submit"
-                                    class="btn btn-success pull-right" value="Update">Đổi mật khẩu</button>
+                                    class="btn btn-success pull-right" value="Update">Đổi mật khẩu
+                            </button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -226,7 +231,7 @@
                 phone: {
                     number: true
                 },
-                dob: {
+                DOB: {
                     required: true
                 },
             },

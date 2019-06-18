@@ -21,9 +21,15 @@ module.exports = {
         return db.load(`select * from cv where CVID = ${CVID}`);
     },
 
-    listInRange: (UID,JCID,name,status,join_user,join_jobcategory,pos,limit)=> {
+    listInRange: (CVID,UID,JCID,name,status,join_user,join_jobcategory,pos,limit)=> {
         var option = ``;
         var join = ``;
+
+        if (CVID !== null) {
+            if (option !== ``) option += ` and `;
+            option += `cv.CVID = ${CVID}`;
+
+        }
 
         if (UID !== null) {
             if (option !== ``) option += ` and `;
@@ -49,7 +55,7 @@ module.exports = {
         }
 
         if (join_jobcategory === `join`) {
-            join += ` inner join jobcategory jc on cv.JCID = cv.JCID`;
+            join += ` inner join jobcategory jc on cv.JCID = jc.JCID`;
             select += `, jc.name as jobcategory`;
         }
 

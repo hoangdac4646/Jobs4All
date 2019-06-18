@@ -33,8 +33,6 @@
                                     </th>
                                     <th class="th-sm">Tên
                                     </th>
-                                    <th class="th-sm">Ảnh đại diện
-                                    </th>
                                     <th class="th-sm">Ngày đăng
                                     </th>
                                     <th class="th-sm">Tình trạng
@@ -44,62 +42,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--<% CVs.forEach(function(cv) {%>-->
-                                <!--<tr>-->
-                                    <!--<td><%- cv.CVID %></td>-->
-                                    <!--<td><%- cv.jobcategory %></td>-->
-                                    <!--<td><%- cv.name %></td>-->
-                                    <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
-                                    <!--<td><%- cv.create_date.toLocaleString() %></td>-->
-                                    <!--<% if (cv.status === 'public') {%>-->
-                                    <!--<td style="color: lightgreen"><%- cv.status %></td>-->
-                                    <!--<% } else if (cv.status === 'draft') { %>-->
-                                    <!--<td style="color: lightcoral"><%- cv.status %></td>-->
-                                    <!--<% } %>-->
-                                    <!--<td class="td-actions text-left">-->
-                                        <!--<a href="">-->
-                                            <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
-                                                <!--<i class="material-icons">person</i>-->
-                                                <!--<span>-->
-                                                <!--Xem-->
-                                            <!--</span>-->
-                                            <!--</button>-->
-                                        <!--</a>-->
-                                        <!--<a href="#edit-form-title">-->
-                                            <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
-                                                <!--<i class="material-icons">edit</i><span>-->
-                                                <!--Chỉnh sửa-->
-                                            <!--</span>-->
-                                            <!--</button>-->
-                                        <!--</a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                                <!--<% }) %>-->
+                                <% allCVs.forEach(function(cv) {%>
                                 <tr>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
+                                    <td><%- cv.CVID %></td>
+                                    <td><%- cv.jobcategory %></td>
+                                    <td><%- cv.name %></td>
+                                    <td><%- cv.created_date.toLocaleString() %></td>
+                                    <% if (cv.status === 'public') {%>
+                                    <td><span style="background: lightgreen"><%- cv.status %></span></td>
+                                    <% } else if (cv.status === 'draft') { %>
+                                    <td><span style="background: red"><%- cv.status %></span></td>
+                                    <% } %>
                                     <td class="td-actions text-left">
-                                    <a href="">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-view">
-                                    <i class="material-icons">person</i>
-                                    <span>
-                                    Xem
-                                    </span>
-                                    </button>
-                                    </a>
-                                    <a href="#edit-form-title">
-                                    <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
-                                    <i class="material-icons">edit</i><span>
-                                    Chỉnh sửa
-                                    </span>
-                                    </button>
-                                    </a>
+                                        <a href="/profile/<%- cv.UID %>/cv/<%- cv.CVID %>">
+                                            <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                                <i class="material-icons">person</i>
+                                                <span>
+                                Xem
+                                </span>
+                                            </button>
+                                        </a>
+                                        <a href="#edit-form-title">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                Chỉnh sửa
+                                </span>
+                                            </button>
+                                        </a>
                                     </td>
                                 </tr>
+                                <% }) %>
                                 </tbody>
                             </table>
                         </div>
@@ -122,11 +94,11 @@
                                 <tr>
                                     <th class="th-sm">CV ID
                                     </th>
-                                    <th class="th-sm">Ngành
-                                    </th>
                                     <th class="th-sm">Tên
                                     </th>
-                                    <th class="th-sm">Công ty đã gửi
+                                    <th class="th-sm">Công ty ứng tuyển
+                                    </th>
+                                    <th class="th-sm">Công việc ứng tuyển
                                     </th>
                                     <th class="th-sm">Tình trạng
                                     </th>
@@ -135,61 +107,38 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--<% CVs.forEach(function(cv) {%>-->
-                                <!--<tr>-->
-                                <!--<td><%- cv.CVID %></td>-->
-                                <!--<td><%- cv.jobcategory %></td>-->
-                                <!--<td><%- cv.name %></td>-->
-                                <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
-                                <!--<td><%- cv.create_date.toLocaleString() %></td>-->
-                                <!--<% if (cv.status === 'public') {%>-->
-                                <!--<td style="color: lightgreen"><%- cv.status %></td>-->
-                                <!--<% } else if (cv.status === 'draft') { %>-->
-                                <!--<td style="color: lightcoral"><%- cv.status %></td>-->
-                                <!--<% } %>-->
-                                <!--<td class="td-actions text-left">-->
-                                <!--<a href="">-->
-                                <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
-                                <!--<i class="material-icons">person</i>-->
-                                <!--<span>-->
-                                <!--Xem-->
-                                <!--</span>-->
-                                <!--</button>-->
-                                <!--</a>-->
-                                <!--<a href="#edit-form-title">-->
-                                <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
-                                <!--<i class="material-icons">edit</i><span>-->
-                                <!--Chỉnh sửa-->
-                                <!--</span>-->
-                                <!--</button>-->
-                                <!--</a>-->
-                                <!--</td>-->
-                                <!--</tr>-->
-                                <!--<% }) %>-->
+                                <% cvWithJT.forEach(function(cv) {%>
                                 <tr>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
+                                    <td><%- cv.CVID %></td>
+                                    <td><%- cv.name %></td>
+                                    <td><a href="/company/<%- cv.CID %>"><%- cv.company %></a></td>
+                                    <td><a href="/company/<%- cv.JID %>"><%- cv.job %></a></td>
+                                    <% if (cv.status === 'pending') {%>
+                                    <td><span style="background: yellow"><%- cv.status %></span></td>
+                                    <% } else if (cv.status === 'success') { %>
+                                    <td><span style="background: lightgreen"><%- cv.status %></span></td>
+                                    <% } else { %>
+                                    <td><span style="background: red"><%- cv.status %></span></td>
+                                    <% } %>
                                     <td class="td-actions text-left">
-                                        <a href="">
+                                        <a href="/profile/<%- cv.UID %>/cv/<%- cv.CVID %>">
                                             <button type="button" rel="tooltip" class="btn btn-info btn-view">
                                                 <i class="material-icons">person</i>
                                                 <span>
-                                    Xem
-                                    </span>
+                                Xem
+                                </span>
                                             </button>
                                         </a>
                                         <a href="#edit-form-title">
                                             <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
                                                 <i class="material-icons">edit</i><span>
-                                    Chỉnh sửa
-                                    </span>
+                                Chỉnh sửa
+                                </span>
                                             </button>
                                         </a>
                                     </td>
                                 </tr>
+                                <% }) %>
                                 </tbody>
                             </table>
                         </div>
@@ -214,64 +163,39 @@
                                     </th>
                                     <th class="th-sm">Tên
                                     </th>
+                                    <th class="th-sm">Ngày đăng
+                                    </th>
                                     <th class="th-sm">Hành động
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--<% CVs.forEach(function(cv) {%>-->
-                                <!--<tr>-->
-                                <!--<td><%- cv.CVID %></td>-->
-                                <!--<td><%- cv.jobcategory %></td>-->
-                                <!--<td><%- cv.name %></td>-->
-                                <!--<td class="job-icon"><img src="<%- cv.image %>"></td>-->
-                                <!--<td><%- cv.create_date.toLocaleString() %></td>-->
-                                <!--<% if (cv.status === 'public') {%>-->
-                                <!--<td style="color: lightgreen"><%- cv.status %></td>-->
-                                <!--<% } else if (cv.status === 'draft') { %>-->
-                                <!--<td style="color: lightcoral"><%- cv.status %></td>-->
-                                <!--<% } %>-->
-                                <!--<td class="td-actions text-left">-->
-                                <!--<a href="">-->
-                                <!--<button type="button" rel="tooltip" class="btn btn-info btn-view">-->
-                                <!--<i class="material-icons">person</i>-->
-                                <!--<span>-->
-                                <!--Xem-->
-                                <!--</span>-->
-                                <!--</button>-->
-                                <!--</a>-->
-                                <!--<a href="#edit-form-title">-->
-                                <!--<button type="button" rel="tooltip" class="btn btn-warning btn-edit">-->
-                                <!--<i class="material-icons">edit</i><span>-->
-                                <!--Chỉnh sửa-->
-                                <!--</span>-->
-                                <!--</button>-->
-                                <!--</a>-->
-                                <!--</td>-->
-                                <!--</tr>-->
-                                <!--<% }) %>-->
+                                <% allCVs.forEach(function(cv) {%>
+                                <% if (cv.status === 'draft') { %>
                                 <tr>
-                                    <td>123</td>
-                                    <td>123</td>
-                                    <td>123</td>
+                                    <td><%- cv.CVID %></td>
+                                    <td><%- cv.jobcategory %></td>
+                                    <td><%- cv.name %></td>
+                                    <td><%- cv.created_date.toLocaleString() %></td>
                                     <td class="td-actions text-left">
-                                        <a href="">
+                                        <a href="/profile/<%- cv.UID %>/cv/<%- cv.CVID %>">
                                             <button type="button" rel="tooltip" class="btn btn-info btn-view">
                                                 <i class="material-icons">person</i>
                                                 <span>
-                                    Xem
-                                    </span>
+                                Xem
+                                </span>
                                             </button>
                                         </a>
                                         <a href="#edit-form-title">
                                             <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
                                                 <i class="material-icons">edit</i><span>
-                                    Chỉnh sửa
-                                    </span>
+                                Chỉnh sửa
+                                </span>
                                             </button>
                                         </a>
                                     </td>
                                 </tr>
+                                <% }}) %>
                                 </tbody>
                             </table>
                         </div>
@@ -287,12 +211,18 @@
                         <p class="card-category"> New CV</p>
                     </div>
                     <div class="card-body">
-                        <form method="post">
+                        <form method="post" action="/dashboard/employee/my-cv/edit">
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="CVID" class="bmd-label-floating">CVID</label>
+                                        <input name="CVID" id="CVID" type="text" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="name" class="bmd-label-floating">Tên</label>
-                                        <input name="name" id="name" type="text" class="form-control">
+                                        <input name="name" id="name" type="text" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -300,7 +230,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="jobcategory">Ngành</label>
-                                        <select name="jobcategory" class="form-control" id="jobcategory">
+                                        <select name="jobcategory" class="form-control" id="jobcategory" required>
                                             <% lcJobCategory.forEach(function(cate){ %>
                                             <option value="<%- cate.JCID %>"> <%- cate.name %></option>
                                             <% }); %>
@@ -318,20 +248,27 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <div class="form-group text-center">
-                                        <label for="image">Ảnh đại diện</label>
-                                        <input id="image" name="image" type="file" required>
+                                    <div class="form-group">
+                                        <label for="status">Tình trạng</label>
+                                        <select name="status" class="form-control" id="status">
+                                            <option value="draft">draft</option>
+                                            <option value="public">public</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="status">Tình trạng</label>
-                                        <select name="status" class="form-control" id="status">
-                                            <option value="0">draft</option>
-                                            <option value="1">public</option>
-                                        </select>
+                                        <label for="cv-image">Hình đại diên</label>
+                                        <img class="avatar d-block" id="cv-image" src='/images/new_logo.png'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">Upload hình mới</label>
+                                        <input class="avatar" id="image" name="image" type="file">
+                                        <div id="avatar-errors-1"></div>
                                     </div>
                                 </div>
                             </div>
@@ -345,15 +282,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <button id="btn-post" type="submit" class="btn btn-success pull-right ">Đăng</button>
+                            <button id="btn-post" name="add_cv" type="submit" class="btn btn-success pull-right ">Đăng
+                            </button>
                             <button id="btn-update-close" type="submit"
                                     class="btn btn-outline-light pull-right d-none disabled"><i
                                     class="fa fa-times-circle"></i></button>
-                            <button id="btn-delete" type="submit"
+                            <button id="btn-delete" name="delete_cv" type="submit"
                                     class="btn btn-outline-danger pull-right d-none disabled">
                                 Xóa tin
                             </button>
-                            <button id="btn-update" type="submit" class="btn btn-success pull-right d-none disabled">Cập
+                            <button id="btn-update" name="update_cv" type="submit"
+                                    class="btn btn-success pull-right d-none disabled">Cập
                                 nhật
                             </button>
                             <div class="clearfix"></div>
@@ -382,7 +321,29 @@
             'fullscreen'
         ],
     });
+
     $(document).ready(function () {
+        $("#image").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-cv-image',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 10000,
+            showClose: false,
+            showCaption: false,
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/new_logo.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $.prototype.fileinput.Constructor.prototype["setUploadUrl"] = function(url) {
+            this.uploadUrl = url;
+        }
+
         $('#cv-table').DataTable({
             responsive: true,
             "order": [[3, "desc"]]
@@ -395,44 +356,23 @@
         $('#cv-table_paginate a').addClass("btn btn-primary");
 
         $('.btn-edit').click(function () {
-            var JID = parseInt($(this).parent().parent().parent().children(":first").text());
-            setEditForm()
-            // getEditableJob(JID, function (jobs) {
-            //     setEditForm(jobs)
-            // });
+            var CVID = parseInt($(this).parent().parent().parent().parent().children(":first").text());
+            getEditableCV(CVID, function (cvArray) {
+                setEditForm(cvArray)
+            });
         });
         $("#btn-update-close").click(function () {
             setAddForm();
         })
 
-        $("#image").fileinput({
-            theme: 'fa',
-            dropZoneEnabled: false,
-            uploadUrl: '/upload-cv-image',
-            uploadAsync: false,
-            overwriteInitial: true,
-            maxFileSize: 10000,
-            showClose: false,
-            showCaption: false,
-            browseLabel: '',
-            removeLabel: '',
-            browseIcon: '<i class="fa fa-folder-open"></i>',
-            removeIcon: '<i class="fa fa-trash"></i>',
-            removeTitle: 'Cancel or reset changes',
-            elErrorContainer: '#kv-avatar-errors-1',
-            msgErrorClass: 'alert alert-block alert-danger',
-            defaultPreviewContent: '<img class="avatar" src="/images/new_logo.png" alt="Your Avatar">',
-            layoutTemplates: {main2: '{preview} ' + '{upload}' + ' {remove} {browse}'},
-            allowedFileExtensions: ["jpg", "png", "gif"]
-        });
     });
 
-    function getEditableJob(JID, callback) {
-        var dataString = 'loadJob=1&JID=' + JID;
+    function getEditableCV(CVID, callback) {
+        var dataString = 'loadCV=1&CVID=' + CVID;
 
         $.ajax({
             type: "post",
-            url: "/job-manager/edit",
+            url: "/dashboard/employee/my-cv/edit",
             data: dataString,
             cache: false,
             success: function f(data) {
@@ -442,7 +382,7 @@
     }
 
     function setEditForm(cvArray) {
-        // var cv = cvArray[0];
+        var cv = cvArray[0];
         $('#edit-form-title').text("Sửa thông tin CV");
         $('#edit-form-header').removeClass("card-header-success")
         $('#edit-form-header').addClass("card-header-warning")
@@ -451,14 +391,15 @@
         $("#btn-update-close").removeClass("d-none disabled");
         $("#btn-post").addClass("d-none disabled");
 
-
-        // $('#name').val(cv.name);
-        // $('#description').val(cv.description);
-        // $('#jobcategory').val(cv.jobcategory);
-        // $('#image').val(cv.image);
-        // $('#status').val(cv.status);
-        // var editor = tinymce.get('content');
-        // editor.setContent(cv.content);
+        $('#CVID').val(cv.CVID);
+        $('#cv-image').attr('src',cv.image.replace("'",'').replace("'",''));
+        $('#name').val(cv.name);
+        $('#description').val(cv.description);
+        $('#jobcategory').val(cv.JCID);
+        $('#status').val(cv.status);
+        $('#image').fileinput("setUploadUrl", '/upload-cv-image/' + cv.CVID);
+        var editor = tinymce.get('content');
+        editor.setContent(cv.content);
 
     }
 
@@ -468,15 +409,17 @@
         $("#btn-delete").addClass("d-none disabled");
         $("#btn-update").addClass("d-none disabled");
         $("#btn-update-close").addClass("d-none disabled");
+        $('#edit-form-header').addClass("card-header-success")
+        $('#edit-form-header').removeClass("card-header-warning")
 
-
-
-        // $('#name').val("");
-        // $('#jobcategory').val("");
-        // $('#description').val("");
-        // $('#status').val("");
-        // $('#image').val("/images/new_logo.png");
-        // var editor = tinymce.get('content');
-        // editor.setContent('');
+        $('#CVID').val("");
+        $('#name').val("");
+        $('#jobcategory').val("");
+        $('#description').val("");
+        $('#cv-image').attr('src',"/images/new_logo.png");
+        $('#status').val("");
+        $('#image').fileinput("setUploadUrl", '/upload-cv-image');
+        var editor = tinymce.get('content');
+        editor.setContent('');
     }
 </script>

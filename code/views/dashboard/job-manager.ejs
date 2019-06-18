@@ -55,7 +55,7 @@
                                 <% jobs.forEach(function (job) { %>
                                 <tr>
                                     <td><%- job.JID %></td>
-                                    <td><%- job.name %></td>
+                                    <td> <%- job.name %></td>
                                     <td><%- job.jobcategory %></td>
                                     <td><%- job.amount %></td>
                                     <td><%- job.offer %></td>
@@ -65,10 +65,27 @@
                                     <td><%- job.deadline.toLocaleDateString() %></td>
                                     <% if (job.status === 'available') { %>
                                     <td><span style="background: lightgreen"><%- job.status %></span></td>
-                                    <td><a href="#edit-job-form"></a>
+                                    <td class="td-actions text-left"><a href="/job/<%-job.JID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <% if (user.role === "admin") { %>
+                                        <a href="#edit-job-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i>
+                                                <span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                        <% } %>
                                     </td>
                                     <% } else if (job.status === 'expired') { %>
-                                    <td><span style="background: #000"><%- job.status %></span></td>
+                                    <td><span style="background: gray"><%- job.status %></span></td>
                                     <td class="td-actions text-left">
                                         <a href="#edit-job-form">
                                             <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
@@ -78,7 +95,18 @@
                                             </button>
                                         </a>
                                     </td>
-                                    <% } else { %>
+                                    <% } else if (job.status === 'refused') { %>
+                                    <td><span style="background: red"><%- job.status %></span></td>
+                                    <td class="td-actions text-left">
+                                        <a href="#edit-job-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <% } else if (job.status === 'pending') { %>
                                     <td><span style="background: yellow"><%- job.status %></span></td>
                                     <td class="td-actions text-left">
                                         <a href="#edit-job-form">
@@ -138,9 +166,20 @@
                                     </span>
                                             </button>
                                         </a>
+                                        <% if (user.role === "admin") { %>
+                                        <a href="#edit-job-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i>
+                                                <span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                        <% } %>
 
-                                        <% }}) %>
+                                    </td>
                                 </tr>
+                                <% }}) %>
                                 </tbody>
                             </table>
                         </div>
@@ -177,14 +216,6 @@
                                     <td><%- job.name %></td>
                                     <td><%- job.deadline.toLocaleDateString() %></td>
                                     <td class="td-actions text-left">
-                                        <a href="/job/<%-job.JID%>">
-                                            <button type="button" rel="tooltip" class="btn btn-info btn-view">
-                                                <i class="material-icons">person</i>
-                                                <span>
-                                    Xem
-                                    </span>
-                                            </button>
-                                        </a>
                                         <a href="#edit-job-form">
                                             <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
                                                 <i class="material-icons">edit</i><span>
@@ -192,8 +223,9 @@
                                     </span>
                                             </button>
                                         </a>
-                                        <% }}) %>
+                                    </td>
                                 </tr>
+                                <% }}) %>
                                 </tbody>
                             </table>
                         </div>
@@ -203,7 +235,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Danh sách công việc đang tuyển</h4>
+                        <h4 class="card-title ">Danh sách công việc hết hạn và bị từ chối</h4>
                         <p class="card-category">CV List</p>
                     </div>
                     <div class="card-body">
@@ -226,20 +258,13 @@
                                 </thead>
                                 <tbody>
                                 <% jobs.forEach(function (job) { %>
-                                <% if (job.status === 'expired') { %>
+                                <% if (job.status === 'expired' || job.status === 'refused') { %>
                                 <tr>
                                     <td><%- job.JID %></td>
                                     <td><%- job.name %></td>
+                                    <td><%- job.created_date.toLocaleDateString() %></td>
                                     <td><%- job.deadline.toLocaleDateString() %></td>
                                     <td class="td-actions text-left">
-                                        <a href="/job/<%-job.JID%>">
-                                            <button type="button" rel="tooltip" class="btn btn-info btn-view">
-                                                <i class="material-icons">person</i>
-                                                <span>
-                                    Xem
-                                    </span>
-                                            </button>
-                                        </a>
                                         <a href="#edit-job-form">
                                             <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
                                                 <i class="material-icons">edit</i><span>
@@ -247,8 +272,9 @@
                                     </span>
                                             </button>
                                         </a>
-                                        <% }}) %>
+                                    </td>
                                 </tr>
+                                <% }}) %>
                                 </tbody>
                             </table>
                         </div>
@@ -264,7 +290,7 @@
                         <p class="card-category"> New job</p>
                     </div>
                     <div class="card-body">
-                        <form method="post" id="edit-job-form" action="/dashboard/employer/job-manager/edit">
+                        <form method="post" id="edit-job-form" action="./job-manager/edit">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -340,12 +366,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <% if (user.role === "admin") { %>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="status" class="bmd-label-floating">Trạng thái</label>
+                                        <select id="status" name="status" class="form-control" required>
+                                            <option value="available">Duyệt</option>
+                                            <option value="refused">Từ chối</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="description">Mô tả</label>
                                         <div class="form-group">
-                                            <textarea class="form-control" id="description" name="description"></textarea>
+                                            <textarea class="form-control" id="description"
+                                                      name="description"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -353,19 +393,23 @@
                                     <div class="form-group">
                                         <label for="requirement">Yêu cầu chi tiết</label>
                                         <div class="form-group">
-                                            <textarea class="form-control" id="requirement" name="requirement"></textarea>
+                                            <textarea class="form-control" id="requirement"
+                                                      name="requirement"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <input id="btn-add" type="submit" value="Đăng" name="add_job" class="btn btn-success pull-right ">
+                            <% if (user.role === "employer") { %>
+                            <input id="btn-add" type="submit" value="Đăng" name="add_job"
+                                   class="btn btn-success pull-right ">
                             <button id="btn-update-close"
                                     class="btn btn-outline-light pull-right d-none disabled"><i
                                     class="fa fa-times-circle"></i></button>
+                            <% } %>
                             <input id="btn-delete" type="submit" name="delete_job" value="Xóa"
-                                    class="btn btn-outline-danger pull-right d-none disabled">
-                            <input id="btn-update" type="submit" name="update_job" value="Cập
-                                nhật" class="btn btn-success pull-right d-none disabled">
+                                   class="btn btn-outline-danger pull-right d-none disabled">
+                            <input id="btn-update" type="submit" name="update_job" value="Cập nhật"
+                                   class="btn btn-success pull-right d-none disabled">
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -429,27 +473,13 @@
         $("#btn-update-close").click(function () {
             setAddForm();
         })
-        $('.btn-approve').click(function () {
-            var JTID = parseInt($(this).parent().parent().parent().children(":first").text());
-            setTransStatus(JTID, "success")
-
-        });
-        $('.btn-refuse').click(function () {
-            var JTID = parseInt($(this).parent().parent().parent().children(":first").text());
-            setTransStatus(JTID, "canceled")
-        });
-        $('.btn-view-cv').click(function () {
-            var cvSource = $(this).parent().parent().parent().children(':nth-child(5)').children().attr('href');
-            $('#cv-review').attr('src',cvSource);
-        });
     });
 
     function getEditableJob(JID, callback) {
         var dataString = 'loadJob=1&JID=' + JID;
-
         $.ajax({
             type: "post",
-            url: "/dashboard/employer/job-manager/edit",
+            url: "./job-manager/edit",
             data: dataString,
             cache: false,
             success: function f(data) {
@@ -467,7 +497,6 @@
         $("#btn-delete").removeClass("d-none disabled");
         $("#btn-update-close").removeClass("d-none disabled");
         $("#btn-add").addClass("d-none disabled");
-
 
 
         $('#JID').val(job.JID);
@@ -507,22 +536,5 @@
         editor.setContent('');
         editor = tinymce.get('description');
         editor.setContent('');
-    }
-
-    function setTransStatus(JTID, status) {
-        var dataString = 'update=1&status='+status+'&JTID='+JTID;
-
-        $.ajax({
-            type: "post",
-            url: "/applicant-manager/update",
-            data: dataString,
-            cache: false,
-            success: function f() {
-                alert("Cập nhật thành công")
-            },
-            error: function () {
-                alert("Cập nhật thất bại")
-            }
-        });
     }
 </script>

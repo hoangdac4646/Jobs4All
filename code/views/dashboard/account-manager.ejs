@@ -1,270 +1,81 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Simple Table</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                        <h4 class="card-title ">Danh sách tài khoản</h4>
+                        <p class="card-category"> Accounts table</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Country
-                                </th>
-                                <th>
-                                    City
-                                </th>
-                                <th>
-                                    Salary
-                                </th>
+                            <table id="user-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">UID
+                                    </th>
+                                    <th class="th-sm">Username
+                                    </th>
+                                    <th class="th-sm">Họ tên
+                                    </th>
+                                    <th class="th-sm">Vai trò
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Email
+                                    </th>
+                                    <th class="th-sm">Số điện thoại
+                                    </th>
+                                    <th class="th-sm">Ngày tham gia
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                <% users.forEach(function (user) { %>
                                 <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Dakota Rice
-                                    </td>
-                                    <td>
-                                        Niger
-                                    </td>
-                                    <td>
-                                        Oud-Turnhout
-                                    </td>
-                                    <td class="text-primary">
-                                        $36,738
+                                    <td><%- user.UID %></td>
+                                    <td> <%- user.username %></td>
+                                    <td><%- user.name %></td>
+                                    <td><%- user.role %></td>
+                                    <td><img class="job-icon" src="<%- user.avatar %>"></td>
+                                    <td><%- user.email %></td>
+                                    <td><%- user.phone %></td>
+                                    <td><%- user.created_date.toLocaleString() %></td>
+                                    <td class="td-actions text-left"><a href="/profile/<%-user.UID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-user-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Minerva Hooper
-                                    </td>
-                                    <td>
-                                        Curaçao
-                                    </td>
-                                    <td>
-                                        Sinaai-Waas
-                                    </td>
-                                    <td class="text-primary">
-                                        $23,789
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        Sage Rodriguez
-                                    </td>
-                                    <td>
-                                        Netherlands
-                                    </td>
-                                    <td>
-                                        Baileux
-                                    </td>
-                                    <td class="text-primary">
-                                        $56,142
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Philip Chaney
-                                    </td>
-                                    <td>
-                                        Korea, South
-                                    </td>
-                                    <td>
-                                        Overland Park
-                                    </td>
-                                    <td class="text-primary">
-                                        $38,735
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Doris Greene
-                                    </td>
-                                    <td>
-                                        Malawi
-                                    </td>
-                                    <td>
-                                        Feldkirchen in Kärnten
-                                    </td>
-                                    <td class="text-primary">
-                                        $63,542
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        6
-                                    </td>
-                                    <td>
-                                        Mason Porter
-                                    </td>
-                                    <td>
-                                        Chile
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td class="text-primary">
-                                        $78,615
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card card-plain">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title mt-0"> Table on Plain Background</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="">
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Country
-                                </th>
-                                <th>
-                                    City
-                                </th>
-                                <th>
-                                    Salary
-                                </th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Dakota Rice
-                                    </td>
-                                    <td>
-                                        Niger
-                                    </td>
-                                    <td>
-                                        Oud-Turnhout
-                                    </td>
-                                    <td>
-                                        $36,738
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Minerva Hooper
-                                    </td>
-                                    <td>
-                                        Curaçao
-                                    </td>
-                                    <td>
-                                        Sinaai-Waas
-                                    </td>
-                                    <td>
-                                        $23,789
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        Sage Rodriguez
-                                    </td>
-                                    <td>
-                                        Netherlands
-                                    </td>
-                                    <td>
-                                        Baileux
-                                    </td>
-                                    <td>
-                                        $56,142
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Philip Chaney
-                                    </td>
-                                    <td>
-                                        Korea, South
-                                    </td>
-                                    <td>
-                                        Overland Park
-                                    </td>
-                                    <td>
-                                        $38,735
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Doris Greene
-                                    </td>
-                                    <td>
-                                        Malawi
-                                    </td>
-                                    <td>
-                                        Feldkirchen in Kärnten
-                                    </td>
-                                    <td>
-                                        $63,542
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        6
-                                    </td>
-                                    <td>
-                                        Mason Porter
-                                    </td>
-                                    <td>
-                                        Chile
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td>
-                                        $78,615
-                                    </td>
-                                </tr>
+                                <% }); %>
                                 </tbody>
                             </table>
                         </div>
@@ -272,5 +83,421 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title ">Danh sách tài khoản Employer</h4>
+                        <p class="card-category"> News table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="employer-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">UID
+                                    </th>
+                                    <th class="th-sm">Username
+                                    </th>
+                                    <th class="th-sm">Họ tên
+                                    </th>
+                                    <th class="th-sm">Thuộc công ty
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% employers.forEach(function (employer) { %>
+                                <tr>
+                                    <td><%- employer.UID %></td>
+                                    <td> <%- employer.username %></td>
+                                    <td><%- employer.name %></td>
+                                    <td><%- employer.company %></td>
+                                    <td><img class="job-icon" src="<%- employer.avatar %>"></td>
+                                    <td class="td-actions text-left"><a href="/profile/<%- employer.UID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-user-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Danh sách tài khoản Employee</h4>
+                        <p class="card-category"> News table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="employee-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">UID
+                                    </th>
+                                    <th class="th-sm">Username
+                                    </th>
+                                    <th class="th-sm">Họ tên
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <% users.forEach(function (user) { %>
+                                <% if (user.role === "employee") { %>
+                                <tr>
+                                    <td><%- user.UID %></td>
+                                    <td> <%- user.username %></td>
+                                    <td><%- user.name %></td>
+                                    <td><img class="job-icon" src="<%- user.avatar %>"></td>
+                                    <td class="td-actions text-left"><a href="/profile/<%-user.UID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-user-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }}); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title" id="edit-form-header">Thêm tài khoản mới</h4>
+                        <p class="card-category">New account</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="edit-user-form" action="/upload-avatar" method="post"
+                              enctype="multipart/form-data">
+                            <div class="row d-none" id="avatar-form">
+                                <h4>Thay đổi Avatar</h4>
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label for="avatar-review">Ảnh đại diên</label>
+                                        <img class="avatar d-block" id="avatar-review" src='/images/new_logo.png'>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="avatar">Ảnh đại diện</label>
+                                        <input id="avatar" name="avatar" type="file" required>
+                                        <div id="avatar-errors-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="edit-profile-form" method="post" class="mt-5" action="/dashboard/my-account/edit">
+                            <h4>Thông tin cá nhân</h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">UID</label>
+                                        <input type="text" name="UID" id="UID" class="form-control"
+                                               value="" disabled readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Username</label>
+                                        <input type="text" id="username" name="username" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Họ tên</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ</label>
+                                        <input type="text" id="address" name="address" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Số điện thoại</label>
+                                        <input type="text" id="phone" name="phone" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Ngày sinh</label>
+                                        <input type="date" name="DOB" id="DOB" placeholder="Date of birth" class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Giới thiệu</label>
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"></label>
+                                            <textarea id="description" name="description" class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 class="card-title">Đặt mật khẩu</h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Password mới</label>
+                                        <input id="password" type="password" name="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nhập lại password</label>
+                                        <input id="confirm" type="password" name="confirm" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-update-profile" name="edit_profile" type="submit"
+                                    class="btn btn-success pull-right" value="UPDATE">Câp nhật thông tin
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#avatar").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-avatar',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 10000,
+            showClose: false,
+            showCaption: false,
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/new_logo.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $.prototype.fileinput.Constructor.prototype["setUploadUrl"] = function(url) {
+            this.uploadUrl = url;
+        }
+
+        $('#user-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#user-table_length').addClass("d-inline-block");
+        $('#user-table_filter').addClass("float-right");
+        $('#user-table_info').addClass("d-block w-100");
+        $('#user-table_paginate').addClass("text-center");
+        $('#user-table_paginate a').addClass("btn btn-primary");
+
+        $('#employer-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#employer-table_length').addClass("d-inline-block");
+        $('#employer-table_filter').addClass("float-right");
+        $('#employer-table_info').addClass("d-block w-100");
+        $('#employer-table_paginate').addClass("text-center");
+        $('#employer-table_paginate a').addClass("btn btn-success");
+
+        $('#employee-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+
+        $('.dataTables_length').addClass('bs-select');
+        $('#employee-table_length').addClass("d-inline-block");
+        $('#employee-table_filter').addClass("float-right");
+        $('#employee-table_info').addClass("d-block w-100");
+        $('#employee-table_paginate').addClass("text-center");
+        $('#employee-table_paginate a').addClass("btn btn-warning");
+
+        $('#edit-profile-form').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: '/dashboard/my-account/edit/email-available'
+                    }
+                },
+                phone: {
+                    number: true
+                },
+                DOB: {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: 'Name is required.',
+                },
+                address: {
+                    required: 'Invalid address',
+                },
+                phone: {
+                    number: "Phone must be number"
+                },
+                email: {
+                    required: 'Invalid email address.',
+                    email: 'Invalid email address.',
+                    remote: 'Email address has been used.'
+                },
+                dob: {
+                    required: 'DOB is required.',
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+
+        $('.btn-edit').click(function () {
+            var UID = parseInt($(this).parent().parent().parent().children(":first").text());
+            getEditableAccount(UID, function (users) {
+                setEditForm(users)
+            });
+        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        })
+
+    });
+    function getEditableAccount(UID, callback) {
+        var dataString = 'loadCV=1&UID=' + UID;
+
+        $.ajax({
+            type: "post",
+            url: "/dashboard/admin/account-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setEditForm(users) {
+        var user = users[0];
+        $('#edit-form-title').text("Sửa thông tin CV");
+        $('#edit-form-header').removeClass("card-header-success")
+        $('#edit-form-header').addClass("card-header-warning")
+        $("#btn-update").removeClass("d-none disabled");
+        $("#btn-delete").removeClass("d-none disabled");
+        $("#btn-update-close").removeClass("d-none disabled");
+        $("#btn-post").addClass("d-none disabled");
+
+        $('#UID').val(user.UID);
+        $('#avatar-review').attr('src',users.avatar.replace("'",'').replace("'",''));
+        $('#username').val(user.username);
+        $('#name').val(user.name);
+        $('#email').val(user.email);
+        $('#description').val(cv.description);
+        $('#jobcategory').val(cv.JCID);
+        $('#status').val(cv.status);
+        $('#avatar').fileinput("setUploadUrl", '/upload-avatar/' + user.UID);
+        var editor = tinymce.get('content');
+        editor.setContent(cv.content);
+
+    }
+
+    function setAddForm() {
+        $('#edit-form-title').text("Thêm công việc mới");
+        $("#btn-post").removeClass("d-none disabled");
+        $("#btn-delete").addClass("d-none disabled");
+        $("#btn-update").addClass("d-none disabled");
+        $("#btn-update-close").addClass("d-none disabled");
+        $('#edit-form-header').addClass("card-header-success")
+        $('#edit-form-header').removeClass("card-header-warning")
+
+        $('#CVID').val("");
+        $('#name').val("");
+        $('#jobcategory').val("");
+        $('#description').val("");
+        $('#cv-image').attr('src',"/images/new_logo.png");
+        $('#status').val("");
+        $('#image').fileinput("setUploadUrl", '/upload-cv-image');
+        var editor = tinymce.get('content');
+        editor.setContent('');
+    }
+</script>
