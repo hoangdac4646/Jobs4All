@@ -47,7 +47,7 @@
                         <tr>
                             <th class="align-middle" scope="row"><i class="fas fa-birthday-cake"></i> D.O.B</th>
                             <td><input type="date" name="DOB" placeholder="Date of birth" class="form-control"
-                                       value="<%- user.DOB.toISOString().substring(0, 10) %>" required></td>
+                                       value="<%- user.DOB.substring(0, 10) %>" required></td>
                         </tr>
                         </tbody>
                     </table>
@@ -104,7 +104,7 @@
             uploadUrl: '/upload-avatar',
             uploadAsync: false,
             overwriteInitial: true,
-            maxFileSize: 10000,
+            maxFileSize: 5000,
             showClose: false,
             showCaption: false,
             browseLabel: '',

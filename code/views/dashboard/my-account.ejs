@@ -58,15 +58,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Số điện thoại</label>
-                                        <input type="text" id="phone" name="phone" class="form-control"
+                                        <input type="text" id="ph   one" name="phone" class="form-control"
                                                value="<%-user.phone%>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Ngày sinh</label>
+                                        <label>Ngày sinh</label>
                                         <input type="date" name="DOB" id="DOB" placeholder="Date of birth" class="form-control"
-                                               value="<%- user.DOB.toISOString().substring(0, 10) %>"></div>
+                                               value="<%- user.DOB.substr(0, 10) %>"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -161,7 +161,7 @@
             uploadUrl: '/upload-avatar',
             uploadAsync: false,
             overwriteInitial: true,
-            maxFileSize: 10000,
+            maxFileSize: 5000,
             showClose: false,
             showCaption: false,
             removeTitle: 'Cancel or reset changes',
@@ -250,7 +250,7 @@
                     email: 'Invalid email address.',
                     remote: 'Email address has been used.'
                 },
-                dob: {
+                DOB: {
                     required: 'DOB is required.',
                 },
             },

@@ -8,7 +8,7 @@ router.get('/account-manager', (req, res, next) => {
 });
 
 router.post('/account-manager/edit', (req, res, next) => {
-    return page.runAdmin(req, res, next, 'account-manager');
+    return page.runAdmin(req, res, next, 'account-manager/edit');
 });
 
 router.get('/company-manager', (req, res, next) => {
@@ -16,20 +16,23 @@ router.get('/company-manager', (req, res, next) => {
 });
 
 router.post('/company-manager/edit', (req, res, next) => {
-    return page.runAdmin(req, res, next, 'company-manager');
+    return page.runAdmin(req, res, next, 'company-manager/edit');
 });
 
 router.get('/job-manager', (req, res, next) => {
     return page.runAdmin(req, res, next, 'job-manager');
 });
 
-
 router.post('/job-manager/edit', (req, res, next) => {
     return page.runAdmin(req, res, next, 'job-manager/edit');
 });
 
-router.get('/account-manager/username-available', (req, res, next) => {
-    return page.validate(req, res, next, 'username-available');
+router.get('/account-manager/edit/username-available', (req, res, next) => {
+    return page.validate(req, res, next, 'admin/username-available');
+});
+
+router.get('/account-manager/edit/email-available', (req, res, next) => {
+    return page.validate(req, res, next, 'admin/email-available');
 });
 
 module.exports = router;
