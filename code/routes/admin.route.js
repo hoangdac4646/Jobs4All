@@ -27,6 +27,14 @@ router.post('/job-manager/edit', (req, res, next) => {
     return page.runAdmin(req, res, next, 'job-manager/edit');
 });
 
+router.get('/job-category-company-type-manager', (req, res, next) => {
+    return page.runAdmin(req, res, next, 'job-category-company-type-manager');
+});
+
+router.post('/job-category-company-type-manager/edit', (req, res, next) => {
+    return page.runAdmin(req, res, next, 'job-category-company-type-manager/edit');
+});
+
 router.get('/account-manager/edit/username-available', (req, res, next) => {
     return page.validate(req, res, next, 'admin/username-available');
 });
@@ -34,5 +42,6 @@ router.get('/account-manager/edit/username-available', (req, res, next) => {
 router.get('/account-manager/edit/email-available', (req, res, next) => {
     return page.validate(req, res, next, 'admin/email-available');
 });
+
 
 module.exports = router;

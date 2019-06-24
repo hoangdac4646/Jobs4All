@@ -1,0 +1,509 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Danh sách công việc</h4>
+                        <p class="card-category">Jobs List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="job-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">JID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Công ty
+                                    </th>
+                                    <th class="th-sm">Ngành
+                                    </th>
+                                    <th class="th-sm">Số lượng
+                                    </th>
+                                    <th class="th-sm">Lương
+                                    </th>
+                                    <th class="th-sm">Cấp bậc
+                                    </th>
+                                    <th class="th-sm">Loại
+                                    </th>
+                                    <th class="th-sm">Ngày tạo
+                                    </th>
+                                    <th class="th-sm">Deadline
+                                    </th>
+                                    <th class="th-sm">Trạng thái
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% jobs.forEach(function (job) { %>
+                                <tr>
+                                    <td><%- job.JID %></td>
+                                    <td> <%- job.name %></td>
+                                    <td><%- job.company %></td>
+                                    <td><%- job.jobcategory %></td>
+                                    <td><%- job.amount %></td>
+                                    <td><%- job.offer %></td>
+                                    <td><%- job.level %></td>
+                                    <td><%- job.type %></td>
+                                    <td><%- job.created_date.toLocaleDateString() %></td>
+                                    <td><%- job.deadline.toLocaleDateString() %></td>
+                                    <% if (job.status === 'available') { %>
+                                    <td><span style="background: lightgreen"><%- job.status %></span></td>
+                                    <% } else if (job.status === 'expired') { %>
+                                    <td><span style="background: gray"><%- job.status %></span></td>
+                                    <% } else if (job.status === 'refused') { %>
+                                    <td><span style="background: red"><%- job.status %></span></td>
+                                    <% } else if (job.status === 'pending') { %>
+                                    <td><span style="background: yellow"><%- job.status %></span></td>
+                                    <% } %>
+                                    <td class="td-actions text-left"><a href="/job/<%-job.JID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Danh sách công việc đang tuyển</h4>
+                        <p class="card-category">Available Jobs List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="available-job-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">JID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Công ty
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% jobs.forEach(function (job) { %>
+                                <% if (job.status === 'available') { %>
+                                <tr>
+                                    <td><%- job.JID %></td>
+                                    <td><%- job.name %></td>
+                                    <td><%- job.company %></td>
+                                    <td class="td-actions text-left"><a href="/job/<%-job.JID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }}) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title ">Danh sách công việc đang chờ duyệt</h4>
+                        <p class="card-category">Pending Jobs List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="pending-job-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">JID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Công ty
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% jobs.forEach(function (job) { %>
+                                <% if (job.status === 'pending') { %>
+                                <tr>
+                                    <td><%- job.JID %></td>
+                                    <td><%- job.name %></td>
+                                    <td><%- job.company %></td>
+                                    <td class="td-actions text-left"><a href="/job/<%-job.JID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }}) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Danh sách công việc hết hạn và bị từ chối</h4>
+                        <p class="card-category">Refused Jobs List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="expired-job-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">JID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Công ty
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% jobs.forEach(function (job) { %>
+                                <% if (job.status === 'expired' || job.status === 'refused') { %>
+                                <tr>
+                                    <td><%- job.JID %></td>
+                                    <td><%- job.name %></td>
+                                    <td><%- job.company %></td>
+                                    <td class="td-actions text-left"><a href="/job/<%-job.JID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }}) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="edit-form">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning" id="edit-form-header">
+                        <h4 class="card-title" id="edit-form-title">Chỉnh sửa công việc</h4>
+                        <p class="card-category">Edit job</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" id="edit-job-form" action="/dashboard/admin/job-manager/edit">
+                            <div class="row d-none">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="JID" class="bmd-label-floating">JID</label>
+                                        <input id="JID" type="text" name="JID"
+                                               class="form-control"
+                                               value="" readonly></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="name" class="bmd-label-floating">Tên</label>
+                                        <input id="name" type="text" name="name"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="jobcategory">Ngành</label>
+                                        <select name="jobcategory" class="form-control" id="jobcategory">
+                                            <% lcJobCategory.forEach(function(cate){ %>
+                                            <option value="<%- cate.JCID %>"> <%- cate.name %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="level" class="bmd-label-floating">Cấp bậc</label>
+                                        <select id="level" name="level" class="form-control">
+                                            <option value="trainee">Trainee</option>
+                                            <option value="fresher">Fresher</option>
+                                            <option value="experienced">Experienced</option>
+                                            <option value="manager">Manager</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="type" class="bmd-label-floating">Loại</label>
+                                        <select id="type" name="type" class="form-control">
+                                            <option value="full time">Full time</option>
+                                            <option value="part time">Part time</option>
+                                            <option value="intern">Intern</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="amount" class="bmd-label-floating">Số lượng</label>
+                                        <input id="amount" type="text" name="amount"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="offer" class="bmd-label-floating">Lương</label>
+                                        <input id="offer" type="text" name="offer"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="deadline">Deadline</label>
+                                        <input id="deadline" type="date" name="deadline"
+                                               class="form-control"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if (user.role === "admin") { %>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="status" class="bmd-label-floating">Trạng thái</label>
+                                        <select id="status" name="status" class="form-control" required>
+                                            <option value="available">Duyệt</option>
+                                            <option value="refused">Từ chối</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="description">Mô tả</label>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="description"
+                                                      name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="requirement">Yêu cầu chi tiết</label>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="requirement"
+                                                      name="requirement"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="btn-delete" type="submit" name="delete_job" value="Xóa"
+                                   class="btn btn-outline-danger pull-right d-none disabled">
+                            <input id="btn-update" type="submit" name="update_job" value="Cập nhật"
+                                   class="btn btn-success pull-right d-none disabled">
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#requirement',
+        themes: "modern",
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
+    tinymce.init({
+        selector: '#description',
+        themes: "modern",
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
+    $(document).ready(function () {
+        setAddForm();
+
+        $('#job-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+
+        $('.dataTables_length').addClass('bs-select');
+        $('#job-table_length').addClass("d-inline-block");
+        $('#job-table_filter').addClass("float-right");
+        $('#job-table_info').addClass("d-block w-100");
+        $('#job-table_paginate').addClass("text-center");
+        $('#job-table_paginate a').addClass("btn btn-primary");
+
+        $('.btn-edit').click(function () {
+            var JID = parseInt($(this).parent().parent().parent().children(":first").text());
+            getEditableJob(JID, function (jobs) {
+                setEditForm(jobs)
+            });
+        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        })
+        $('#job-table').on("draw.dt", function (e) {
+            $('#job-table_filter').addClass("float-right");
+            $('#job-table_info').addClass("d-block w-100");
+            $('#job-table_paginate').addClass("text-center");
+            $('#job-table_paginate a').addClass("btn btn-primary");
+            $('.btn-edit').click(function () {
+                var JID = parseInt($(this).parent().parent().parent().children(":first").text());
+                getEditableJob(JID, function (jobs) {
+                    setEditForm(jobs)
+                });
+            });
+        })
+    });
+
+    function getEditableJob(JID, callback) {
+        var dataString = 'loadJob=1&JID=' + JID;
+        $.ajax({
+            type: "post",
+            url: "/dashboard/admin/job-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setEditForm(jobs) {
+        var job = jobs[0];
+        $('#edit-form').removeClass('d-none')
+        $('#edit-form-title').text("Sửa thông tin công việc");
+        $('#edit-form-header').removeClass("card-header-success")
+        $('#edit-form-header').addClass("card-header-warning")
+        $("#btn-update").removeClass("d-none disabled");
+        $("#btn-delete").removeClass("d-none disabled");
+        $("#btn-update-close").removeClass("d-none disabled");
+        $("#btn-add").addClass("d-none disabled");
+
+
+        $('#JID').val(job.JID);
+        $('#name').val(job.name);
+        $('#jobcategory').val(job.JCID);
+        $('#amount').val(job.amount);
+        $('#offer').val(job.offer);
+        $('#level').val(job.level);
+        $('#type').val(job.type);
+        $('#status').val(job.status);
+        $('#deadline').val(job.deadline.substring(0, 10));
+        var editor = tinymce.get('requirement');
+        editor.setContent(job.requirement);
+        editor = tinymce.get('description');
+        editor.setContent(job.description);
+
+    }
+
+    function setAddForm() {
+        $('#edit-form').addClass('d-none')
+    }
+</script>

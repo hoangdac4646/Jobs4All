@@ -29,11 +29,15 @@ module.exports = {
         return db.load(`select * from job where name = '${name}'`);
     },
 
+    singleByIDWithCompany: JID => {
+        return db.load(`select j.* , c.name as company from job j inner join company c on j.CID = c.CID where j.JID = ${JID}`);
+    },
+
     listInRange: (JCID, CID, type, level, status, join_company, join_jobcategory, pos, limit) => {
         var option = ``;
 
         if (type !== null) {
-            option = `j.type = '${type}'`
+            option += `j.type = '${type}'`
         }
 
         if (JCID !== null) {

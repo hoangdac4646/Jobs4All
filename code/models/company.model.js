@@ -17,6 +17,10 @@ module.exports = {
         return db.load(`select * from company join companytype where name = '${name}'`);
     },
 
+    allWithType: () => {
+        return db.load(`select  c.*, ct.name as companytype from company c inner join companytype ct on c.CTID = ct.CTID`);
+    },
+
     listInRange: (CID,name,pos,limit)=> {
         var option = ``;
 

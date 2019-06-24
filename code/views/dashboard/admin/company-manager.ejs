@@ -1,0 +1,344 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Danh sách công ty</h4>
+                        <p class="card-category"> Companies table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="company-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm">CID
+                                    </th>
+                                    <th class="th-sm">Tên công ty
+                                    </th>
+                                    <th class="th-sm">Ngành nghề
+                                    </th>
+                                    <th class="th-sm">Ảnh đại diện
+                                    </th>
+                                    <th class="th-sm">Email
+                                    </th>
+                                    <th class="th-sm">Số điện thoại
+                                    </th>
+                                    <th class="th-sm">Ngày tham gia
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% companies.forEach(function (company) { %>
+                                <tr>
+                                    <td><%- company.CID %></td>
+                                    <td><%- company.name %></td>
+                                    <td><%- company.companytype %></td>
+                                    <td><img class="job-icon" src="<%- company.logo %>"></td>
+                                    <td><%- company.email %></td>
+                                    <td><%- company.phone %></td>
+                                    <td><%- company.created_date.toLocaleString() %></td>
+                                    <td class="td-actions text-left"><a href="/company/<%-company.CID%>">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-view">
+                                            <i class="material-icons">person</i>
+                                            <span>
+                                    Xem
+                                    </span>
+                                        </button>
+                                    </a>
+                                        <a href="#edit-company-form">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="edit-company-form">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success" id="edit-form-header">
+                        <h4 class="card-title" id="edit-form-title">Thêm công ty mới</h4>
+                        <p class="card-category">New company</p>
+                    </div>
+                    <div class="card-body">
+                        <form class="form form-vertical" action="/upload-company-logo" method="post"
+                              enctype="multipart/form-data">
+                            <h4>Logo đại diện</h4>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group text-center">
+                                        <label for="logo-review">Logo đại diện hiện tại</label>
+                                        <img class="avatar d-block m-auto" id="logo-review"
+                                             src='/images/company/default.png'>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group text-center">
+                                        <label for="logo-input">Thay đổi logo công ty</label>
+                                        <input class="avatar" id="logo-input" name="logo-input" type="file">
+                                        <div id="avatar-errors-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form method="post" class="mt-5"
+                              action="/dashboard/admin/company-manager/edit">
+                            <h4>Thông tin cá nhân</h4>
+                            <div class="row">
+                                <input class="d-none" id="logo" name="logo" type="text">
+                                <div class="col-md-5 d-none">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">CID</label>
+                                        <input type="text" name="CID" id="CID" class="form-control"
+                                               value="" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="name" class="bmd-label-floating">Tên công ty</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ Email</label>
+                                        <input id="email" type="text" name="email" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ</label>
+                                        <input id="address" type="text" name="address" class="form-control"
+                                               value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Số điện thoại</label>
+                                        <input id="phone" type="text" name="phone" class="form-control"
+                                               value="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="CTID">Ngành:</label>
+                                            <select id="CTID" name="CTID" class="form-control">
+                                                <% lcCompanyType.forEach(function (companyType){ %>
+                                                <option value="<%- companyType.CTID %>"><%- companyType.name %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="description">Giới thiệu</label>
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"></label>
+                                            <textarea id="description" name="description" class="form-control"
+                                                      rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="btn-add" type="submit" value="Đăng" name="add_company"
+                                   class="btn btn-success pull-right ">
+                            <button id="btn-update-close"
+                                    class="btn btn-outline-light pull-right d-none disabled"><i
+                                    class="fa fa-times-circle"></i></button>
+                            <input id="btn-delete" type="submit" name="delete_company" value="Xóa"
+                                   class="btn btn-outline-danger pull-right d-none disabled">
+                            <input id="btn-update" type="submit" name="update_company" value="Cập nhật"
+                                   class="btn btn-success pull-right d-none disabled">
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#description',
+        themes: "modern",
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
+    $(document).ready(function () {
+        $("#logo-input").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-company-logo',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 5000,
+            showClose: false,
+            showCaption: false,
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/company/default.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $.prototype.fileinput.Constructor.prototype["setUploadUrl"] = function (url) {
+            this.uploadUrl = url;
+        };
+
+        $('.btn-edit').click(function () {
+            var CID = parseInt($(this).parent().parent().parent().children(":first").text());
+            getEditableCompany(CID, function (companies) {
+                setEditForm(companies)
+            });
+        });
+        $("#btn-update-close").click(function () {
+            setAddForm();
+        });
+
+        $('#company-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+        $('#company-table_length').addClass("d-inline-block");
+        $('#company-table_filter').addClass("float-right");
+        $('#company-table_info').addClass("d-block w-100");
+        $('#company-table_paginate').addClass("text-center");
+        $('#company-table_paginate a').addClass("btn btn-primary");
+
+        $('#company-table').on("draw.dt", function (e) {
+            $('#company-table_filter').addClass("float-right");
+            $('#company-table_info').addClass("d-block w-100");
+            $('#company-table_paginate').addClass("text-center");
+            $('#company-table_paginate a').addClass("btn btn-primary");
+            $('.btn-edit').click(function () {
+                var CID = parseInt($(this).parent().parent().parent().children(":first").text());
+                getEditableCompany(CID, function (companies) {
+                    setEditForm(companies)
+                });
+            });
+        })
+
+        setAddForm();
+
+
+    });
+
+    function getEditableCompany(CID, callback) {
+        var dataString = 'loadCompany=1&CID=' + CID;
+        $.ajax({
+            type: "post",
+            url: "/dashboard/admin/company-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setEditForm(companies) {
+        var company = companies[0];
+        var timestamp = Date.now().toString();
+
+        $('#edit-form-title').text("Sửa thông tin công việc");
+        $('#edit-form-header').removeClass("card-header-success");
+        $('#edit-form-header').addClass("card-header-warning");
+        $("#btn-update").removeClass("d-none disabled");
+        $("#btn-delete").removeClass("d-none disabled");
+        $("#btn-update-close").removeClass("d-none disabled");
+        $("#btn-add").addClass("d-none disabled");
+
+
+        $('#CID').val(company.CID);
+        $('#name').val(company.name);
+        $('#CTID').val(company.CTID);
+        $('#phone').val(company.phone);
+        $('#email').val(company.email);
+        $('#address').val(company.address);
+        var editor = tinymce.get('description');
+        editor.setContent(company.description);
+
+        $('#logo').val("/images/company/" + timestamp + ".png");
+        $('#logo-input').fileinput("setUploadUrl", '/upload-company-logo/' + company.CID);
+        $('#logo-review').attr('src', company.logo.replace("'", '').replace("'", ''));
+    }
+
+    function setAddForm() {
+        var timestamp = Date.now().toString();
+
+        $('#edit-form-title').text("Thêm công việc mới");
+        $('#edit-form-header').addClass("card-header-success");
+        $('#edit-form-header').removeClass("card-header-warning");
+        $("#btn-update").addClass("d-none disabled");
+        $("#btn-delete").addClass("d-none disabled");
+        $("#btn-update-close").addClass("d-none disabled");
+        $("#btn-add").removeClass("d-none disabled");
+
+        $('#CID').val('');
+        $('#name').val('');
+        $('#CTID').val('');
+        $('#phone').val('');
+        $('#email').val('');
+        $('#address').val('');
+        var editor = tinymce.get('description');
+        editor.setContent('');
+
+        $('#logo-review').attr('src', "/images/company/default.png");
+        $('#logo').val("/images/company/" + timestamp + ".png");
+        $('#logo-input').fileinput("setUploadUrl", '/upload-company-logo/' + timestamp);
+    }
+</script>

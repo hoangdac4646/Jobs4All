@@ -11,9 +11,9 @@ module.exports = {
             jc = 1;
         }
         jobModel.listInRange(JCID, null, null, null, "available", 'join', 'join', 0, 10).then(function (recentJob) {
-            jobModel.listInRange(JCID, null, 'full time', "available", null, 'join', 'join', 0, 10).then(function (fulltimeJob) {
-                jobModel.listInRange(JCID, null, 'part time', "available", null, 'join', 'join', 0, 10).then(function (parttimeJob) {
-                    jobModel.listInRange(JCID, null, 'intern', "available", null, `join`, 'join', 0, 10).then(function (internJob) {
+            jobModel.listInRange(JCID, null, 'full time', null, "available", 'join', 'join', 0, 10).then(function (fulltimeJob) {
+                jobModel.listInRange(JCID, null, 'part time', null, "available", 'join', 'join', 0, 10).then(function (parttimeJob) {
+                    jobModel.listInRange(JCID, null, 'intern', null, "available", `join`, 'join', 0, 10).then(function (internJob) {
                         jobCateModel.allWithJobsCount("available").then(function (jobCates) {
                             if (jc === 1) {
                                 ejs.renderFile(path + '/views/elements/job-filter-table.ejs', {

@@ -1,0 +1,272 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Thông tin cá nhân</h4>
+                        <p class="card-category">Xem và chỉnh sủa thông tin</p>
+                    </div>
+                    <div class="card-body">
+                        <form class="form form-vertical" action="/upload-avatar" method="post"
+                              enctype="multipart/form-data">
+                            <h4>Thay đổi Avatar</h4>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group text-center">
+                                        <label for="avatar">Ảnh đại diện</label>
+                                        <input id="avatar" name="avatar" type="file">
+                                        <div id="avatar-errors-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="edit-profile-form" method="post" class="mt-5" action="/dashboard/my-account/edit">
+                            <h4>Thay đổi thông tin</h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Username</label>
+                                        <input type="text" id="username" name="username" class="form-control"
+                                               value="<%-user.username%>" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" value="<%-user.email%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Họ tên</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               value="<%-user.name%>">
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ</label>
+                                        <input type="text" id="address" name="address" class="form-control"
+                                               value="<%-user.address%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Số điện thoại</label>
+                                        <input type="text" id="phone" name="phone" class="form-control"
+                                               value="<%-user.phone%>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ngày sinh</label>
+                                        <input type="date" name="DOB" id="DOB" placeholder="Date of birth" class="form-control"
+                                               value="<%- user.DOB.toISOString().substr(0, 10) %>"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Giới thiệu</label>
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating"></label>
+                                            <textarea id="description" name="description" class="form-control" rows="5"><%- user.description %></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-update-profile" name="edit_profile" type="submit"
+                                    class="btn btn-success pull-right" value="UPDATE">Câp nhật thông tin
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="/dashboard">
+                            <img class="img" src="<%- user.avatar %>"/>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray"><%- user.role %></h6>
+                        <h4 class="card-title"><%- user.name %></h4>
+                        <p class="card-description">
+                            <%- user.description %>
+                        </p>
+                    </div>
+                    <div class="card-footer d-flex align-self-center">
+                        <a href="/profile/<%- user.UID %>"
+                           class="btn btn-warning card-title">Xem trang cá nhân
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Đổi mật khẩu</h4>
+                        <p class="card-category">Thay đổi mật khẩu</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="reset-password-form" method="get" action="/dashboard/my-account/edit">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Password hiện tại</label>
+                                        <input id="current_password" type="password" name="current_password"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Password mới</label>
+                                        <input id="password" type="password" name="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nhập lại password</label>
+                                        <input id="confirm" type="password" name="confirm" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-update-password" name="reset_password" type="submit"
+                                    class="btn btn-success pull-right" value="Update">Đổi mật khẩu
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script>
+    $(function ($) {
+        $("#avatar").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-avatar',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 5000,
+            showClose: false,
+            showCaption: false,
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="<%- user.avatar %>" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $('#reset-password-form').validate({
+            rules: {
+                current_password: {
+                    required: true,
+                    remote: {
+                        url: '/dashboard/my-account/edit/verify-pass'
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                confirm: {
+                    required: true,
+                    equalTo: $('[name="password"]')
+                },
+            },
+            messages: {
+                current_password: {
+                    required: 'Current password is required.',
+                    remote: "Current password does not match"
+                },
+                password: {
+                    required: 'New password is required.',
+                    minlength: 'At least 6 characters.'
+                },
+                confirm: {
+                    required: 'Password does not match.',
+                    equalTo: 'Password does not match.'
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+
+        $('#edit-profile-form').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                address: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: '/dashboard/my-account/edit/email-available'
+                    }
+                },
+                phone: {
+                    number: true
+                },
+                DOB: {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: 'Name is required.',
+                },
+                address: {
+                    required: 'Invalid address',
+                },
+                phone: {
+                    number: "Phone must be number"
+                },
+                email: {
+                    required: 'Invalid email address.',
+                    email: 'Invalid email address.',
+                    remote: 'Email address has been used.'
+                },
+                DOB: {
+                    required: 'DOB is required.',
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>

@@ -1,0 +1,425 @@
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Danh sách danh mục ngành/nghề</h4>
+                        <p class="card-category">Job Categories List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="category-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm d-none">JCID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Hình đại diện
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% jobCategories.forEach(function (category) { %>
+                                <tr>
+                                    <td class="d-none"><%- category.JCID %></td>
+                                    <td> <%- category.name %></td>
+                                    <td><img class="job-icon" src="<%- category.icon %>"></td>
+                                    <td class="td-actions text-left">
+                                        <a href="#edit-cate-form-header">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-edit-cate"
+                                                    id="<%- category.JCID %>">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-success" id="edit-cate-form-header">
+                        <h4 class="card-title" id="edit-cate-form-title">Thêm ngành/nghề mới</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" id="edit-category-form"
+                              action="/dashboard/admin/job-category-company-type-manager/edit">
+                            <div class="row d-none">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="JCID" class="bmd-label-floating"></label>
+                                        <input id="JCID" type="text" name="JCID"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="name">Tên</label>
+                                        <input id="name" type="text" name="name"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group text-center">
+                                        <label for="image-review">Hình hiện tại</label>
+                                        <img class="avatar d-block m-auto" id="image-review"
+                                             src='/images/new_logo.png'>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group text-center">
+                                        <input id="image" type="text" name="image"
+                                               class="d-none"
+                                               value="">
+                                        <label for="image-input">Thay đổi hình đại diện</label>
+                                        <input class="avatar" id="image-input" name="image-input" type="file">
+                                        <div id="avatar-errors-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="btn-add-cate" type="submit" value="Tạo" name="add_cate"
+                                   class="btn btn-success pull-right ">
+                            <button id="btn-update-cate-close"
+                                    class="btn btn-outline-light pull-right d-none disabled"><i
+                                    class="fa fa-times-circle"></i></button>
+                            <input id="btn-delete-cate" type="submit" name="delete_cate" value="Xóa"
+                                   class="btn btn-outline-danger pull-right d-none disabled">
+                            <input id="btn-update-cate" type="submit" name="update_cate" value="Cập nhật"
+                                   class="btn btn-success pull-right d-none disabled">
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="edit-card">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title ">Danh sách loại hình công ty</h4>
+                        <p class="card-category">Company Types List</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="companytype-table" class="table dt-responsive " cellspacing="0"
+                                   width="100%">
+                                <thead class="thead">
+                                <tr>
+                                    <th class="th-sm d-none">CTID
+                                    </th>
+                                    <th class="th-sm">Tên
+                                    </th>
+                                    <th class="th-sm">Hành động
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% companytypes.forEach(function (companytype) { %>
+                                <tr>
+                                    <td class="d-none"><%- companytype.CTID %></td>
+                                    <td><%- companytype.name %></td>
+                                    <td class="td-actions text-left">
+                                        <a href="#edit-companytype-form-header">
+                                            <button type="button" rel="tooltip"
+                                                    class="btn btn-warning btn-edit-companytype"
+                                                    id="<%- companytype.CTID %>">
+                                                <i class="material-icons">edit</i><span>
+                                    Chỉnh sửa
+                                    </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-success" id="edit-companytype-form-header">
+                        <h4 class="card-title" id="edit-companytype-form-title">Thêm loại hình công ty mới</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" id="edit-companytype-form"
+                              action="/dashboard/admin/job-category-company-type-manager/edit">
+                            <div class="row d-none">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="CTID" class="bmd-label-floating"></label>
+                                        <input id="CTID" type="text" name="CTID"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="companytype-name">Tên</label>
+                                        <input id="companytype-name" type="text" name="companytype_name"
+                                               class="form-control"
+                                               value=""></div>
+                                </div>
+                            </div>
+                            <input id="btn-add-companytype" type="submit" value="Tạo" name="add_companytype"
+                                   class="btn btn-success pull-right ">
+                            <button id="btn-update-companytype-close"
+                                    class="btn btn-outline-light pull-right d-none disabled"><i
+                                    class="fa fa-times-circle"></i></button>
+                            <input id="btn-delete-companytype" type="submit" name="delete_companytype" value="Xóa"
+                                   class="btn btn-outline-danger pull-right d-none disabled">
+                            <input id="btn-update-companytype" type="submit" name="update_companytype" value="Cập nhật"
+                                   class="btn btn-success pull-right d-none disabled">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    $(document).ready(function () {
+        $("#image-input").fileinput({
+            theme: 'fa',
+            dropZoneEnabled: false,
+            uploadUrl: '/upload-category-icon',
+            uploadAsync: false,
+            overwriteInitial: true,
+            maxFileSize: 5000,
+            showClose: false,
+            showCaption: false,
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img class="avatar" src="/images/new_logo.png" alt="Your Avatar">',
+            layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+
+        $.prototype.fileinput.Constructor.prototype["setUploadUrl"] = function (url) {
+            this.uploadUrl = url;
+        };
+
+        $('#category-table').DataTable({
+            responsive: true,
+            "order": [[3, "desc"]]
+        });
+
+        $('.dataTables_length').addClass('bs-select');
+        $('#category-table_length').addClass("d-inline-block");
+        $('#category-table_filter').addClass("float-right");
+        $('#category-table_info').addClass("d-block w-100");
+        $('#category-table_paginate').addClass("text-center");
+        $('#category-table_paginate a').addClass("btn btn-primary");
+
+        $('.btn-edit-cate').click(function () {
+            var JCID = parseInt($(this).attr('id'));
+            getEditableCate(JCID, function (categories) {
+                setCateEditForm(categories)
+            });
+        });
+
+        setCateAddForm();
+        setCompanyTypeAddForm();
+
+        $('#btn-update-cate-close').click(function () {
+            setCateAddForm();
+        });
+
+        $('#btn-update-companytype-close').click(function () {
+            setCompanyTypeAddForm();
+        });
+
+        $('#category-table').on("draw.dt", function (e) {
+            $('#category-table_filter').addClass("float-right");
+            $('#category-table_info').addClass("d-block w-100");
+            $('#category-table_paginate').addClass("text-center");
+            $('#category-table_paginate a').addClass("btn btn-primary");
+            $('.btn-edit-cate').click(function () {
+                var JCID = parseInt($(this).attr('id'));
+                getEditableCate(JCID, function (categories) {
+                    setCateEditForm(categories)
+                });
+            });
+        })
+
+
+        $('#companytype-table').DataTable({
+            responsive: true,
+            "order": [[2, "desc"]]
+        });
+
+        $('.dataTables_length').addClass('bs-select');
+        $('#companytype-table_length').addClass("d-inline-block");
+        $('#companytype-table_filter').addClass("float-right");
+        $('#companytype-table_info').addClass("d-block w-100");
+        $('#companytype-table_paginate').addClass("text-center");
+        $('#companytype-table_paginate a').addClass("btn btn-info");
+
+        $('.btn-edit-companytype').click(function () {
+            var CTID = parseInt($(this).attr('id'));
+            getEditableCompanyType(CTID, function (companytypes) {
+                setCompanyTypeEditForm(companytypes)
+            });
+        });
+
+        $('#companytype-table').on("draw.dt", function (e) {
+            $('#companytype-table_filter').addClass("float-right");
+            $('#companytype-table_info').addClass("d-block w-100");
+            $('#companytype-table_paginate').addClass("text-center");
+            $('#companytype-table_paginate a').addClass("btn btn-info");
+            $('.btn-edit-companytype').click(function () {
+                var CTID = parseInt($(this).attr('id'));
+                getEditableCompanyType(CTID, function (companytypes) {
+                    setCompanyTypeEditForm(companytypes)
+                });
+            });
+        })
+
+        $('#edit-category-form').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: 'Name is required',
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    });
+
+    function setCateEditForm(categories) {
+        var category = categories[0];
+        $('#edit-cate-form-title').text("Sửa danh mục");
+        $('#edit-cate-form-header').removeClass("card-header-success");
+        $('#edit-cate-form-header').addClass("card-header-warning");
+        $("#btn-update-cate").removeClass("d-none disabled");
+        $("#btn-delete-cate").removeClass("d-none disabled");
+        $("#btn-update-cate-close").removeClass("d-none disabled");
+        $("#btn-add-cate").addClass("d-none disabled");
+
+
+        $('#JCID').val(category.JCID);
+        $('#name').val(category.name);
+        $('#image').val(category.image);
+        $('#image-input').fileinput("setUploadUrl", '/upload-category-icon/' + category.JCID);
+        $('#image-review').attr('src', category.icon.replace("'", '').replace("'", ''));
+
+    }
+
+    function getEditableCate(JCID, callback) {
+        var dataString = 'loadCate=1&JCID=' + JCID;
+        $.ajax({
+            type: "post",
+            url: "/dashboard/admin/job-category-company-type-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setCateAddForm() {
+        var timestamp = Date.now().toString();
+        $('#edit-cate-form-title').text("Thêm danh mục mới");
+        $('#edit-cate-form-header').addClass("card-header-success")
+        $('#edit-cate-form-header').removeClass("card-header-warning")
+        $("#btn-add-cate").removeClass("d-none disabled");
+        $("#btn-delete-cate").addClass("d-none disabled");
+        $("#btn-update-cate").addClass("d-none disabled");
+        $("#btn-update-cate-close").addClass("d-none disabled");
+
+        $('#JCID').val('');
+        $('#name').val('');
+        $('#image').val("/images/category/" + timestamp + ".png");
+        $('#image-input').fileinput("setUploadUrl", '/upload-category-icon/' + timestamp);
+        $('#image-review').attr('src', "/images/new_logo.png");
+    }
+
+
+    function setCompanyTypeEditForm(companytypes) {
+        var companytype = companytypes[0];
+        $('#edit-companytype-form-title').text("Sửa loại hình công ty");
+        $('#edit-companytype-form-header').removeClass("card-header-success");
+        $('#edit-companytype-form-header').addClass("card-header-warning");
+        $("#btn-update-companytype").removeClass("d-none disabled");
+        $("#btn-delete-companytype").removeClass("d-none disabled");
+        $("#btn-update-companytype-close").removeClass("d-none disabled");
+        $("#btn-add-companytype").addClass("d-none disabled");
+
+        $('#CTID').val(companytype.CTID);
+        $('#companytype-name').val(companytype.name);
+
+    }
+
+    function getEditableCompanyType(CTID, callback) {
+        var dataString = 'loadCompanyType=1&CTID=' + CTID;
+        $.ajax({
+            type: "post",
+            url: "/dashboard/admin/job-category-company-type-manager/edit",
+            data: dataString,
+            cache: false,
+            success: function f(data) {
+                callback(data);
+            }
+        });
+    }
+
+    function setCompanyTypeAddForm() {
+        $('#edit-companytype-form-title').text("Thêm loại hình công ty mới");
+        $('#edit-companytype-form-header').addClass("card-header-success")
+        $('#edit-companytype-form-header').removeClass("card-header-warning")
+        $("#btn-add-companytype").removeClass("d-none disabled");
+        $("#btn-delete-companytype").addClass("d-none disabled");
+        $("#btn-update-companytype").addClass("d-none disabled");
+        $("#btn-update-companytype-close").addClass("d-none disabled");
+
+        $('#CTID').val('');
+        $('#name').val('');
+    }
+</script>

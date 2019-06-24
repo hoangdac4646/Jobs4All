@@ -33,7 +33,7 @@ module.exports = {
     },
 
     listByCIDWithJobsCount: (CID) => {
-        return db.load(`select jc.JCID,jc.name,jc.description, c.CID ,count(j.JID) as numberOfJobs from jobcategory as jc inner join job j using(JCID) inner join company c using(CID) where c.CID = ${CID} group by jc.JCID,jc.name,jc.description,c.CID order by jc.name`);
+        return db.load(`select jc.JCID,jc.name, c.CID ,count(j.JID) as numberOfJobs from jobcategory as jc inner join job j using(JCID) inner join company c using(CID) where c.CID = ${CID} group by jc.JCID,jc.name,c.CID order by jc.name`);
     },
 
     singleByID: id => {

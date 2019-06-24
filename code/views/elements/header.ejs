@@ -16,20 +16,23 @@
                 <div class="main-menu">
                     <ul>
                         <li class="active"><a href="/">home</a></li>
-                        <li class=""><a href="/dashboard">Dashboard</a></li>
                         <li><a href="/job-category">jobs</a>
                             <ul class="sub-menu">
                                 <li><a href="/job-search">job search <i class="fas fa-search"></i></a>
                                 <li><a href="/job-category">job category <i class="fas fa-arrow-circle-down"></i></a>
                                     <ul class="sub-menu2">
                                         <% for(var i = 0;i < lcJobCategory.length;i++ ){ %>
-                                        <li><a href="/job-category/<%= lcJobCategory[i].name %>"> <%= lcJobCategory[i].name %></a></li>
+                                        <li><a href="/job-category/<%= lcJobCategory[i].name %>"> <%=
+                                            lcJobCategory[i].name %></a></li>
                                         <% }; %>
                                         <li><a href="/job-category">more ...</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+                        <% if (isAuthenticated) {%>
+                        <li class=""><a href="/dashboard">Dashboard</a></li>
+                        <% } %>
                         <li><a href="/contact">contact</a></li>
                         <li><a href="/about">about us</a></li>
                         <li class="menu-btn">

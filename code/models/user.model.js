@@ -33,6 +33,10 @@ module.exports = {
         return db.load(`select * from user where email = '${email}'`);
     },
 
+    singleEmployerByUID: UID => {
+        return db.load(`select u.* , c.name as company from user u inner join company c on u.CID = c.CID where u.UID = ${UID}`);
+    },
+
     singleEmployerByCID: CID => {
         return db.load(`select u.* , c.name as company from user u inner join company c on u.CID = c.CID where u.CID = ${CID}`);
     },

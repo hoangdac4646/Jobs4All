@@ -91,6 +91,10 @@ router.get('/about', (req, res, next) => {
     page.run(req,res,next, 'about');
 });
 
+router.post('/apply/:CID', (req, res, next) => {
+    page.run(req,res,next, 'apply');
+});
+
 router.post('/more-jobs', (req, res, next) => {
     page.run(req,res,next, 'more-jobs');
 });

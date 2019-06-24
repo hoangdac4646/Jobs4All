@@ -1,0 +1,176 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Gửi tin nhắn</h4>
+                        <p class="card-category">Send email</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="send-mail-form" method="post">
+                            <h4>Thay đổi thông tin</h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Địa chỉ gửi đi</label>
+                                        <input type="email" id="from_email" name="from_email" class="form-control"
+                                               value="<%-user.email%>" disabled readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Tên người gửi</label>
+                                        <input type="text" id="from_name" name="from_name" class="form-control"
+                                               value="<%-user.name%>" disabled readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ nhận</label>
+                                        <input type="email" id="to_email" name="to_email" class="form-control"
+                                               value="<%-toUser.email%>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Tiêu đề</label>
+                                        <input type="text" id="title" name="title" class="form-control"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <% if (user.role === "employee") {%>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Công ty ứng tuyển</label>
+                                        <input type="text" id="CID" name="CID" class="d-none"
+                                               value="<%-toUser.CID%>">
+                                        <input type="text" id="applied_company" name="applied_company"
+                                               class="form-control"
+                                               value="<%-toUser.company%>" disabled readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Công việc ứng tuyển</label>
+                                        <select type="text" id="JID" name="JID" class="form-control">
+                                            <option value="0">Không</option>
+                                            <% jobs.forEach(function (job) { %>
+                                            <option value="<%- job.JID %>"><%- job.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Gửi kèm CV</label>
+                                        <select type="text" id="CVID" name="CVID" class="form-control">
+                                            <option value="0">Không</option>
+                                            <% CVs.forEach(function (cv) { %>
+                                            <option value="<%- cv.CVID %>"><%- cv.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if (selectedJob !== null) {%>
+                            <script>
+                                $('#JID').val('<%- selectedJob.JID %>');
+                            </script>
+                            <% }%>
+                            <% }%>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Nội dung</label>
+                                        <div class="form-group">
+                                            <textarea id="content" name="content" class="form-control"
+                                                      rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label>Xác nhận password email:</label>
+                                            <input type="password" id="email_pass" name="email_pass"
+                                                   class="form-control"
+                                                   value="" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-send" name="send_email" type="submit"
+                                    class="btn btn-success pull-right" value="UPDATE">Gửi tin
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#content',
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+    $(function ($) {
+        $('#send-mail-form').validate({
+            rules: {
+                to_email: {
+                    required: true,
+                    email: true,
+                },
+                content: {
+                    required: true,
+                },
+                title: {
+                    required: true,
+                },
+            },
+            messages: {
+                to_email: {
+                    required: 'Invalid email address.',
+                    email: 'Invalid email address.',
+                },
+                content: {
+                    required: 'Content is required.',
+                },
+                title: {
+                    required: 'Title is required.',
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-warning',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            }
+        });
+    })
+</script>

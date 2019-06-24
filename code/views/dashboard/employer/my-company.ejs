@@ -1,0 +1,217 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Thông tin công ty</h4>
+                        <p class="card-category">Xem và chỉnh sủa thông tin</p>
+                    </div>
+                    <div class="card-body" id="edit-profile">
+                        <form class="form form-vertical" action="/company/upload-logo" method="post"
+                              enctype="multipart/form-data">
+                            <h4>Thay đổi Logo</h4>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group text-center">
+                                        <label for="image-input">Logo</label>
+                                        <input id="image-input" name="logo" type="file" required>
+                                        <div id="avatar-errors-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="edit-profile-form" method="post" class="mt-5"
+                              action="/dashboard/employer/my-company/edit">
+                            <h4>Thay đổi thông tin</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Tên công ty</label>
+                                        <input type="text" name="name" class="form-control"
+                                               value="<%- company.name %>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ</label>
+                                        <input type="text" name="address" class="form-control"
+                                               value="<%- company.address %>" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Địa chỉ Email</label>
+                                        <input type="text" name="email" class="form-control"
+                                               value="<%- company.email %>">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Số điện thoại</label>
+                                        <input type="text" name="phone" class="form-control"
+                                               value="<%- company.phone %>" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="companytype">Ngành:</label>
+                                            <input id="companytype" name="companytype" class="form-control"
+                                                   value="<%- company.companytype %>" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Xác nhận password quản lý</label>
+                                        <input type="password" name="current_password"
+                                               class="form-control"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btn-update-profile" name="edit_profile" type="submit"
+                                    class="btn btn-success pull-right" value="UPDATE">Câp nhật thông tin
+                            </button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        <a href="/dashboard/employer/my-company">
+                            <img class="img" src="<%- company.logo %>"/>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray"><%- company.type %></h6>
+                        <h4 class="card-title"><%- company.name %></h4>
+                    </div>
+                    <div class="card-footer d-flex align-self-center">
+                        <a href="/company/<%- company.CID %>"
+                           class="btn btn-warning card-title">Xem trang công ty
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Giới thiệu:</h4>
+                        <p class="card-category">Giới thiệu công ty</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" id="edit-description-form" action="/dashboard/employer/my-company/edit">
+                            <div class="form-group">
+                                <textarea class="form-control" id="description" name="description"><%- company.description %></textarea>
+                            </div>
+                            <button id="btn-update-description" name="edit_description" type="submit"
+                                    class="btn btn-success pull-right" value="UPDATE">Câp nhật thông tin
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#description',
+        height: 1000,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media wordcount fullscreen',
+        toolbar: [
+            'styleselect',
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+            'fullscreen'
+        ],
+    });
+
+    $("#image-input").fileinput({
+        theme: 'fa',
+        dropZoneEnabled: false,
+        uploadUrl: '/upload-company-logo',
+        uploadAsync: false,
+        overwriteInitial: true,
+        maxFileSize: 5000,
+        showClose: false,
+        showCaption: false,
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#avatar-errors-1',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img class="avatar" src="<%- company.logo %>" alt="Your Avatar">',
+        layoutTemplates: {main2: '{preview} ' + ' {browse}'},
+        allowedFileExtensions: ["jpg", "png", "gif"]
+    });
+
+    $('#edit-profile-form').validate({
+        rules: {
+            name: {
+                required: true,
+            },
+            address: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                number: true
+            },
+            current_password: {
+                required: true,
+                remote: {
+                    url: '/dashboard/employer/my-company/edit/verify-pass'
+                }
+            },
+        },
+        messages: {
+            name: {
+                required: 'Name is required.',
+            },
+            address: {
+                required: 'Invalid address',
+            },
+            phone: {
+                number: "Phone must be number"
+            },
+            email: {
+                required: 'Invalid email address.',
+                email: 'Invalid email address.',
+            },
+            current_password: {
+                required: 'Current password is required.',
+                remote: "Current password does not match"
+            },
+        },
+        errorElement: 'small',
+        errorClass: 'help-block text-warning',
+        highlight: function (e) {
+            $(e).removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (e) {
+            $(e).removeClass('is-invalid').addClass('is-valid');
+        }
+    });
+</script>

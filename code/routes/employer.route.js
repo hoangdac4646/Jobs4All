@@ -6,7 +6,7 @@ router.get('/my-company' ,(req, res, next) => {
     page.runEmployer(req,res,next, 'my-company');
 });
 
-router.all('/my-company/edit' ,(req, res, next) => {
+router.post('/my-company/edit' ,(req, res, next) => {
     page.runEmployer(req,res,next, 'my-company/edit');
 });
 
@@ -26,8 +26,8 @@ router.get('/applicant-manager' ,(req, res, next) => {
     page.runEmployer(req,res,next, 'applicant-manager');
 });
 
-router.post('/applicant-manager/update' ,(req, res, next) => {
-    page.runEmployer(req,res,next, 'applicant-manager/update');
+router.post('/applicant-manager/edit' ,(req, res, next) => {
+    page.runEmployer(req,res,next, 'applicant-manager/edit');
 });
 
 module.exports = router;

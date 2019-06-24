@@ -4,17 +4,16 @@
         <img class="avatar" src="<%- user.avatar %>" alt="">
         <h4><%- user.name %></h4>
     </a>
+    <p>
+        <%- user.description %>
+    </p>
     <% if (user.role === "employer") { %>
     <p>
         Working At <a href="/company/<%- user.CID %>"> <%- user.company %> </a>
     </p>
-    <% } else { %>
-    <p>
-        <%- user.description %>
-    </p>
     <% } %>
     <div class="job-btn align-self-center">
-        <a href="mailto:<%- user.email %>" class="template-btn">Send Email</a>
+        <a href="/dashboard/send-email" class="template-btn">Send Email</a>
     </div>
     <h6 style="margin-top: 20px">
         or
