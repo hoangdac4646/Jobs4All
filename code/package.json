@@ -7,7 +7,7 @@
   "author": "hoangdac",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "latest",
     "ejs": "^2.6.1",
     "express": "^4.17.1",
